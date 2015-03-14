@@ -1,0 +1,934 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		92D67AFAFB2E408B82113CE2 /* ALL_BUILD */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 7498429FB1F747989B4DFF1A /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+			buildPhases = (
+				7C88D26BDFAE4F588200F509 /* CMake Rules */,
+			);
+			dependencies = (
+				FD89B821676145EEA3A35DEA /* PBXTargetDependency */,
+				B7EEF54D5E764BCA9A3A136A /* PBXTargetDependency */,
+				36AB8932B630400B82378FFF /* PBXTargetDependency */,
+			);
+			name = ALL_BUILD;
+			productName = ALL_BUILD;
+		};
+		9E1AF2774E90494B9A5F5DCE /* ZERO_CHECK */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = F6EB09EADCFC4ADEAD81727C /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+			buildPhases = (
+				6C8E0A848B324AC88D37D7A8 /* CMake Rules */,
+			);
+			dependencies = (
+			);
+			name = ZERO_CHECK;
+			productName = ZERO_CHECK;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		425A3C7D2F7F491DB8B488AB /* main.cc in Sources */ = {isa = PBXBuildFile; fileRef = 5033355FC22145B4B84B070B /* main.cc */; settings = {COMPILER_FLAGS = ""; }; };
+		54801106CD664C669DFCF86F /* Document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6723A57A886546CB93BD5F51 /* Document.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		CE8B6B66B05D408BAAF0E790 /* CollectionReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 363E5BD4F35D44C790C294B3 /* CollectionReader.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		EDDCF250ED4E4D4F8B433235 /* CollectionWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 736D1FBCC8B14E9C99C725B0 /* CollectionWriter.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0695403221BF46118FA9920C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 95B27E523F52463C9C5F0599 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9E1AF2774E90494B9A5F5DCE;
+			remoteInfo = ZERO_CHECK;
+		};
+		0A375DC9B2C5496F995B4812 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 95B27E523F52463C9C5F0599 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9E1AF2774E90494B9A5F5DCE;
+			remoteInfo = ZERO_CHECK;
+		};
+		2CA1176BA2754F818648818C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 95B27E523F52463C9C5F0599 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FEA554D5EBC044CEA694A89E;
+			remoteInfo = indexer;
+		};
+		754D28A99AEF4F34A12625FD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 95B27E523F52463C9C5F0599 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9E1AF2774E90494B9A5F5DCE;
+			remoteInfo = ZERO_CHECK;
+		};
+		88AFCB3D49A5424FBE0FBA1D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 95B27E523F52463C9C5F0599 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DDAE8A1634A54148AC29C08F;
+			remoteInfo = RICPlib;
+		};
+		F6509653DA004D108EC91053 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 95B27E523F52463C9C5F0599 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DDAE8A1634A54148AC29C08F;
+			remoteInfo = RICPlib;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		363E5BD4F35D44C790C294B3 /* CollectionReader.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = CollectionReader.cpp; path = lib/CollectionReader.cpp; sourceTree = SOURCE_ROOT; };
+		45DFEA5C1ED8470DB73F929A /* libRICPlib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRICPlib.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C070C7E09DD4213B87FBFCE /* envDefault.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = envDefault.h; path = lib/envDefault.h; sourceTree = SOURCE_ROOT; };
+		5033355FC22145B4B84B070B /* main.cc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = main.cc; path = src/indexer/main.cc; sourceTree = SOURCE_ROOT; };
+		58849A2440A4452C8BE111C2 /* CollectionReader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = CollectionReader.h; path = lib/CollectionReader.h; sourceTree = SOURCE_ROOT; };
+		6723A57A886546CB93BD5F51 /* Document.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Document.cpp; path = lib/Document.cpp; sourceTree = SOURCE_ROOT; };
+		6EC66D7322184F109E4A78E9 /* CollectionWriter.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = CollectionWriter.h; path = lib/CollectionWriter.h; sourceTree = SOURCE_ROOT; };
+		736D1FBCC8B14E9C99C725B0 /* CollectionWriter.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = CollectionWriter.cpp; path = lib/CollectionWriter.cpp; sourceTree = SOURCE_ROOT; };
+		8456B4822F11470DAED3F718 /* Document.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Document.h; path = lib/Document.h; sourceTree = SOURCE_ROOT; };
+		8E9F594C80784C379350916B /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = src/indexer/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		9CDF61859EDB46929815E283 /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		D660D18705664F4BAA7F2882 /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; name = CMakeLists.txt; path = lib/CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		EFBCD1D8B3DD461CBC2AEA31 /* indexer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = indexer; sourceTree = BUILT_PRODUCTS_DIR; };
+		FEBE1A5EFAF642A49CC7FF0C /* CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		088617A30AFF43F4BA136A95 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				DAD4A016AA874C7DB2E978F7 /* ALL_BUILD */,
+				D3F59B2E66AB401FA2FAE224 /* ZERO_CHECK */,
+				E9033C4FB72446C3A4BF6AD5 /* indexer */,
+				4CA2ECECFBDB4DCE8635E178 /* RICPlib */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		15A4A4FF03974DD890739A8E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EFBCD1D8B3DD461CBC2AEA31 /* indexer */,
+				45DFEA5C1ED8470DB73F929A /* libRICPlib.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		164D845C06BE45D487D007A2 /* CMake Rules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "CMake Rules";
+			sourceTree = "<group>";
+		};
+		4CA2ECECFBDB4DCE8635E178 /* RICPlib */ = {
+			isa = PBXGroup;
+			children = (
+				9E96479D277E489BAC37C07A /* Header Files */,
+				BFC28A076F95490AA9C2327B /* Source Files */,
+				D660D18705664F4BAA7F2882 /* CMakeLists.txt */,
+			);
+			name = RICPlib;
+			sourceTree = "<group>";
+		};
+		5A8831479D1749A793379F2D /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				5033355FC22145B4B84B070B /* main.cc */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		9E96479D277E489BAC37C07A /* Header Files */ = {
+			isa = PBXGroup;
+			children = (
+				58849A2440A4452C8BE111C2 /* CollectionReader.h */,
+				6EC66D7322184F109E4A78E9 /* CollectionWriter.h */,
+				8456B4822F11470DAED3F718 /* Document.h */,
+				4C070C7E09DD4213B87FBFCE /* envDefault.h */,
+			);
+			name = "Header Files";
+			sourceTree = "<group>";
+		};
+		BFC28A076F95490AA9C2327B /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				363E5BD4F35D44C790C294B3 /* CollectionReader.cpp */,
+				736D1FBCC8B14E9C99C725B0 /* CollectionWriter.cpp */,
+				6723A57A886546CB93BD5F51 /* Document.cpp */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		CD67FF3AAA0242039ED1403D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		D32BB06EFA4040658C61B169 = {
+			isa = PBXGroup;
+			children = (
+				088617A30AFF43F4BA136A95 /* Sources */,
+				CD67FF3AAA0242039ED1403D /* Resources */,
+				15A4A4FF03974DD890739A8E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D3F59B2E66AB401FA2FAE224 /* ZERO_CHECK */ = {
+			isa = PBXGroup;
+			children = (
+				164D845C06BE45D487D007A2 /* CMake Rules */,
+				FEBE1A5EFAF642A49CC7FF0C /* CMakeLists.txt */,
+			);
+			name = ZERO_CHECK;
+			sourceTree = "<group>";
+		};
+		DAD4A016AA874C7DB2E978F7 /* ALL_BUILD */ = {
+			isa = PBXGroup;
+			children = (
+				E4E33372A7B34118A298F59E /* CMake Rules */,
+				9CDF61859EDB46929815E283 /* CMakeLists.txt */,
+			);
+			name = ALL_BUILD;
+			sourceTree = "<group>";
+		};
+		E4E33372A7B34118A298F59E /* CMake Rules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "CMake Rules";
+			sourceTree = "<group>";
+		};
+		E9033C4FB72446C3A4BF6AD5 /* indexer */ = {
+			isa = PBXGroup;
+			children = (
+				5A8831479D1749A793379F2D /* Source Files */,
+				8E9F594C80784C379350916B /* CMakeLists.txt */,
+			);
+			name = indexer;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DDAE8A1634A54148AC29C08F /* RICPlib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C78E74DA436349538020763A /* Build configuration list for PBXNativeTarget "RICPlib" */;
+			buildPhases = (
+				92423639B8FA41AF80BE9E4E /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				242F14A3A72B48E2BA9E78B7 /* PBXTargetDependency */,
+			);
+			name = RICPlib;
+			productName = RICPlib;
+			productReference = 45DFEA5C1ED8470DB73F929A /* libRICPlib.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		FEA554D5EBC044CEA694A89E /* indexer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EBF757CCD7AD41359C9BA3DF /* Build configuration list for PBXNativeTarget "indexer" */;
+			buildPhases = (
+				F0AE15770F304F43B0DBC83D /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0CA42A561DCE4D1682670AA6 /* PBXTargetDependency */,
+				00E8DAD8DBED4455BDC16D56 /* PBXTargetDependency */,
+			);
+			name = indexer;
+			productName = indexer;
+			productReference = EFBCD1D8B3DD461CBC2AEA31 /* indexer */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		95B27E523F52463C9C5F0599 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 0620;
+			};
+			buildConfigurationList = 25304870191F4662809EFC51 /* Build configuration list for PBXProject "search_engine" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D32BB06EFA4040658C61B169;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				92D67AFAFB2E408B82113CE2 /* ALL_BUILD */,
+				9E1AF2774E90494B9A5F5DCE /* ZERO_CHECK */,
+				FEA554D5EBC044CEA694A89E /* indexer */,
+				DDAE8A1634A54148AC29C08F /* RICPlib */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6C8E0A848B324AC88D37D7A8 /* CMake Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/felipemoraes/Developer/search-engine -f /Users/felipemoraes/Developer/search-engine/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION all";
+			showEnvVarsInLog = 0;
+		};
+		7C88D26BDFAE4F588200F509 /* CMake Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/felipemoraes/Developer/search-engine -f /Users/felipemoraes/Developer/search-engine/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION all";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		92423639B8FA41AF80BE9E4E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE8B6B66B05D408BAAF0E790 /* CollectionReader.cpp in Sources */,
+				EDDCF250ED4E4D4F8B433235 /* CollectionWriter.cpp in Sources */,
+				54801106CD664C669DFCF86F /* Document.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0AE15770F304F43B0DBC83D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				425A3C7D2F7F491DB8B488AB /* main.cc in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		00E8DAD8DBED4455BDC16D56 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DDAE8A1634A54148AC29C08F /* RICPlib */;
+			targetProxy = 88AFCB3D49A5424FBE0FBA1D /* PBXContainerItemProxy */;
+		};
+		0CA42A561DCE4D1682670AA6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9E1AF2774E90494B9A5F5DCE /* ZERO_CHECK */;
+			targetProxy = 754D28A99AEF4F34A12625FD /* PBXContainerItemProxy */;
+		};
+		242F14A3A72B48E2BA9E78B7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9E1AF2774E90494B9A5F5DCE /* ZERO_CHECK */;
+			targetProxy = 0695403221BF46118FA9920C /* PBXContainerItemProxy */;
+		};
+		36AB8932B630400B82378FFF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DDAE8A1634A54148AC29C08F /* RICPlib */;
+			targetProxy = F6509653DA004D108EC91053 /* PBXContainerItemProxy */;
+		};
+		B7EEF54D5E764BCA9A3A136A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FEA554D5EBC044CEA694A89E /* indexer */;
+			targetProxy = 2CA1176BA2754F818648818C /* PBXContainerItemProxy */;
+		};
+		FD89B821676145EEA3A35DEA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9E1AF2774E90494B9A5F5DCE /* ZERO_CHECK */;
+			targetProxy = 0A375DC9B2C5496F995B4812 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0760838BEF504E1593E2F341 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk;
+				SYMROOT = "/Users/felipemoraes/Developer/search-engine/build";
+			};
+			name = Debug;
+		};
+		32CC9134095B4F648C28ED34 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CFLAGS = "    ";
+				OTHER_CPLUSPLUSFLAGS = " -std=c++11     ";
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					"/Users/felipemoraes/Developer/search-engine/lib/Debug/libRICPlib.a",
+					"-lz",
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = indexer;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/felipemoraes/Developer/search-engine/src/indexer";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Debug;
+		};
+		373606E1F2184E83988B40B4 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_CFLAGS = "  ";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/felipemoraes/Developer/search-engine";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = MinSizeRel;
+		};
+		4302D3357C4545028E18BDCB /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = "    -DNDEBUG  ";
+				OTHER_CPLUSPLUSFLAGS = (
+					"-std=c++11",
+					"-DNDEBUG",
+				);
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = RICPlib;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/felipemoraes/Developer/search-engine/lib";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = MinSizeRel;
+		};
+		4D9595A8C0C84A7691936A84 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = "       -DNDEBUG  ";
+				OTHER_CPLUSPLUSFLAGS = (
+					"-std=c++11",
+					"-DNDEBUG",
+				);
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = RICPlib;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/felipemoraes/Developer/search-engine/lib";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = RelWithDebInfo;
+		};
+		5941A9910FE84AA6A0C748AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_CFLAGS = "  ";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/felipemoraes/Developer/search-engine";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Debug;
+		};
+		68655E8B52F345598EE155C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk;
+				SYMROOT = "/Users/felipemoraes/Developer/search-engine/build";
+			};
+			name = Release;
+		};
+		7813339E09DC4743BF41BEE4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CFLAGS = "    -DNDEBUG  ";
+				OTHER_CPLUSPLUSFLAGS = (
+					"-std=c++11",
+					"-DNDEBUG",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					"/Users/felipemoraes/Developer/search-engine/lib/Release/libRICPlib.a",
+					"-lz",
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = indexer;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/felipemoraes/Developer/search-engine/src/indexer";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Release;
+		};
+		793B1B84194843889AD6D043 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_CFLAGS = "  ";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/felipemoraes/Developer/search-engine";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Release;
+		};
+		8FB8BF4CBA4E44C9910B3957 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk;
+				SYMROOT = "/Users/felipemoraes/Developer/search-engine/build";
+			};
+			name = RelWithDebInfo;
+		};
+		940B222A1D47477B83399B06 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_CFLAGS = "  ";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/felipemoraes/Developer/search-engine";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Debug;
+		};
+		9884EFED29F7497ABD73C85D /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_CFLAGS = "  ";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/felipemoraes/Developer/search-engine";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = RelWithDebInfo;
+		};
+		AB48645A0BC6414F8C65E1CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = "    ";
+				OTHER_CPLUSPLUSFLAGS = " -std=c++11     ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = RICPlib;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/felipemoraes/Developer/search-engine/lib";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Debug;
+		};
+		AB8EB6BC5CA6466A88AA9E7D /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_CFLAGS = "  ";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/felipemoraes/Developer/search-engine";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = MinSizeRel;
+		};
+		B0FD4E3482E244BC8ABA0718 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk;
+				SYMROOT = "/Users/felipemoraes/Developer/search-engine/build";
+			};
+			name = MinSizeRel;
+		};
+		C862098A82FE40188DBD6DCA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_CFLAGS = "  ";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/felipemoraes/Developer/search-engine";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Release;
+		};
+		CC26306CB27C450AB5A3F574 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_CFLAGS = "  ";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/felipemoraes/Developer/search-engine";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = RelWithDebInfo;
+		};
+		D4920DAB41064DFC85182AA6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CFLAGS = "    -DNDEBUG  ";
+				OTHER_CPLUSPLUSFLAGS = (
+					"-std=c++11",
+					"-DNDEBUG",
+				);
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = RICPlib;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/felipemoraes/Developer/search-engine/lib";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Release;
+		};
+		D7F87E2B9C3A47C6840C594F /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CFLAGS = "    -DNDEBUG  ";
+				OTHER_CPLUSPLUSFLAGS = (
+					"-std=c++11",
+					"-DNDEBUG",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					"/Users/felipemoraes/Developer/search-engine/lib/MinSizeRel/libRICPlib.a",
+					"-lz",
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = indexer;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/felipemoraes/Developer/search-engine/src/indexer";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = MinSizeRel;
+		};
+		E8787AB96C954C4BB2CDDCD4 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = "'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CFLAGS = "       -DNDEBUG  ";
+				OTHER_CPLUSPLUSFLAGS = (
+					"-std=c++11",
+					"-DNDEBUG",
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					"/Users/felipemoraes/Developer/search-engine/lib/RelWithDebInfo/libRICPlib.a",
+					"-lz",
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = indexer;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/felipemoraes/Developer/search-engine/src/indexer";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = RelWithDebInfo;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		25304870191F4662809EFC51 /* Build configuration list for PBXProject "search_engine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0760838BEF504E1593E2F341 /* Debug */,
+				68655E8B52F345598EE155C2 /* Release */,
+				B0FD4E3482E244BC8ABA0718 /* MinSizeRel */,
+				8FB8BF4CBA4E44C9910B3957 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7498429FB1F747989B4DFF1A /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5941A9910FE84AA6A0C748AB /* Debug */,
+				C862098A82FE40188DBD6DCA /* Release */,
+				AB8EB6BC5CA6466A88AA9E7D /* MinSizeRel */,
+				CC26306CB27C450AB5A3F574 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C78E74DA436349538020763A /* Build configuration list for PBXNativeTarget "RICPlib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB48645A0BC6414F8C65E1CA /* Debug */,
+				D4920DAB41064DFC85182AA6 /* Release */,
+				4302D3357C4545028E18BDCB /* MinSizeRel */,
+				4D9595A8C0C84A7691936A84 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		EBF757CCD7AD41359C9BA3DF /* Build configuration list for PBXNativeTarget "indexer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				32CC9134095B4F648C28ED34 /* Debug */,
+				7813339E09DC4743BF41BEE4 /* Release */,
+				D7F87E2B9C3A47C6840C594F /* MinSizeRel */,
+				E8787AB96C954C4BB2CDDCD4 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F6EB09EADCFC4ADEAD81727C /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				940B222A1D47477B83399B06 /* Debug */,
+				793B1B84194843889AD6D043 /* Release */,
+				373606E1F2184E83988B40B4 /* MinSizeRel */,
+				9884EFED29F7497ABD73C85D /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 95B27E523F52463C9C5F0599 /* Project object */;
+}
