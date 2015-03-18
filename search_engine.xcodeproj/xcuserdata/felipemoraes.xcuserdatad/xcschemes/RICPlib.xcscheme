@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DDAE8A1634A54148AC29C08F"
+               BlueprintIdentifier = "49CCC640A048418DA792DCE0"
                BuildableName = "libRICPlib.a"
                BlueprintName = "RICPlib"
                ReferencedContainer = "container:search_engine.xcodeproj">
@@ -42,7 +42,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DDAE8A1634A54148AC29C08F"
+            BlueprintIdentifier = "49CCC640A048418DA792DCE0"
             BuildableName = "libRICPlib.a"
             BlueprintName = "RICPlib"
             ReferencedContainer = "container:search_engine.xcodeproj">
@@ -60,7 +60,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DDAE8A1634A54148AC29C08F"
+            BlueprintIdentifier = "49CCC640A048418DA792DCE0"
             BuildableName = "libRICPlib.a"
             BlueprintName = "RICPlib"
             ReferencedContainer = "container:search_engine.xcodeproj">

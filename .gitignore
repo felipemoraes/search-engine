@@ -1,3 +1,5 @@
+search_engine.xcodeproj/
+search_engine.build/
 .idea/
 .ignore
 .DS_Store
@@ -31,7 +33,7 @@
 *.out
 *.app
 
-
+CMakeScripts/
 CMakeCache.txt
 CMakeFiles
 Makefile
