@@ -32,42 +32,42 @@ class Page {
 
     void parseHTML(string html);
 
-    string url;
-    string text;
-    string title;
-    string keywords;
-    string description;
-    string contentType;
-    map<string, string> links;
+    string url_;
+    string text_;
+    string title_;
+    string keywords_;
+    string description_;
+    string content_type_;
+    map<string, string> links_;
 	
 };
 
 inline string Page::getText(){
-    return text;
+    return text_;
 }
 
 inline string Page::getUrl(){
-    return url;
+    return url_;
 }
 
 inline string Page::getTitle(){
-    return title;
+    return title_;
 }
 
 inline string Page::getKeywords(){
-    return keywords;
+    return keywords_;
 }
 
 inline string Page::getDescription(){
-    return description;
+    return description_;
 }
 
 inline string Page::getContentType(){
-    return contentType;
+    return content_type_;
 }
 
 inline map<string, string> Page::getLinks(){
-    return links;
+    return links_;
 }
 
 #endif /* PAGE_H_ */

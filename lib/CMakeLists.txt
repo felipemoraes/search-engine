@@ -1,3 +1,4 @@
 
 ADD_SUBDIRECTORY( common )
 ADD_SUBDIRECTORY( riCode )
+ADD_SUBDIRECTORY( index )

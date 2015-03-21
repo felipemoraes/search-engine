@@ -413,4 +413,5 @@ dependencies: \
   /usr/local/include/htmlcxx/html/utils.h \
   /usr/local/include/htmlcxx/html/Uri.h \
   /usr/local/include/htmlcxx/html/CharsetConverter.h \
-  /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/common/page.h
+  /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/common/page.h \
+  /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/index/writer.h

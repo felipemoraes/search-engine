@@ -12,7 +12,7 @@
 #include <htmlcxx/html/Uri.h>
 #include <htmlcxx/html/CharsetConverter.h>
 #include "../../lib/common/page.h"
-
+#include "../../lib/index/writer.h"
 
 
 using namespace std;
@@ -32,21 +32,10 @@ int main(int argc, char** argv) {
     doc.clear();
 
     int i = 0;
+    Writer writer;
     while(reader->getNextDocument(doc))	{
-        HTML::ParserDom parser;
-        tree<HTML::Node> dom = parser.parseTree(doc.getText());
-        tree<HTML::Node>::iterator it = dom.begin();
-        cout << "[" << doc.getURL() << "] [" << doc.getLength() << "]" << endl;
-        cout << "BEGINHTML[" << doc.getText() << "]ENDHTML" << endl;
-        if(doc.getURL() == "http://www.metodoinvestimentos.com.br/parceiros.asp") {
-        	cout << "[" << doc.getURL() << "] [" << doc.getLength() << "]" << endl;
-        	cout << "BEGINHTML[" << doc.getText() << "]ENDHTML" << endl;
-        }
-        if((i%1000) == 0) {
-            cerr << "[" << doc.getURL() << "]" << endl;
-            cerr << i << " processed" << endl;
-        }
         Page p(doc.getURL(), doc.getText());
+        writer.processPage(p);
         doc.clear();
         ++i;
     }

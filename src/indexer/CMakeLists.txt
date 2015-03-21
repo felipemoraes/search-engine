@@ -3,5 +3,5 @@
 
 add_executable(indexer main.cc)
 
-target_link_libraries(indexer RICPlib z htmlcxx common)
+target_link_libraries(indexer RICPlib z htmlcxx common index)
 

@@ -1,7 +1,7 @@
 #include "page.h"
 
 Page::Page(string url, string httpResponse){
-    this->url = url;
+    url_ = url;
     parseHTML(HTML::single_blank(HTML::decode_entities(httpResponse)));
 }
 
@@ -10,7 +10,7 @@ void Page::parseHTML(string html) {
     HTML::ParserDom parser;
     tree<HTML::Node> dom = parser.parseTree(html);
     tree<HTML::Node>::iterator it = dom.begin();
-    this->text += this->url;
+    text_ += url_;
     for (; it != dom.end(); ++it) {
         if (it.node != 0 && dom.parent(it) != NULL){
             string parent_tag = dom.parent(it)->tagName();
@@ -23,8 +23,8 @@ void Page::parseHTML(string html) {
         }
         //Parse plain text of the page
         if ((!it->isTag()) && (!it->isComment()) ) {
-            this->text += " ";
-            this->text += it->text();
+            text_ += " ";
+            text_ += it->text();
         }
         else { //Parse metadata
             string tagName = it->tagName();
@@ -32,7 +32,7 @@ void Page::parseHTML(string html) {
             if(tagName == "title"){
                 it++;
                 if(it == dom.end()) return;
-                this->title = it->text();
+                title_ = it->text();
             }
             else if(tagName == "meta"){
                 it->parseAttributes();
@@ -40,14 +40,14 @@ void Page::parseHTML(string html) {
                 if(attrib.first == true){
                     boost::to_lower(attrib.second);
                     if(attrib.second == "description")
-                        this->description = it->attribute("content").second;
+                        description_ = it->attribute("content").second;
                     if(attrib.second == "keywords")
-                        this->keywords = it->attribute("content").second;
+                        keywords_ = it->attribute("content").second;
                 }
                 attrib = it->attribute("http-equiv");
                 boost::to_lower(attrib.second);
                 if(attrib.first == true && attrib.second == "content-type"){
-                    this->contentType = it->attribute("content").second;
+                    content_type_ = it->attribute("content").second;
                 }
             }
             else if(tagName == "a"){
@@ -65,9 +65,9 @@ void Page::parseHTML(string html) {
                         if(it == dom.end()) return;
                         if(!it->isTag()) anchor_text += it->text();
                     }
-                    this->links[HTML::convert_link(attrib.second, this->url)] = anchor_text;
-                    this->text+= " ";
-                    this->text += anchor_text;
+                    links_[HTML::convert_link(attrib.second, url_)] = anchor_text;
+                    text_ += " ";
+                    text_ += anchor_text;
                 }
             }
         }
