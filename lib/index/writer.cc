@@ -24,16 +24,23 @@ void Writer::processPage(Page& p){
     }
     map<string, int>::iterator it;
     for (it = terms.begin(); it != terms.end(); it++){
-        cout << it->first << " " << p.getUrl() << " " << it->second << endl;
+        string term = it->first;
+        string doc_id = p.getUrl();
+        string frequence = to_string(it->second);
+        write(term+" "+doc_id+" " +frequence);
     }
     
 }
 
 void Writer::write (const string &line){
     if (length_file_ == 0) {
-        temporary_file_.open("example.txt");
+        temporary_file_.open("/Users/felipemoraes/Developer/search-engine/data/tmp_files/run_" + to_string(runs_counter_));
+        temporary_file_ << line << endl;
+        length_file_++;
+        runs_counter_++;
     } else if (length_file_ <= run_size_) {
         temporary_file_ << line << endl;
+        length_file_++;
     } else {
         temporary_file_.close();
         runs_counter_++;

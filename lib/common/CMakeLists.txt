@@ -2,7 +2,7 @@
 
 # Adds a library called common from the source files
 
-ADD_LIBRARY( common page.h page.cc tokenizer.cc tokenizer.h)
+ADD_LIBRARY( common page.h page.cc)
 
 
 

@@ -30,13 +30,12 @@ int main(int argc, char** argv) {
                                                      indexFileName);
     Document doc;
     doc.clear();
-    int run_size = 500;
+    int run_size = 50;
     Writer writer(run_size);
     while(reader->getNextDocument(doc))	{
         Page p(doc.getURL(), doc.getText());
         writer.processPage(p);
         doc.clear();
-       
     }
     
     delete reader;

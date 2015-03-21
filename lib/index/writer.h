@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <string>
 #include <map>
 #include<boost/tokenizer.hpp>
 #include "../common/page.h"
