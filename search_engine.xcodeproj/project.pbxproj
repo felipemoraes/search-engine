@@ -738,7 +738,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				INSTALL_PATH = "";
-				LIBRARY_SEARCH_PATHS = /usr/loca/lib;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				OTHER_CFLAGS = "       -DNDEBUG  ";
 				OTHER_CPLUSPLUSFLAGS = (
 					"-std=c++11",
@@ -860,7 +860,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				INSTALL_PATH = "";
-				LIBRARY_SEARCH_PATHS = /usr/loca/lib;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				OTHER_CFLAGS = "    ";
 				OTHER_CPLUSPLUSFLAGS = " -std=c++11     ";
 				OTHER_LDFLAGS = (
@@ -949,7 +949,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				INSTALL_PATH = "";
-				LIBRARY_SEARCH_PATHS = /usr/loca/lib;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				OTHER_CFLAGS = "    -DNDEBUG  ";
 				OTHER_CPLUSPLUSFLAGS = (
 					"-std=c++11",
@@ -1155,7 +1155,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				INSTALL_PATH = "";
-				LIBRARY_SEARCH_PATHS = /usr/loca/lib;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				OTHER_CFLAGS = "    -DNDEBUG  ";
 				OTHER_CPLUSPLUSFLAGS = (
 					"-std=c++11",

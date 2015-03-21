@@ -5,9 +5,12 @@
 #include <fstream>
 #include <sstream>
 #include <map>
+#include<boost/tokenizer.hpp>
 #include "../common/page.h"
 
+
 using namespace std;
+using namespace boost;
 
 
 class Writer {
@@ -21,7 +24,7 @@ public:
 private:
     
     //int run_size_;
-    map<string, map<string, int> > dictionary_;
+
     ofstream temporary_file_;
     
     

@@ -414,4 +414,9 @@ dependencies: \
   /usr/local/include/htmlcxx/html/Uri.h \
   /usr/local/include/htmlcxx/html/CharsetConverter.h \
   /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/common/page.h \
-  /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/index/writer.h
+  /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/index/writer.h \
+  /usr/local/include/boost/tokenizer.hpp \
+  /usr/local/include/boost/token_iterator.hpp \
+  /usr/local/include/boost/iterator/detail/minimum_category.hpp \
+  /usr/local/include/boost/iterator/minimum_category.hpp \
+  /usr/local/include/boost/token_functions.hpp
