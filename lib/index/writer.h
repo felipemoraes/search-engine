@@ -16,15 +16,16 @@ using namespace boost;
 class Writer {
 
 public:
-    Writer();
+    Writer(int run_size);
     ~Writer();
     void processPage(Page& p);
-    
+    void write (const string &line);
     
 private:
     
-    //int run_size_;
-
+    int run_size_;
+    int runs_counter_;
+    int length_file_;
     ofstream temporary_file_;
     
     

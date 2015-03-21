@@ -21,7 +21,7 @@ using namespace htmlcxx;
 
 int main(int argc, char** argv) {
     
-    cout << "Testing CollectionReader class..." << endl;
+   
     
     string inputDirectory("/Users/felipemoraes/Developer/search-engine/data/irCollection");
     string indexFileName("index.txt");
@@ -30,20 +30,16 @@ int main(int argc, char** argv) {
                                                      indexFileName);
     Document doc;
     doc.clear();
-
-    int i = 0;
-    Writer writer;
+    int run_size = 500;
+    Writer writer(run_size);
     while(reader->getNextDocument(doc))	{
         Page p(doc.getURL(), doc.getText());
         writer.processPage(p);
         doc.clear();
-        ++i;
+       
     }
-    cerr << "Total [" << i << "]" << endl;
     
     delete reader;
-    
-    cout << "Test finished." << endl;
     
     return EXIT_SUCCESS;
 }
