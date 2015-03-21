@@ -24,6 +24,11 @@
 			<key>orderHint</key>
 			<integer>4</integer>
 		</dict>
+		<key>index.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
 		<key>indexer.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -113,6 +118,11 @@
 			<true/>
 		</dict>
 		<key>85DDE1169379424C80CA15F3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>87ED50B891A7402DB5E9BE26</key>
 		<dict>
 			<key>primary</key>
 			<true/>
