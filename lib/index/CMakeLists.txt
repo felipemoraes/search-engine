@@ -1,8 +1,13 @@
 # CmakeLists.txt in src dir
 
 # Adds a library called common from the source files
+file(GLOB index_SRC
+    "*.h"
+    "*.cc"
+)
 
-ADD_LIBRARY( index writer.h writer.cc)
+
+ADD_LIBRARY( index ${index_SRC})
 
 
 

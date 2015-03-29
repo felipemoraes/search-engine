@@ -419,4 +419,6 @@ dependencies: \
   /usr/local/include/boost/token_iterator.hpp \
   /usr/local/include/boost/iterator/detail/minimum_category.hpp \
   /usr/local/include/boost/iterator/minimum_category.hpp \
-  /usr/local/include/boost/token_functions.hpp
+  /usr/local/include/boost/token_functions.hpp \
+  /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/index/../common/term.h \
+  /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/index/merge.h
