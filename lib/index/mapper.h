@@ -1,5 +1,5 @@
 //
-//  writer.h
+//  mapper.h
 //  search_engine
 //
 //  Created by Felipe Moraes on 3/28/15.
@@ -26,20 +26,20 @@ using namespace std;
 using namespace boost;
 using namespace std::placeholders;
 
-class Writer {
+class Mapper {
 
 public:
-    Writer(int run_size, vector<File<TermOccurrence>* > &runs);
-    ~Writer();
-    void processPage(Page& p);
+    Mapper(int run_size, vector<File<TermOccurrence>* > &runs);
+    ~Mapper();
+    void process_page(Page& p);
     void write (vector<TermOccurrence>::iterator it);
     bool vocabulary_contains(string term);
     int add_vocabulary(string term);
-    void removeAccents(string &str);
-    void processFrequencies(Page& p,map<string,int> &frequencies);
+    void remove_accents(string &str);
+    void process_frequencies(Page& p,map<string,int> &frequencies);
     void add_buffer(int term_id, int doc_id, int frequency);
     void flush();
-    void commit();
+    void exec();
     vector<File<TermOccurrence>* > get_runs();
     
 private:

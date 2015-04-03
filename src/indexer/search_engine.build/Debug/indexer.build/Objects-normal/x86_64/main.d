@@ -414,7 +414,7 @@ dependencies: \
   /usr/local/include/htmlcxx/html/Uri.h \
   /usr/local/include/htmlcxx/html/CharsetConverter.h \
   /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/common/page.h \
-  /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/index/writer.h \
+  /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/index/mapper.h \
   /usr/local/include/boost/tokenizer.hpp \
   /usr/local/include/boost/token_iterator.hpp \
   /usr/local/include/boost/iterator/detail/minimum_category.hpp \
@@ -422,4 +422,4 @@ dependencies: \
   /usr/local/include/boost/token_functions.hpp \
   /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/index/../common/term_occurrence.h \
   /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/index/../common/file.h \
-  /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/index/merge.h
+  /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/index/reducer.h

@@ -1,5 +1,5 @@
 //
-//  writer.cc
+//  mapper.cc
 //  search_engine
 //
 //  Created by Felipe Moraes on 3/28/15.
@@ -7,9 +7,9 @@
 //
 
 
-#include "writer.h"
+#include "mapper.h"
 
-Writer::Writer(int run_size, vector<File<TermOccurrence>* > &runs){
+Mapper::Mapper(int run_size, vector<File<TermOccurrence>* > &runs){
     run_size_ = run_size;
     voc_counter_ = 0;
     buffer = new TermOccurrence[run_size];
@@ -18,17 +18,17 @@ Writer::Writer(int run_size, vector<File<TermOccurrence>* > &runs){
     runs_ = runs;
 }
 
-Writer::~Writer(){
+Mapper::~Mapper(){
 }
 
-vector<File<TermOccurrence>* >  Writer::get_runs(){
+vector<File<TermOccurrence>* >  Mapper::get_runs(){
     return runs_;
 }
 
-void Writer::processFrequencies(Page& p, map<string,int> &frequencies){
+void Mapper::process_frequencies(Page& p, map<string,int> &frequencies){
     
     string text = p.getText();
-    removeAccents(text);
+    remove_accents(text);
     transform(text.begin(), text.end(), text.begin(),::tolower);
     tokenizer<> tokens(text);
     for(tokenizer<>::iterator token=tokens.begin(); token!=tokens.end();++token){
@@ -42,10 +42,10 @@ void Writer::processFrequencies(Page& p, map<string,int> &frequencies){
     }
 }
 
-void Writer::processPage(Page& p){
+void Mapper::process_page(Page& p){
 
     map<string, int> frequencies;
-    processFrequencies(p,frequencies);
+    process_frequencies(p,frequencies);
     map<string, int>::iterator it;
     for (it = frequencies.begin(); it != frequencies.end(); it++){
         int term_id = add_vocabulary(it->first);
@@ -56,19 +56,19 @@ void Writer::processPage(Page& p){
     
 }
 
-void Writer::flush(){
+void Mapper::flush(){
     if(buffer_size_ >= run_size_){
-        commit();
+        exec();
     }
 }
 
-void Writer::add_buffer(int term_id, int doc_id, int frequency){
+void Mapper::add_buffer(int term_id, int doc_id, int frequency){
     TermOccurrence term(term_id, doc_id,frequency);
     buffer[buffer_size_] = term;
     buffer_size_++;
 }
 
-void Writer::commit(){
+void Mapper::exec(){
     string directory = "/Users/felipemoraes/Developer/search-engine/data/tmp_files";
     if(buffer_size_ <= 0) return;
     cout << ">> Flushing buffer of "<< buffer_size_ <<" occurrences to disk..." << endl;
@@ -84,7 +84,7 @@ void Writer::commit(){
     buffer_size_ = 0;
 }
 
-int Writer::add_vocabulary(string term){
+int Mapper::add_vocabulary(string term){
     if (vocabulary_.count(term)) {
         return vocabulary_[term];
     }
@@ -94,7 +94,7 @@ int Writer::add_vocabulary(string term){
 }
 
 
-void Writer::removeAccents(string &str) {
+void Mapper::remove_accents(string &str) {
     for(unsigned int i=0;i<str.length();i++) {
         str.at(i) = tolower(str.at(i));
         unsigned char c = str.at(i);

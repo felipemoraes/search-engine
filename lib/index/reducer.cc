@@ -1,12 +1,12 @@
 //
-//  merge.cc
+//  reducer.cc
 //  search_engine
 //
 //  Created by Felipe Moraes on 3/28/15.
 //
 //
 
-#include "merge.h"
+#include "reducer.h"
 #include <queue>
 #include <iostream>
 #include <fstream>
@@ -14,12 +14,12 @@
 using namespace std;
 
 
-Merge::Merge(int buffer_size, vector<File<TermOccurrence>* > &runs){
+Reducer::Reducer(int buffer_size, vector<File<TermOccurrence>* > &runs){
     runs_ = runs;
     buffer_size_ = buffer_size;
 }
 
-File<TermOccurrence>* Merge::merge_runs(){
+File<TermOccurrence>* Reducer::merge(){
     
     int block_number = 0;
     int buffer_length;

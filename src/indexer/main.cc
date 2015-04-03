@@ -12,8 +12,8 @@
 #include <htmlcxx/html/Uri.h>
 #include <htmlcxx/html/CharsetConverter.h>
 #include "../../lib/common/page.h"
-#include "../../lib/index/writer.h"
-#include "../../lib/index/merge.h"
+#include "../../lib/index/mapper.h"
+#include "../../lib/index/reducer.h"
 
 
 using namespace std;
@@ -38,17 +38,17 @@ int main(int argc, char** argv) {
     vector<File<TermOccurrence>* > runs;
     int max_doc = 2;
     int doc_counter = 0;
-    Writer writer(run_size,runs);
+    Mapper mapper(run_size,runs);
     while(reader->getNextDocument(doc) && doc_counter < max_doc)	{
         Page p(doc.getURL(), doc.getText());
-        writer.processPage(p);
+        mapper.process_page(p);
         doc.clear();
         doc_counter++;
         
     }
-    writer.commit();
-    Merge merge(run_size,runs);
-    merge.merge_runs();
+    mapper.exec();
+    Reducer reducer(run_size,runs);
+    reducer.merge();
     
     delete reader;
     
