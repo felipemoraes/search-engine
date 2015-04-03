@@ -1,133 +1,98 @@
+//
+//  writer.cc
+//  search_engine
+//
+//  Created by Felipe Moraes on 3/28/15.
+//
+//
+
+
 #include "writer.h"
 
-
-
-Writer::Writer(int run_size){
+Writer::Writer(int run_size, vector<File<TermOccurrence>* > &runs){
     run_size_ = run_size;
-    length_file_ = 0;
     voc_counter_ = 0;
+    buffer = new TermOccurrence[run_size];
+    buffer_size_ = 0;
     cout << "Writer created\n" << endl;
+    runs_ = runs;
 }
 
 Writer::~Writer(){
-    temporary_file_.close();
+}
+
+vector<File<TermOccurrence>* >  Writer::get_runs(){
+    return runs_;
+}
+
+void Writer::processFrequencies(Page& p, map<string,int> &frequencies){
+    
+    string text = p.getText();
+    removeAccents(text);
+    transform(text.begin(), text.end(), text.begin(),::tolower);
+    tokenizer<> tokens(text);
+    for(tokenizer<>::iterator token=tokens.begin(); token!=tokens.end();++token){
+        string term = *token;
+        if (frequencies.count(*token)) {
+            frequencies[*token]++;
+        }
+        else {
+            frequencies.insert(pair<string,int>(*token,1));
+        }
+    }
 }
 
 void Writer::processPage(Page& p){
 
-    map<int, Term> terms;
-    int counter = 0;
-    string text = p.getText();
-    transform(text.begin(), text.end(), text.begin(),::tolower);
-    tokenizer<> tokens(text);
-    removeAccents(text);
-    for(tokenizer<>::iterator token=tokens.begin(); token!=tokens.end();++token){
-        string term = *token;
-        if (vocabularyContains(term)) {
-            int index = getTermIdFromVocabulary(term);
-            if (terms.count(index)) {
-                terms.find(index)->second.setFrequency();
-                terms.find(index)->second.addPosition(counter);
-            } else {
-                Term t(index,p.getUrl());
-                t.setTerm(term);
-                t.setFrequency();
-                t.addPosition(counter);
-                terms.insert(pair<int,Term>(index,t));
-            }
-        } else {
-            int index = addTermToVocabulary(*token);
-            Term t(index,p.getUrl());
-            t.setTerm(term);
-            t.setFrequency();
-            t.addPosition(counter);
-            
-            terms.insert(pair<int,Term>(index,t));
-            
-        }
-        counter++;
-        
-        
-    }
-    map<int, Term>::iterator it;
-    for (it = terms.begin(); it != terms.end(); it++){
-        buffer.push_back(it->second);
-        commit();
+    map<string, int> frequencies;
+    processFrequencies(p,frequencies);
+    map<string, int>::iterator it;
+    for (it = frequencies.begin(); it != frequencies.end(); it++){
+        int term_id = add_vocabulary(it->first);
+        int doc_id = doc_counter_++;
+        add_buffer(term_id, doc_id,it->second);
+        flush();
     }
     
 }
-string format(vector<Term>::iterator it){
-    string str;
-    str = it->getTerm() + " " + it->getDocId() + " " + to_string(it->getFrequency()) + " " + it->getPositions();
-    return str;
+
+void Writer::flush(){
+    if(buffer_size_ >= run_size_){
+        commit();
+    }
 }
 
-bool comp(Term & L, Term & R) {
-    if (L.getTerm().compare(R.getTerm()) < 0) {
-        return true;
-    } else if (L.getTerm().compare(R.getTerm()) == 0){
-        if (L.getDocId().compare(R.getDocId()) < 0) {
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        return false;
-    }
+void Writer::add_buffer(int term_id, int doc_id, int frequency){
+    TermOccurrence term(term_id, doc_id,frequency);
+    buffer[buffer_size_] = term;
+    buffer_size_++;
 }
 
 void Writer::commit(){
-    if (buffer.size() == run_size_) {
-        openRunFile();
-        sort(buffer.begin(),buffer.end(),comp);
-        vector<Term>::iterator it;
-        for (it = buffer.begin(); it != buffer.end(); it++) {
-            write(it);
-        }
-        closeRunFile();
-        buffer.clear();
+    string directory = "/Users/felipemoraes/Developer/search-engine/data/tmp_files";
+    if(buffer_size_ <= 0) return;
+    cout << ">> Flushing buffer of "<< buffer_size_ <<" occurrences to disk..." << endl;
+    sort(buffer,buffer+buffer_size_);
+    int block_number = runs_.size();
+    stringstream file_name;
+    file_name << directory << "/run" << block_number;
+    cout << "Writing ordered run in file " << file_name.str() << endl;
+    File<TermOccurrence>* run_file = new File<TermOccurrence>(file_name.str());
+    run_file->write_block(buffer, buffer_size_);
+    runs_.push_back(run_file);
+    run_file->close();
+    buffer_size_ = 0;
+}
+
+int Writer::add_vocabulary(string term){
+    if (vocabulary_.count(term)) {
+        return vocabulary_[term];
     }
-}
-
-void Writer::write (vector<Term>::iterator it){
-    string line = format(it);
-    temporary_file_ << line << endl;
-    
-}
-
-void Writer::closeRunFile(){
-    temporary_file_.close();
-    runs_counter_++;
-
-    
-}
-
-void Writer::openRunFile(){
-    temporary_file_.open("/Users/felipemoraes/Developer/search-engine/data/tmp_files/run_" + to_string(runs_counter_));
-    
-}
-
-int Writer::getRunsCounter(){
-    return runs_counter_;
-}
-
-bool Writer::vocabularyContains(string term){
-    if (vocabulary_.count(term)){
-        return true;
-    } else{
-        return false;
-    }
-                           
-}
-
-int Writer::getTermIdFromVocabulary(string term){
+    vocabulary_[term] = voc_counter_;
+    voc_counter_++;
     return vocabulary_[term];
 }
 
-int Writer::addTermToVocabulary(string term){
-    vocabulary_[term] = voc_counter_;
-    return voc_counter_++;
-}
 
 void Writer::removeAccents(string &str) {
     for(unsigned int i=0;i<str.length();i++) {

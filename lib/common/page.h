@@ -1,6 +1,14 @@
+//
+//  page.h
+//  search_engine
+//
+//  Created by Felipe Moraes on 03/20/15.
+//
+//
 
-#ifndef PAGE_H_
-#define PAGE_H_
+
+#ifndef __search_engine__page__
+#define __search_engine__page__
 
 #include <string>
 #include <map>
@@ -70,4 +78,4 @@ inline map<string, string> Page::getLinks(){
     return links_;
 }
 
-#endif /* PAGE_H_ */
+#endif /* defined(__search_engine__page__) */

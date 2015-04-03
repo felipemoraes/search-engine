@@ -1,5 +1,14 @@
-#ifndef WRITER_H_
-#define WRITER_H_
+//
+//  writer.h
+//  search_engine
+//
+//  Created by Felipe Moraes on 3/28/15.
+//
+//
+
+
+#ifndef __search_engine__writer__
+#define __search_engine__writer__
 
 #include <iostream>
 #include <fstream>
@@ -10,7 +19,8 @@
 #include <map>
 #include<boost/tokenizer.hpp>
 #include "../common/page.h"
-#include "../common/term.h"
+#include "../common/term_occurrence.h"
+#include "../common/file.h"
 
 using namespace std;
 using namespace boost;
@@ -19,31 +29,32 @@ using namespace std::placeholders;
 class Writer {
 
 public:
-    Writer(int run_size);
+    Writer(int run_size, vector<File<TermOccurrence>* > &runs);
     ~Writer();
     void processPage(Page& p);
-    void write (vector<Term>::iterator it);
-    int getRunsCounter();
-    bool vocabularyContains(string term);
-    int getTermIdFromVocabulary(string term);
-    int addTermToVocabulary(string term);
-    void commit();
-    void closeRunFile();
-    void openRunFile();
+    void write (vector<TermOccurrence>::iterator it);
+    bool vocabulary_contains(string term);
+    int add_vocabulary(string term);
     void removeAccents(string &str);
+    void processFrequencies(Page& p,map<string,int> &frequencies);
+    void add_buffer(int term_id, int doc_id, int frequency);
+    void flush();
+    void commit();
+    vector<File<TermOccurrence>* > get_runs();
+    
 private:
     
     int run_size_;
-    int runs_counter_;
-    int length_file_;
+    int buffer_size_;
     int voc_counter_;
-    ofstream temporary_file_;
+    int doc_counter_;
     map<string,int> vocabulary_;
-    vector<Term> buffer;
+    TermOccurrence* buffer;
+    vector<File<TermOccurrence>* > runs_;
     
     
     
 };
 
 
-#endif /* WRITER_H_ */
+#endif /* defined(__search_engine__run__) */

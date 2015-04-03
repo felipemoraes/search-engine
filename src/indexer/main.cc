@@ -35,11 +35,10 @@ int main(int argc, char** argv) {
     Document doc;
     doc.clear();
     int run_size = 50;
+    vector<File<TermOccurrence>* > runs;
     int max_doc = 2;
     int doc_counter = 0;
-    Writer writer(run_size);
-
-    
+    Writer writer(run_size,runs);
     while(reader->getNextDocument(doc) && doc_counter < max_doc)	{
         Page p(doc.getURL(), doc.getText());
         writer.processPage(p);
@@ -47,8 +46,9 @@ int main(int argc, char** argv) {
         doc_counter++;
         
     }
-    
-    Merge merge;
+    writer.commit();
+    Merge merge(run_size,runs);
+    merge.merge_runs();
     
     delete reader;
     

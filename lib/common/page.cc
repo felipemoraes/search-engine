@@ -1,3 +1,12 @@
+//
+//  page.cc
+//  search_engine
+//
+//  Created by Felipe Moraes on 3/20/15.
+//
+//
+
+
 #include "page.h"
 #include <iostream>
 using namespace std;
