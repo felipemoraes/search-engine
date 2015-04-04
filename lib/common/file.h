@@ -13,13 +13,13 @@
 #include <fstream>
 #include <cstdio>
 #include <string>
+#include "../common/term_occurrence.h"
 using namespace std;
-
-template <class T>
 
 class File {
 private:
     int size_;
+    int read_;
     string name_;
     FILE* file_;
     
@@ -30,49 +30,63 @@ public:
         
     }
     
-    File(string file_name, bool trunc = true){
-        open(file_name, trunc);
+    File(string file_name){
+        open(file_name);
     }
     
-    void open(string file_name, bool trunc = true){
+    void open(string file_name){
         name_ = file_name;
-        if(trunc){
-            file_ = fopen(name_.c_str(), "w+b");
-            size_ = 0;
-        } else{
-            file_ = fopen(name_.c_str(), "a+b");
-            fseek(file_, 0, SEEK_END);
-            int file_size = ftell(file_);
-            size_ = file_size / sizeof(T);
-            rewind();
-        }
+        file_ = fopen(name_.c_str(), "w+b");
+        size_ = 0;
     }
     
-    int write(T& oc){
+    int write(TermOccurrence oc){
         ensure_file_is_open();
-        fwrite((char *) &oc, sizeof(T), 1, file_);
+        int position;
+        fwrite(&(oc.term_id_), sizeof(int), 1, file_);
+        fwrite(&(oc.doc_id_), sizeof(int), 1, file_);
+        vector<int>::iterator it;
+        vector<int>* positions = oc.get_positions();
+        fwrite(&(oc.frequency_), sizeof(int), 1, file_);
+        for (it = positions->begin(); it!=positions->end(); it++) {
+            position = *it;
+            fwrite(&position, sizeof(int), 1, file_);
+        }
+        
         size_++;
         return size_;
     }
     
-    int write_block(T *oc, int block_size){
+    int write_block(TermOccurrence *oc, int block_size){
         ensure_file_is_open();
-        fwrite((char *) oc, sizeof(T), block_size, file_);
-        size_ += block_size;
+        for (int i = 0; i<block_size; i++) {
+            write(oc[i]);
+        }
         return size_;
     }
     
-    T read(){
+    TermOccurrence read(){
         ensure_file_is_open();
-        T oc;
-        fread((char*) &oc, sizeof(oc), 1, file_); // lê do arquivo
+        TermOccurrence oc;
+        int position;
+        fread((int*) &oc.term_id_, sizeof(oc.term_id_), 1, file_);
+        fread((int*) &oc.doc_id_, sizeof(oc.doc_id_), 1, file_);
+        fread((int*) &oc.frequency_, sizeof(oc.frequency_), 1, file_);
+        for (int i = 0; i<oc.frequency_; i++) {
+            fread((int*) &position, sizeof(position), 1, file_);
+            oc.add_position(position);
+        }
+        read_++;
         return oc;
     }
     
-    int read_block(T *oc, int block_size){
+    TermOccurrence* read_block(int block_size){
+        TermOccurrence *oc = (TermOccurrence*)calloc(block_size, sizeof(TermOccurrence));
         ensure_file_is_open();
-        size_t elements_read = fread((char*) oc, sizeof(T), block_size, file_); // lê do arquivo
-        return elements_read;
+        for (int i = 0; i< block_size; i++) {
+            oc[i] = read();
+        }
+        return oc;
     }
     
     void rewind(){
@@ -89,7 +103,7 @@ public:
     
     bool has_next(){
         ensure_file_is_open();
-        if(get_position() >= size_){
+        if(read_ >= size_){
             return false;
         } else {
             return true;
@@ -99,7 +113,7 @@ public:
     int get_position(){
         ensure_file_is_open();
         int pointer = ftell(file_);
-        int position = pointer/sizeof(T);
+        int position = pointer/sizeof(TermOccurrence);
         if(feof(file_)){
             return position+1;
         }
@@ -108,7 +122,7 @@ public:
     
     void set_position(int position){
         ensure_file_is_open();
-        fseek(file_, position*sizeof(T), SEEK_SET);
+        fseek(file_, position*sizeof(TermOccurrence), SEEK_SET);
     }
     
     int get_size(){
@@ -122,7 +136,10 @@ public:
     
     void reopen(){
         close();
-        open(name_, false);
+        file_ = fopen(name_.c_str(), "a+b");
+        fseek(file_, 0, SEEK_END);
+        rewind();
+        read_ = 0;
     }
     
     void close(){

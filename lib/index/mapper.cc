@@ -9,45 +9,50 @@
 
 #include "mapper.h"
 
-Mapper::Mapper(int run_size, vector<File<TermOccurrence>* > &runs){
+Mapper::Mapper(int run_size){
     run_size_ = run_size;
     voc_counter_ = 0;
     buffer = new TermOccurrence[run_size];
     buffer_size_ = 0;
     cout << "Writer created\n" << endl;
-    runs_ = runs;
 }
 
 Mapper::~Mapper(){
 }
 
-vector<File<TermOccurrence>* >  Mapper::get_runs(){
+vector<File* >  Mapper::get_runs(){
     return runs_;
 }
 
-void Mapper::process_frequencies(Page& p, map<string,int> &frequencies){
+void Mapper::process_frequencies(Page& p, map<string, vector<int> > &positions){
     
     string text = p.getText();
+    int position = 0;
     remove_accents(text);
     transform(text.begin(), text.end(), text.begin(),::tolower);
     tokenizer<> tokens(text);
-    for(tokenizer<>::iterator token=tokens.begin(); token!=tokens.end();++token){
+    tokenizer<>::iterator token;
+    for(token=tokens.begin(); token!=tokens.end();++token){
         string term = *token;
-        if (frequencies.count(*token)) {
-            frequencies[*token]++;
+        if (positions.count(*token)) {
+            positions[*token].push_back(position);
         }
         else {
-            frequencies.insert(pair<string,int>(*token,1));
+            pair<string,vector<int> > p;
+            p.first = *token;
+            p.second.push_back(position);
+            positions.insert(p);
         }
+        position++;
     }
 }
 
 void Mapper::process_page(Page& p){
 
-    map<string, int> frequencies;
-    process_frequencies(p,frequencies);
-    map<string, int>::iterator it;
-    for (it = frequencies.begin(); it != frequencies.end(); it++){
+    map<string, vector<int> > positions;
+    process_frequencies(p,positions);
+    map<string, vector<int> >::iterator it;
+    for (it = positions.begin(); it != positions.end(); it++){
         int term_id = add_vocabulary(it->first);
         int doc_id = doc_counter_++;
         add_buffer(term_id, doc_id,it->second);
@@ -62,26 +67,28 @@ void Mapper::flush(){
     }
 }
 
-void Mapper::add_buffer(int term_id, int doc_id, int frequency){
-    TermOccurrence term(term_id, doc_id,frequency);
+void Mapper::add_buffer(int term_id, int doc_id, vector<int> positions){
+    TermOccurrence term(term_id, doc_id,positions);
     buffer[buffer_size_] = term;
     buffer_size_++;
 }
 
-void Mapper::exec(){
+vector<File* > Mapper::exec(){
     string directory = "/Users/felipemoraes/Developer/search-engine/data/tmp_files";
-    if(buffer_size_ <= 0) return;
+    if(buffer_size_ <= 0) return runs_;
     cout << ">> Flushing buffer of "<< buffer_size_ <<" occurrences to disk..." << endl;
     sort(buffer,buffer+buffer_size_);
     int block_number = runs_.size();
     stringstream file_name;
     file_name << directory << "/run" << block_number;
     cout << "Writing ordered run in file " << file_name.str() << endl;
-    File<TermOccurrence>* run_file = new File<TermOccurrence>(file_name.str());
+    File* run_file = new File(file_name.str());
     run_file->write_block(buffer, buffer_size_);
     runs_.push_back(run_file);
     run_file->close();
     buffer_size_ = 0;
+    cout << runs_.size() << endl;
+    return runs_;
 }
 
 int Mapper::add_vocabulary(string term){

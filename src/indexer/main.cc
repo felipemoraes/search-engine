@@ -35,10 +35,11 @@ int main(int argc, char** argv) {
     Document doc;
     doc.clear();
     int run_size = 50;
-    vector<File<TermOccurrence>* > runs;
-    int max_doc = 2;
+    vector<File* > runs;
+    int max_doc = 1000;
     int doc_counter = 0;
-    Mapper mapper(run_size,runs);
+    
+    Mapper mapper(run_size);
     while(reader->getNextDocument(doc) && doc_counter < max_doc)	{
         Page p(doc.getURL(), doc.getText());
         mapper.process_page(p);
@@ -46,10 +47,16 @@ int main(int argc, char** argv) {
         doc_counter++;
         
     }
-    mapper.exec();
+    runs = mapper.exec();
     Reducer reducer(run_size,runs);
     reducer.merge();
-    
+    reducer.reduce();
+    // TODO:
+    // - Write vocabulary
+    // - Write docs
+    // - Unit tests
+    // - Compress index
+    // - Boolean search
     delete reader;
     
     return EXIT_SUCCESS;

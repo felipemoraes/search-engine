@@ -11,15 +11,18 @@
 
 #include "../common/term_occurrence.h"
 #include "../common/file.h"
+#include "../index/index_file.h"
 #include <vector>
 
 class Reducer {
 private:
     int buffer_size_;
-    vector<File<TermOccurrence>* > runs_;
+    vector<File* > runs_;
+    File* merged_;
 public:
-    Reducer(int buffer_size, vector<File<TermOccurrence>* > &runs);
-    File<TermOccurrence>* merge();
+    Reducer(int buffer_size, vector<File* > &runs);
+    void merge();
+    void reduce();
 
     
 };

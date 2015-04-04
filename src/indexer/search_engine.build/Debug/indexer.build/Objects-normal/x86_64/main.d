@@ -422,4 +422,5 @@ dependencies: \
   /usr/local/include/boost/token_functions.hpp \
   /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/index/../common/term_occurrence.h \
   /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/index/../common/file.h \
-  /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/index/reducer.h
+  /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/index/reducer.h \
+  /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/index/../index/index_file.h

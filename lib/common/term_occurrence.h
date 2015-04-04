@@ -18,9 +18,9 @@ using namespace std;
 
 class TermOccurrence {
 private:
-    vector<int> positions_;
+    vector<int>* positions_;
 public:
-    TermOccurrence(int term_id, int doc_id, int frequency);
+    TermOccurrence(int term_id, int doc_id, vector<int> positions);
     
     TermOccurrence();
     
@@ -30,26 +30,30 @@ public:
     
     
     void add_position(int position);
-    string get_positions();
+    vector<int>* get_positions();
     
     
-    friend bool operator<(const TermOccurrence &x, const TermOccurrence &y){
-        if(x.term_id_ < y.term_id_){
+    friend bool operator>(const TermOccurrence &x, const TermOccurrence &y){
+        if(x.term_id_ > y.term_id_){
             return true;
-        } else if(x.doc_id_ < y.doc_id_) {
+        } else if (x.term_id_ < y.term_id_) {
+            return false;
+        } else if(x.doc_id_ > y.doc_id_) {
             return true;
-        } else if(x.doc_id_ >= y.doc_id_){
+        } else if(x.doc_id_ <= y.doc_id_){
             return false;
         }
         return false;
     }
     
-    friend bool operator>(const TermOccurrence &x, const TermOccurrence &y){
-        if(x.term_id_ > y.term_id_){
+    friend bool operator<(const TermOccurrence &x, const TermOccurrence &y){
+        if(x.term_id_ < y.term_id_){
             return true;
-        } else if(x.doc_id_ > y.doc_id_) {
+        } else if (x.term_id_ > y.term_id_) {
+            return false;
+        } else if(x.doc_id_ < y.doc_id_) {
             return true;
-        } else if(x.doc_id_ <= y.doc_id_){
+        } else if(x.doc_id_ >= y.doc_id_){
             return false;
         }
         return false;

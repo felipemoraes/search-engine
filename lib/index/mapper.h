@@ -29,18 +29,18 @@ using namespace std::placeholders;
 class Mapper {
 
 public:
-    Mapper(int run_size, vector<File<TermOccurrence>* > &runs);
+    Mapper(int run_size);
     ~Mapper();
     void process_page(Page& p);
     void write (vector<TermOccurrence>::iterator it);
     bool vocabulary_contains(string term);
     int add_vocabulary(string term);
     void remove_accents(string &str);
-    void process_frequencies(Page& p,map<string,int> &frequencies);
-    void add_buffer(int term_id, int doc_id, int frequency);
+    void process_frequencies(Page& p,map<string, vector<int> > &positions);
+    void add_buffer(int term_id, int doc_id, vector<int> positions);
     void flush();
-    void exec();
-    vector<File<TermOccurrence>* > get_runs();
+    vector<File* > exec();
+    vector<File* > get_runs();
     
 private:
     
@@ -50,7 +50,7 @@ private:
     int doc_counter_;
     map<string,int> vocabulary_;
     TermOccurrence* buffer;
-    vector<File<TermOccurrence>* > runs_;
+    vector<File* > runs_;
     
     
     
