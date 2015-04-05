@@ -80,10 +80,6 @@ Term* IndexFile::read_block(int block_size){
     return oc;
 }
 
-void IndexFile::rewind(){
-    ensure_file_is_open();
-    fseek(file_, 0, SEEK_SET);
-}
 
 void IndexFile::ensure_file_is_open(){
     if( file_ == NULL){
@@ -112,9 +108,7 @@ string IndexFile::get_name(){
 
 void IndexFile::reopen(){
     close();
-    file_ = fopen(name_.c_str(), "a+b");
-    fseek(file_, 0, SEEK_END);
-    rewind();
+    file_ = fopen(name_.c_str(), "r+b");
     read_ = 0;
 }
 

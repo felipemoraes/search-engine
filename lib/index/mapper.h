@@ -39,8 +39,9 @@ public:
     void process_frequencies(Page& p,map<string, vector<int> > &positions);
     void add_buffer(int term_id, int doc_id, vector<int> positions);
     void flush();
-    vector<File* > exec();
-    vector<File* > get_runs();
+    vector<File* >* exec();
+    vector<File* >* get_runs();
+    void dump();
     
 private:
     
@@ -48,9 +49,10 @@ private:
     int buffer_size_;
     int voc_counter_;
     int doc_counter_;
-    map<string,int> vocabulary_;
+    map<string,int>* vocabulary_;
     TermOccurrence* buffer;
-    vector<File* > runs_;
+    vector<File* >* runs_;
+    ofstream doc_file_;
     
     
     

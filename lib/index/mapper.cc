@@ -15,12 +15,17 @@ Mapper::Mapper(int run_size){
     buffer = new TermOccurrence[run_size];
     buffer_size_ = 0;
     cout << "Writer created\n" << endl;
+    runs_ = new vector<File*>();
+    vocabulary_ = new map<string,int>();
+    doc_file_.open("/Users/felipemoraes/Developer/search-engine/data/documents");
 }
 
 Mapper::~Mapper(){
+    doc_file_.close();
+    delete buffer;
 }
 
-vector<File* >  Mapper::get_runs(){
+vector<File* >*  Mapper::get_runs(){
     return runs_;
 }
 
@@ -51,14 +56,17 @@ void Mapper::process_page(Page& p){
 
     map<string, vector<int> > positions;
     process_frequencies(p,positions);
+    int length = 0;
+    int doc_id = doc_counter_++;
     map<string, vector<int> >::iterator it;
     for (it = positions.begin(); it != positions.end(); it++){
         int term_id = add_vocabulary(it->first);
-        int doc_id = doc_counter_++;
         add_buffer(term_id, doc_id,it->second);
         flush();
+        length++;
     }
-    
+    doc_file_ << doc_id << "\t" <<  p.getUrl() <<  "\t" <<length <<  endl;
+
 }
 
 void Mapper::flush(){
@@ -73,31 +81,42 @@ void Mapper::add_buffer(int term_id, int doc_id, vector<int> positions){
     buffer_size_++;
 }
 
-vector<File* > Mapper::exec(){
+vector<File* >* Mapper::exec(){
     string directory = "/Users/felipemoraes/Developer/search-engine/data/tmp_files";
-    if(buffer_size_ <= 0) return runs_;
     cout << ">> Flushing buffer of "<< buffer_size_ <<" occurrences to disk..." << endl;
     sort(buffer,buffer+buffer_size_);
-    int block_number = runs_.size();
+    int block_number = runs_->size();
     stringstream file_name;
     file_name << directory << "/run" << block_number;
-    cout << "Writing ordered run in file " << file_name.str() << endl;
+    cout << ">> Writing ordered run in file " << file_name.str() << endl;
     File* run_file = new File(file_name.str());
     run_file->write_block(buffer, buffer_size_);
-    runs_.push_back(run_file);
+    runs_->push_back(run_file);
     run_file->close();
     buffer_size_ = 0;
-    cout << runs_.size() << endl;
     return runs_;
 }
 
-int Mapper::add_vocabulary(string term){
-    if (vocabulary_.count(term)) {
-        return vocabulary_[term];
+
+void Mapper::dump(){
+    string filename("/Users/felipemoraes/Developer/search-engine/data/vocabulary");
+    ofstream file;
+    file.open(filename);
+    map<string,int>::iterator it;
+    for (it = vocabulary_->begin(); it!= vocabulary_->end(); it++) {
+        file << it->first << "\t"<< it->second << endl;
     }
-    vocabulary_[term] = voc_counter_;
+    file.close();
+    delete vocabulary_;
+}
+
+int Mapper::add_vocabulary(const string term){
+    if (vocabulary_->count(term)) {
+        return (*vocabulary_)[term];
+    }
+    (*vocabulary_)[term] = voc_counter_;
     voc_counter_++;
-    return vocabulary_[term];
+    return (*vocabulary_)[term];
 }
 
 

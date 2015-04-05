@@ -34,13 +34,13 @@ int main(int argc, char** argv) {
                                                      indexFileName);
     Document doc;
     doc.clear();
-    int run_size = 50;
-    vector<File* > runs;
+    int run_size = 100;
+    vector<File* >* runs;
     int max_doc = 1000;
     int doc_counter = 0;
     
     Mapper mapper(run_size);
-    while(reader->getNextDocument(doc) && doc_counter < max_doc)	{
+    while(reader->getNextDocument(doc) && doc_counter < max_doc) {
         Page p(doc.getURL(), doc.getText());
         mapper.process_page(p);
         doc.clear();
@@ -48,15 +48,15 @@ int main(int argc, char** argv) {
         
     }
     runs = mapper.exec();
+    mapper.dump();
     Reducer reducer(run_size,runs);
     reducer.merge();
     reducer.reduce();
     // TODO:
-    // - Write vocabulary
-    // - Write docs
     // - Unit tests
     // - Compress index
     // - Boolean search
+    cout << "Doc counter " << doc_counter << endl;
     delete reader;
     
     return EXIT_SUCCESS;
