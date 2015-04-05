@@ -424,6 +424,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 0620;
 			};
 			buildConfigurationList = 9DA034DF1ED84E40A4872868 /* Build configuration list for PBXProject "search_engine" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -608,7 +609,6 @@
 		2E2F4427BA27494E8A9DDD63 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk;
 				SYMROOT = "/Users/felipemoraes/Developer/search-engine/build";
@@ -726,7 +726,6 @@
 		3B00868535844C52B4F20D20 /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk;
 				SYMROOT = "/Users/felipemoraes/Developer/search-engine/build";
@@ -1249,7 +1248,6 @@
 		C72A0EDCDABA485D8D86697F /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk;
 				SYMROOT = "/Users/felipemoraes/Developer/search-engine/build";
@@ -1319,7 +1317,6 @@
 		E5D259848FC24A0A8648EE3D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk;
 				SYMROOT = "/Users/felipemoraes/Developer/search-engine/build";

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E77220F0CAD14638AE7996E9"
+               BlueprintIdentifier = "58B5D6AF6E08483E9C1E8298"
                BuildableName = "indexer"
                BlueprintName = "indexer"
                ReferencedContainer = "container:search_engine.xcodeproj">
@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E77220F0CAD14638AE7996E9"
+            BlueprintIdentifier = "58B5D6AF6E08483E9C1E8298"
             BuildableName = "indexer"
             BlueprintName = "indexer"
             ReferencedContainer = "container:search_engine.xcodeproj">
@@ -52,7 +52,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E77220F0CAD14638AE7996E9"
+            BlueprintIdentifier = "58B5D6AF6E08483E9C1E8298"
             BuildableName = "indexer"
             BlueprintName = "indexer"
             ReferencedContainer = "container:search_engine.xcodeproj">
@@ -71,7 +71,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E77220F0CAD14638AE7996E9"
+            BlueprintIdentifier = "58B5D6AF6E08483E9C1E8298"
             BuildableName = "indexer"
             BlueprintName = "indexer"
             ReferencedContainer = "container:search_engine.xcodeproj">
