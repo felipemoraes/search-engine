@@ -58,6 +58,7 @@ int main(int argc, char** argv) {
     // - Boolean search
     cout << "Doc counter " << doc_counter << endl;
     delete reader;
+    delete runs;
     
     return EXIT_SUCCESS;
 }

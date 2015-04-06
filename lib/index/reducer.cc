@@ -113,6 +113,8 @@ File* Reducer::kmerge(vector<File* >* &runs){
     cout << ">> Finished merging " << directory << "/run" << block_number_ << " with " << merged->get_size() << " entries." << endl;
     merged->close();
     block_number_++;
+    delete heap;
+    delete buffer;
     return merged;
 }
 
@@ -151,4 +153,5 @@ void Reducer::reduce(){
     cout << aggr_term.term_id_ << endl;
     merged_->delete_file();
     index->close();
+    delete index;
 }
