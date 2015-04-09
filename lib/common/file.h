@@ -13,6 +13,7 @@
 #include <fstream>
 #include <cstdio>
 #include <string>
+#include <stdlib.h>
 #include "../common/term_occurrence.h"
 using namespace std;
 

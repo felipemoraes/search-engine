@@ -7,3 +7,4 @@ file(GLOB common_SRC
 
 
 ADD_LIBRARY( common ${common_SRC})
+target_link_libraries(common htmlcxx)
