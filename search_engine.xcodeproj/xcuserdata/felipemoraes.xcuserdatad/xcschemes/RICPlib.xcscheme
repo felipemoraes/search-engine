@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0620"
+   LastUpgradeVersion = "0630"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9D78BD6C94A4453BBFF66F94"
+               BlueprintIdentifier = "06D8D3A1980A4D5AA6E75C2B"
                BuildableName = "libRICPlib.a"
                BlueprintName = "RICPlib"
                ReferencedContainer = "container:search_engine.xcodeproj">
@@ -42,7 +42,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9D78BD6C94A4453BBFF66F94"
+            BlueprintIdentifier = "06D8D3A1980A4D5AA6E75C2B"
             BuildableName = "libRICPlib.a"
             BlueprintName = "RICPlib"
             ReferencedContainer = "container:search_engine.xcodeproj">
@@ -60,7 +60,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9D78BD6C94A4453BBFF66F94"
+            BlueprintIdentifier = "06D8D3A1980A4D5AA6E75C2B"
             BuildableName = "libRICPlib.a"
             BlueprintName = "RICPlib"
             ReferencedContainer = "container:search_engine.xcodeproj">

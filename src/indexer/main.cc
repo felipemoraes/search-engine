@@ -34,13 +34,13 @@ int main(int argc, char** argv) {
                                                      indexFileName);
     Document doc;
     doc.clear();
-    int run_size = 100;
+    int run_size = 10;
     vector<File* >* runs;
-    int max_doc = 1000;
+    int max_doc = 10;
     int doc_counter = 0;
     
     Mapper mapper(run_size);
-    while(reader->getNextDocument(doc) && doc_counter < max_doc) {
+    while(reader->getNextDocument(doc) && doc_counter <max_doc) {
         Page p(doc.getURL(), doc.getText());
         mapper.process_page(p);
         doc.clear();

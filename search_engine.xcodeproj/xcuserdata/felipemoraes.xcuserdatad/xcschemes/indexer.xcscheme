@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0620"
+   LastUpgradeVersion = "0630"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "58B5D6AF6E08483E9C1E8298"
+               BlueprintIdentifier = "7781D516C800445D9CAD32ED"
                BuildableName = "indexer"
                BlueprintName = "indexer"
                ReferencedContainer = "container:search_engine.xcodeproj">
@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "58B5D6AF6E08483E9C1E8298"
+            BlueprintIdentifier = "7781D516C800445D9CAD32ED"
             BuildableName = "indexer"
             BlueprintName = "indexer"
             ReferencedContainer = "container:search_engine.xcodeproj">
@@ -52,7 +52,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "58B5D6AF6E08483E9C1E8298"
+            BlueprintIdentifier = "7781D516C800445D9CAD32ED"
             BuildableName = "indexer"
             BlueprintName = "indexer"
             ReferencedContainer = "container:search_engine.xcodeproj">
@@ -71,7 +71,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "58B5D6AF6E08483E9C1E8298"
+            BlueprintIdentifier = "7781D516C800445D9CAD32ED"
             BuildableName = "indexer"
             BlueprintName = "indexer"
             ReferencedContainer = "container:search_engine.xcodeproj">

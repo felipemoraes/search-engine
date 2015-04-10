@@ -34,10 +34,25 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
+		<key>query_processor.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>06D8D3A1980A4D5AA6E75C2B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>0A9E75A7A20045A3AB579A61</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0E739F8771224209A95CFDD8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -48,6 +63,11 @@
 			<true/>
 		</dict>
 		<key>0FA295C7E17B44EFB51FE662</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1072335775614093B4854DA3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -103,6 +123,11 @@
 			<true/>
 		</dict>
 		<key>72FA7CEC646541CFA5E1FD2A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7781D516C800445D9CAD32ED</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -202,6 +227,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>CFBAAEFF902240E5B1E8AD39</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>D2A2818467D64571B8DC9A86</key>
 		<dict>
 			<key>primary</key>
@@ -218,6 +248,11 @@
 			<true/>
 		</dict>
 		<key>DDAE8A1634A54148AC29C08F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E12550B72FA3441D8BC34D66</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -253,6 +288,11 @@
 			<true/>
 		</dict>
 		<key>FEA554D5EBC044CEA694A89E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FFA1C268438E4B8D8707A145</key>
 		<dict>
 			<key>primary</key>
 			<true/>
