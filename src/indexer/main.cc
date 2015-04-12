@@ -20,6 +20,8 @@ using namespace std;
 using namespace RICPNS;
 using namespace htmlcxx;
 
+#define MAX_DOCS 99999999
+#define RUN_SIZE 5000000
 
 
 
@@ -27,39 +29,62 @@ using namespace htmlcxx;
 int main(int argc, char** argv) {
     
     
-    string inputDirectory("/Users/felipemoraes/Developer/search-engine/data/irCollection");
-    string indexFileName("index.txt");
+    string input_directory("/Users/felipemoraes/Developer/search-engine/data/irCollection");
+    string index_fileName("index.txt");
+    string index_directory("/Users/felipemoraes/Developer/search-engine/data/");
+    int num_docs = 100;
+    int doc_counter = 0;
+    int run_size = 500;
     
-    CollectionReader * reader = new CollectionReader(inputDirectory,
-                                                     indexFileName);
+    //Parse comand line arguments
+    for(int i=0; i<argc; i++){
+        string param(argv[i]);
+        if(param == "--directory" || param == "-d"){
+            i++;
+            input_directory = string(argv[i]);
+        }
+        else if(param == "--filename" || param == "-f"){
+            i++;
+            index_fileName = string(argv[i]);
+        }
+        else if(param == "--run_size" || param == "-r"){
+            i++;
+            if(sscanf(argv[i], "%d", &run_size) == EOF){
+                run_size = RUN_SIZE;
+            }
+        } else if(param == "--num_docs" || param == "-n"){
+            i++;
+            if(sscanf(argv[i], "%d", &num_docs) == EOF){
+                num_docs = MAX_DOCS;
+            }
+        } else if(param == "-o" || param == "--output"){
+            i++;
+            index_directory = string(argv[i]);
+        }
+    }
+    
+    
     Document doc;
     doc.clear();
-    int run_size = 10;
     vector<File* >* runs;
-    int max_doc = 10;
-    int doc_counter = 0;
-    
-    Mapper mapper(run_size);
-    while(reader->getNextDocument(doc) && doc_counter <max_doc) {
+    CollectionReader* reader = new CollectionReader(input_directory, index_fileName);
+    Mapper mapper(run_size, index_directory);
+                                                     
+    while(reader->getNextDocument(doc) && doc_counter < num_docs) {
         Page p(doc.getURL(), doc.getText());
         mapper.process_page(p);
         doc.clear();
         doc_counter++;
-        
     }
     runs = mapper.exec();
-    mapper.dump();
-    Reducer reducer(run_size,runs);
+    Reducer reducer(run_size,runs, index_directory);
     reducer.merge();
-    reducer.reduce();
-    // TODO:
-    // - Unit tests
-    // - Compress index
-    // - Boolean search
+    int size = mapper.get_vocabulary_size();
+    vector<long>* seeks = reducer.reduce(size);
+    mapper.dump(seeks);
     cout << "Doc counter " << doc_counter << endl;
     delete reader;
-    delete runs;
-    
+    delete seeks;
     return EXIT_SUCCESS;
 }
 
