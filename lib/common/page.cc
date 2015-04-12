@@ -13,15 +13,10 @@ using namespace std;
 
 Page::Page(string url, string httpResponse){
     url_ = url;
-    //const char* text = httpResponse.c_str();
-    //if( HTML::detect_utf8(text, httpResponse.size()) == false ){
-     //       CharsetConverter cc("8859_1", "UTF8");
-     //       httpResponse = string(cc.convert(text));
-    //}
-    parseHTML(HTML::single_blank(HTML::decode_entities(httpResponse)));
+    parse_HTML(HTML::single_blank(HTML::decode_entities(httpResponse)));
 }
 
-void Page::parseHTML(string html) {
+void Page::parse_HTML(string html) {
 
     HTML::ParserDom parser;
     tree<HTML::Node> dom = parser.parseTree(html);

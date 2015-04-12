@@ -2,7 +2,6 @@
 file(GLOB common_SRC
     "*.h"
     "*.cc"
-    "*.hxx"
 )
 
 

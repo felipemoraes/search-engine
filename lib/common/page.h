@@ -28,17 +28,17 @@ class Page {
 
     Page(string url, string httpResponse);
 
-    string getText();
-    string getUrl();
-    string getTitle();
-    string getKeywords();
-    string getDescription();
-    string getContentType();
-    map<string, string> getLinks();
+    string get_text();
+    string get_url();
+    string get_title();
+    string get_keywords();
+    string get_description();
+    string get_content_type();
+    map<string, string> get_links();
 
   private:
 
-    void parseHTML(string html);
+    void parse_HTML(string html);
 
     string url_;
     string text_;
@@ -50,31 +50,31 @@ class Page {
 	
 };
 
-inline string Page::getText(){
+inline string Page::get_text(){
     return text_;
 }
 
-inline string Page::getUrl(){
+inline string Page::get_url(){
     return url_;
 }
 
-inline string Page::getTitle(){
+inline string Page::get_title(){
     return title_;
 }
 
-inline string Page::getKeywords(){
+inline string Page::get_keywords(){
     return keywords_;
 }
 
-inline string Page::getDescription(){
+inline string Page::get_description(){
     return description_;
 }
 
-inline string Page::getContentType(){
+inline string Page::get_content_type(){
     return content_type_;
 }
 
-inline map<string, string> Page::getLinks(){
+inline map<string, string> Page::get_links(){
     return links_;
 }
 

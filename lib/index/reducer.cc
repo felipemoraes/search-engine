@@ -14,10 +14,16 @@
 using namespace std;
 
 
-Reducer::Reducer(int buffer_size, vector<File* >* &runs){
+Reducer::Reducer(unsigned buffer_size, vector<File* >* &runs, string index_directory){
     runs_ = runs;
     buffer_size_ = buffer_size;
     block_number_ = runs_->size();
+    directory_ = index_directory;
+}
+
+Reducer::~Reducer(){
+    delete merged_;
+    delete runs_;
 }
 
 void Reducer::merge(){
@@ -26,7 +32,7 @@ void Reducer::merge(){
 
     vector<File* >* runs = new vector<File*>();
     vector<File*>::iterator it = runs_->begin();
-    int count = 0;
+    unsigned count = 0;
     while (true) {
         for (;it!=runs_->end();it++) {
             if (count < buffer_size_) {
@@ -50,6 +56,7 @@ void Reducer::merge(){
 
     }
     cout << " >> Finished merge step "<< endl;
+    //leak memory here
     delete runs;
 }
 
@@ -60,16 +67,17 @@ File* Reducer::kmerge(vector<File* >* &runs){
     }
     
     
-    int buffer_length = 0;
+    unsigned buffer_length = 0;
     TermOccurrence* buffer = new TermOccurrence[buffer_size_];
     stringstream file_name;
     priority_queue< TermOccurrence, vector<TermOccurrence>, greater<TermOccurrence> > *heap;
     heap = new priority_queue< TermOccurrence, vector<TermOccurrence>, greater<TermOccurrence> >();
-    string directory = "/Users/felipemoraes/Developer/search-engine/data/tmp_files";
+    string directory = directory_ + "tmp_files";
     file_name << directory << "/run" << block_number_;
     File* merged = new File(file_name.str());
     
-    map<TermOccurrence, int> indices;
+    map<TermOccurrence, unsigned> indices;
+    
     vector<File*>::iterator it;
     for(it = runs->begin(); it != runs->end(); it++){
         File* run = *it;
@@ -92,7 +100,7 @@ File* Reducer::kmerge(vector<File* >* &runs){
             buffer_length = 0;
         }
         
-        int index = indices[top];
+        unsigned index = indices[top];
         indices.erase(top);
         if((*runs)[index]->has_next()){
             TermOccurrence head = (*runs)[index]->read();
@@ -104,6 +112,7 @@ File* Reducer::kmerge(vector<File* >* &runs){
     for(it = runs->begin(); it != runs->end(); it++){
         File* run = *it;
         run->delete_file();
+        delete run;
     }
     
     if(buffer_length > 0){
@@ -114,16 +123,16 @@ File* Reducer::kmerge(vector<File* >* &runs){
     merged->close();
     block_number_++;
     delete heap;
-    delete buffer;
+    delete[] buffer;
     return merged;
 }
 
-void Reducer::reduce(){
+vector<long>* Reducer::reduce(unsigned size){
     cout << "Starting reducing" << endl;
     merged_->reopen();
     int term_id = -1;
     Term aggr_term;
-    IndexFile* index = new IndexFile("/Users/felipemoraes/Developer/search-engine/data/index");
+    IndexFile* index = new IndexFile(directory_ + "index", size);
     aggr_term.docs_ = new vector<Doc>();
     while (merged_->has_next()) {
         TermOccurrence term = merged_->read();
@@ -141,17 +150,22 @@ void Reducer::reduce(){
         Doc doc;
         doc.frequency_ = term.frequency_;
         doc.doc_id_ = term.doc_id_;
-        vector<int>* positions = term.get_positions();
-        vector<int>::iterator it;
-        doc.positions_ = new vector<int>();
+        vector<unsigned>* positions = term.get_positions();
+        vector<unsigned>::iterator it;
+        doc.positions_ = new vector<unsigned>();
         for (it = positions->begin(); it != positions->end(); it++) {
             doc.positions_->push_back(*it);
         }
+        delete positions;
         aggr_term.docs_->push_back(doc);
+        
     }
     index->write(aggr_term);
     cout << aggr_term.term_id_ << endl;
     merged_->delete_file();
     index->close();
+    vector<long>* seeks = index->get_seeks();
+    delete aggr_term.docs_;
     delete index;
+    return seeks;
 }

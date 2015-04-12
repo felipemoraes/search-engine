@@ -19,8 +19,8 @@ using namespace std;
 
 class File {
 private:
-    int size_;
-    int read_;
+    unsigned size_;
+    unsigned read_;
     string name_;
     FILE* file_;
     
@@ -43,24 +43,24 @@ public:
     
     int write(TermOccurrence oc){
         ensure_file_is_open();
-        int position;
+        unsigned position;
         fwrite(&(oc.term_id_), sizeof(int), 1, file_);
         fwrite(&(oc.doc_id_), sizeof(int), 1, file_);
-        vector<int>::iterator it;
-        vector<int>* positions = oc.get_positions();
+        vector<unsigned>::iterator it;
+        vector<unsigned>* positions = oc.get_positions();
         fwrite(&(oc.frequency_), sizeof(int), 1, file_);
         for (it = positions->begin(); it!=positions->end(); it++) {
             position = *it;
             fwrite(&position, sizeof(int), 1, file_);
         }
-        
+        oc.clear();
         size_++;
         return size_;
     }
     
-    int write_block(TermOccurrence *oc, int block_size){
+    int write_block(TermOccurrence *oc, unsigned block_size){
         ensure_file_is_open();
-        for (int i = 0; i<block_size; i++) {
+        for (unsigned i = 0; i<block_size; i++) {
             write(oc[i]);
         }
         return size_;
@@ -70,10 +70,10 @@ public:
         ensure_file_is_open();
         TermOccurrence oc;
         int position;
-        fread((int*) &oc.term_id_, sizeof(oc.term_id_), 1, file_);
-        fread((int*) &oc.doc_id_, sizeof(oc.doc_id_), 1, file_);
-        fread((int*) &oc.frequency_, sizeof(oc.frequency_), 1, file_);
-        for (int i = 0; i<oc.frequency_; i++) {
+        fread((unsigned*) &oc.term_id_, sizeof(oc.term_id_), 1, file_);
+        fread((unsigned*) &oc.doc_id_, sizeof(oc.doc_id_), 1, file_);
+        fread((unsigned*) &oc.frequency_, sizeof(oc.frequency_), 1, file_);
+        for (unsigned i = 0; i<oc.frequency_; i++) {
             fread((int*) &position, sizeof(position), 1, file_);
             oc.add_position(position);
         }
@@ -81,10 +81,10 @@ public:
         return oc;
     }
     
-    TermOccurrence* read_block(int block_size){
+    TermOccurrence* read_block(unsigned block_size){
         TermOccurrence *oc = (TermOccurrence*)calloc(block_size, sizeof(TermOccurrence));
         ensure_file_is_open();
-        for (int i = 0; i< block_size; i++) {
+        for (unsigned i = 0; i< block_size; i++) {
             oc[i] = read();
         }
         return oc;
@@ -109,21 +109,6 @@ public:
         } else {
             return true;
         }
-    }
-    
-    int get_position(){
-        ensure_file_is_open();
-        int pointer = ftell(file_);
-        int position = pointer/sizeof(TermOccurrence);
-        if(feof(file_)){
-            return position+1;
-        }
-        return position;
-    }
-    
-    void set_position(int position){
-        ensure_file_is_open();
-        fseek(file_, position*sizeof(TermOccurrence), SEEK_SET);
     }
     
     int get_size(){

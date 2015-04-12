@@ -9,24 +9,24 @@
 #include "term_occurrence.h"
 
 
-TermOccurrence::TermOccurrence(int term_id, int doc_id, vector<int> positions){
+TermOccurrence::TermOccurrence(unsigned term_id, unsigned doc_id, vector<unsigned> positions){
     term_id_ = term_id;
     doc_id_ = doc_id;
-    positions_ = new vector<int>(positions);
+    positions_ = new vector<unsigned>(positions);
     frequency_ = positions_->size();
 }
 
 TermOccurrence::TermOccurrence(){
-    positions_ = new vector<int>();
+    positions_ = new vector<unsigned>();
 }
 
 
-void TermOccurrence::add_position(int position){
+void TermOccurrence::add_position(unsigned position){
     positions_->push_back(position);
 }
 
 
-vector<int>* TermOccurrence::get_positions(){
+vector<unsigned>* TermOccurrence::get_positions(){
     return positions_;
 }
 

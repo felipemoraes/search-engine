@@ -18,14 +18,14 @@
 using namespace std;
 
 struct Doc {
-    int doc_id_;
-    int frequency_;
-    vector<int>* positions_;
+    unsigned doc_id_;
+    unsigned frequency_;
+    vector<unsigned>* positions_;
 };
 
 struct Term {
-    int term_id_;
-    int frequency_;
+    unsigned term_id_;
+    unsigned frequency_;
     vector<Doc>* docs_;
 };
 
@@ -37,6 +37,7 @@ private:
     int read_;
     string name_;
     FILE* file_;
+    vector<long>* seeks_;
     
 public:
     class FileClosedException {};
@@ -45,15 +46,25 @@ public:
     
     IndexFile(string file_name);
     
+    IndexFile(string file_name, int size);
+    
+    void open(string file_name, int size);
+    
     void open(string file_name);
     
     int write(Term oc);
     
     int write_block(Term *oc, int block_size);
     
+    void write_size(int size);
+    
     Term read();
     
-    Term* read_block(int block_size);
+    Term read(long seek);
+    
+    Term* read_block(unsigned block_size);
+    
+    void read_size();
     
     void rewind();
     
@@ -63,7 +74,7 @@ public:
     
     int get_position();
     
-    void set_position(int position);
+    void set_position(unsigned position);
     
     int get_size();
     
@@ -73,6 +84,7 @@ public:
     
     void close();
     
+    vector<long>* get_seeks();
     
     void delete_file();
     

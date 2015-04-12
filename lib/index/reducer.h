@@ -16,15 +16,17 @@
 
 class Reducer {
 private:
-    int buffer_size_;
+    unsigned buffer_size_;
     vector<File* >* runs_;
     File* merged_;
-    int block_number_;
+    unsigned block_number_;
+    string directory_;
 public:
-    Reducer(int buffer_size, vector<File* >* &runs);
+    Reducer(unsigned buffer_size, vector<File* >* &runs, string index_directory);
+    ~Reducer();
     void merge();
     File* kmerge(vector<File* >* &runs);
-    void reduce();
+    vector<long>* reduce(unsigned size);
 
     
 };

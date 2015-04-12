@@ -18,19 +18,20 @@ using namespace std;
 
 class TermOccurrence {
 private:
-    vector<int>* positions_;
+    vector<unsigned>* positions_;
 public:
-    TermOccurrence(int term_id, int doc_id, vector<int> positions);
+    TermOccurrence(unsigned term_id, unsigned doc_id, vector<unsigned> positions);
     
     TermOccurrence();
     
-    int term_id_;
-    int doc_id_;
-    int frequency_;
+    
+    unsigned term_id_;
+    unsigned doc_id_;
+    unsigned frequency_;
     
     
-    void add_position(int position);
-    vector<int>* get_positions();
+    void add_position(unsigned position);
+    vector<unsigned>* get_positions();
     
     
     friend bool operator>(const TermOccurrence &x, const TermOccurrence &y){
@@ -57,6 +58,11 @@ public:
             return false;
         }
         return false;
+    }
+    
+    
+    void clear(){
+        delete positions_;
     }
 
 };
