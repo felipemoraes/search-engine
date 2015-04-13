@@ -49,12 +49,14 @@ bool CollectionReader::getNextDocument(Document & doc) {
 	char url[MAX_STRING_SIZE], inputContentFileName[MAX_STRING_SIZE];
 	size_t beginOffset = 0, endOffset = 0, uncompressedPageSize = 0;
 	
-	fscanf(inputIndexFilePtr_, "%s %s %lu %lu %lu",
-				 url,
-				 inputContentFileName,
-				 &beginOffset,
-				 &endOffset,
-				 &uncompressedPageSize);
+    if(fscanf(inputIndexFilePtr_, "%s %s %lu %lu %lu",
+              url,
+              inputContentFileName,
+              &beginOffset,
+              &endOffset,
+              &uncompressedPageSize)==EOF){
+        return false;
+    }
 
 	string tmpContentFileName;
 	if(inputContentFileName_ == "") { // Reading first line in index
