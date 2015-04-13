@@ -34,7 +34,7 @@ int main(int argc, char** argv) {
     string index_directory("/Users/felipemoraes/Developer/search-engine/data/");
     int num_docs = 100;
     int doc_counter = 0;
-    int run_size = 500;
+    int run_size = 50;
     
     //Parse comand line arguments
     for(int i=0; i<argc; i++){
@@ -68,6 +68,7 @@ int main(int argc, char** argv) {
     doc.clear();
     vector<File* >* runs;
     CollectionReader* reader = new CollectionReader(input_directory, index_fileName);
+    run_size = (run_size * 10000000)/24;
     Mapper mapper(run_size, index_directory);
                                                      
     while(reader->getNextDocument(doc) && doc_counter < num_docs) {

@@ -35,7 +35,7 @@ void Reducer::merge(){
     unsigned count = 0;
     while (true) {
         for (;it!=runs_->end();it++) {
-            if (count < buffer_size_) {
+            if (count < 1024) {
                 runs->push_back(*it);
                 count++;
             } else {
