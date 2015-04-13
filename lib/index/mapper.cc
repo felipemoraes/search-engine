@@ -9,7 +9,7 @@
 
 #include "mapper.h"
 
-Mapper::Mapper(int run_size, string index_directory){
+Mapper::Mapper(unsigned run_size, string index_directory){
     run_size_ = run_size;
     directory_ = index_directory;
     voc_counter_ = 0;

@@ -29,7 +29,7 @@ using namespace std::placeholders;
 class Mapper {
 
 public:
-    Mapper(int run_size, string index_directory);
+    Mapper(unsigned run_size, string index_directory);
     ~Mapper();
     void process_page(Page& p);
     void write (vector<TermOccurrence>::iterator it);
