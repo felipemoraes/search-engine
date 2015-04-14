@@ -13,7 +13,7 @@ Mapper::Mapper(unsigned run_size, string index_directory){
     run_size_ = run_size;
     directory_ = index_directory;
     voc_counter_ = 0;
-    buffer = new TermOccurrence[run_size];
+    buffer = new vector<TermOccurrence>;
     buffer_size_ = 0;
     cout << "Writer created\n" << endl;
     runs_ = new vector<File*>();
@@ -24,7 +24,7 @@ Mapper::Mapper(unsigned run_size, string index_directory){
 Mapper::~Mapper(){
     doc_file_.close();
     delete vocabulary_;
-    delete[] buffer;
+    delete buffer;
 }
 
 vector<File* >*  Mapper::get_runs(){
@@ -63,7 +63,7 @@ void Mapper::process_page(Page& p){
     map<string, vector<unsigned> >::iterator it;
     for (it = positions.begin(); it != positions.end(); it++){
         unsigned term_id = add_vocabulary(it->first);
-        add_buffer(term_id, doc_id,it->second);
+        add_buffer(term_id, doc_id, it->second);
         flush();
         length++;
     }
@@ -78,21 +78,22 @@ void Mapper::flush(){
 }
 
 void Mapper::add_buffer(unsigned term_id, unsigned doc_id, vector<unsigned> positions){
-    TermOccurrence term(term_id, doc_id,positions);
-    buffer[buffer_size_] = term;
+    TermOccurrence term(term_id, doc_id, positions);
+    buffer->push_back(term);
     buffer_size_++;
 }
 
 vector<File* >* Mapper::exec(){
     string directory = directory_ + "tmp_files";
     cout << ">> Flushing buffer of "<< buffer_size_ <<" occurrences to disk..." << endl;
-    sort(buffer,buffer+buffer_size_);
+    sort(buffer->begin(), buffer->begin() + buffer_size_);
     int block_number = runs_->size();
     stringstream file_name;
     file_name << directory << "/run" << block_number;
     cout << ">> Writing ordered run in file " << file_name.str() << endl;
     File* run_file = new File(file_name.str());
     run_file->write_block(buffer, buffer_size_);
+    buffer->clear();
     runs_->push_back(run_file);
     run_file->close();
     buffer_size_ = 0;

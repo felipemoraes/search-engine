@@ -68,7 +68,7 @@ File* Reducer::kmerge(vector<File* >* &runs){
     
     
     unsigned buffer_length = 0;
-    TermOccurrence* buffer = new TermOccurrence[buffer_size_];
+    vector<TermOccurrence>* buffer = new vector<TermOccurrence>();
     stringstream file_name;
     priority_queue< TermOccurrence, vector<TermOccurrence>, greater<TermOccurrence> > *heap;
     heap = new priority_queue< TermOccurrence, vector<TermOccurrence>, greater<TermOccurrence> >();
@@ -92,11 +92,12 @@ File* Reducer::kmerge(vector<File* >* &runs){
     while( !heap->empty() ){
         TermOccurrence top = heap->top();
         
-        buffer[buffer_length] = top;
+        buffer->push_back(top);
         heap->pop();
         buffer_length++;
         if(buffer_length >= buffer_size_){
             merged->write_block(buffer, buffer_size_);
+            buffer->clear();
             buffer_length = 0;
         }
         
@@ -123,7 +124,7 @@ File* Reducer::kmerge(vector<File* >* &runs){
     merged->close();
     block_number_++;
     delete heap;
-    delete[] buffer;
+    delete buffer;
     return merged;
 }
 
@@ -150,13 +151,12 @@ vector<long>* Reducer::reduce(unsigned size){
         Doc doc;
         doc.frequency_ = term.frequency_;
         doc.doc_id_ = term.doc_id_;
-        vector<unsigned>* positions = term.get_positions();
+        vector<unsigned> positions = term.get_positions();
         vector<unsigned>::iterator it;
         doc.positions_ = new vector<unsigned>();
-        for (it = positions->begin(); it != positions->end(); it++) {
+        for (it = positions.begin(); it != positions.end(); it++) {
             doc.positions_->push_back(*it);
         }
-        delete positions;
         aggr_term.docs_->push_back(doc);
         
     }

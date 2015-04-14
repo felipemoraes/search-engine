@@ -53,7 +53,7 @@ private:
     unsigned doc_counter_;
     string directory_;
     map<string,unsigned>* vocabulary_;
-    TermOccurrence* buffer;
+    vector<TermOccurrence>* buffer;
     vector<File* >* runs_;
     ofstream doc_file_;
     

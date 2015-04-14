@@ -47,21 +47,22 @@ public:
         fwrite(&(oc.term_id_), sizeof(int), 1, file_);
         fwrite(&(oc.doc_id_), sizeof(int), 1, file_);
         vector<unsigned>::iterator it;
-        vector<unsigned>* positions = oc.get_positions();
+        vector<unsigned> positions = oc.get_positions();
         fwrite(&(oc.frequency_), sizeof(int), 1, file_);
-        for (it = positions->begin(); it!=positions->end(); it++) {
+        
+        for (it = positions.begin(); it!=positions.end(); it++) {
             position = *it;
             fwrite(&position, sizeof(int), 1, file_);
         }
-        oc.clear();
         size_++;
         return size_;
     }
     
-    int write_block(TermOccurrence *oc, unsigned block_size){
+    int write_block(vector<TermOccurrence>* oc, unsigned block_size){
         ensure_file_is_open();
-        for (unsigned i = 0; i<block_size; i++) {
-            write(oc[i]);
+        vector<TermOccurrence>::iterator it;
+        for (it=oc->begin(); it!=oc->end(); it++) {
+            write(*it);
         }
         return size_;
     }
@@ -81,11 +82,14 @@ public:
         return oc;
     }
     
-    TermOccurrence* read_block(unsigned block_size){
-        TermOccurrence *oc = (TermOccurrence*)calloc(block_size, sizeof(TermOccurrence));
+    vector<TermOccurrence>* read_block(unsigned block_size){
+        vector<TermOccurrence> *oc = new vector<TermOccurrence>();
         ensure_file_is_open();
         for (unsigned i = 0; i< block_size; i++) {
-            oc[i] = read();
+            TermOccurrence term = read();
+            if (has_next()) {
+                oc->push_back(term);
+            }
         }
         return oc;
     }
