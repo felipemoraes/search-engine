@@ -19,6 +19,7 @@ Mapper::Mapper(unsigned run_size, string index_directory){
     runs_ = new vector<File*>();
     vocabulary_ = new map<string,unsigned>();
     doc_file_.open(directory_ + "documents");
+    doc_counter_ = 0;
 }
 
 Mapper::~Mapper(){
