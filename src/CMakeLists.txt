@@ -2,6 +2,6 @@
 
 
 add_subdirectory(indexer)
-add_subdirectory(processor)
+add_subdirectory(searcher)
 
 

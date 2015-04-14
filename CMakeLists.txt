@@ -9,6 +9,7 @@ IF ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
     SET(warnings "-Wall -Wextra -Werror")
 ENDIF ()
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../../bin/")
 
 IF (APPLE)
     SET(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} "/usr/local/include/")
