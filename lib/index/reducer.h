@@ -28,8 +28,6 @@ public:
     void merge();
     File* kmerge(vector<File* >* &runs);
     vector<long>* reduce(unsigned size);
-
-    
 };
 
 

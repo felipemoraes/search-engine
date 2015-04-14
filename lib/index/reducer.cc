@@ -144,7 +144,6 @@ vector<long>* Reducer::reduce(unsigned size){
             aggr_term.term_id_ = term_id;
             aggr_term.frequency_ = term.frequency_;
             aggr_term.docs_->clear();
-            cout << aggr_term.term_id_ << endl;
         }
         aggr_term.frequency_ += term.frequency_;
         Doc doc;
@@ -159,7 +158,6 @@ vector<long>* Reducer::reduce(unsigned size){
         
     }
     index->write(aggr_term);
-    cout << aggr_term.term_id_ << endl;
     merged_->delete_file();
     index->close();
     vector<long>* seeks = index->get_seeks();
