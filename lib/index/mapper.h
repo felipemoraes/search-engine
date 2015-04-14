@@ -16,7 +16,7 @@
 #include <string>
 #include <algorithm>
 #include <vector>
-#include <map>
+#include <unordered_map>
 #include<boost/tokenizer.hpp>
 #include "../common/page.h"
 #include "../common/term_occurrence.h"
@@ -52,7 +52,7 @@ private:
     unsigned voc_counter_;
     unsigned doc_counter_;
     string directory_;
-    map<string,unsigned>* vocabulary_;
+    unordered_map<string,unsigned>* vocabulary_;
     vector<TermOccurrence>* buffer;
     vector<File* >* runs_;
     ofstream doc_file_;

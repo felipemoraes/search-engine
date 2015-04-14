@@ -44,12 +44,10 @@ int IndexFile::write(Term oc){
     seeks_->push_back(ftell(file_));
     fwrite(&(oc.term_id_), sizeof(int), 1, file_);
     fwrite(&(oc.frequency_), sizeof(int), 1, file_);
-    vector<Doc>::iterator it;
-    for (it = oc.docs_->begin() ; it!= oc.docs_->end(); it++) {
+    for (auto it = oc.docs_->begin() ; it!= oc.docs_->end(); it++) {
         fwrite(&(it->doc_id_), sizeof(int), 1, file_);
         fwrite(&(it->frequency_), sizeof(int), 1, file_);
-        vector<unsigned>::iterator iter = it->positions_->begin();
-        for (; iter!=it->positions_->end(); iter++) {
+        for (auto iter = it->positions_->begin(); iter!=it->positions_->end(); iter++) {
             fwrite(&(*iter), sizeof(int), 1, file_);
         }
         delete it->positions_;

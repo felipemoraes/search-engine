@@ -10,7 +10,7 @@
 #include <queue>
 #include <iostream>
 #include <fstream>
-#include <map>
+#include <unordered_map>
 using namespace std;
 
 
@@ -76,10 +76,9 @@ File* Reducer::kmerge(vector<File* >* &runs){
     file_name << directory << "/run" << block_number_;
     File* merged = new File(file_name.str());
     
-    map<TermOccurrence, unsigned> indices;
+    unordered_map<TermOccurrence, unsigned, TermHash> indices;
     
-    vector<File*>::iterator it;
-    for(it = runs->begin(); it != runs->end(); it++){
+    for(auto it = runs->begin(); it != runs->end(); it++){
         File* run = *it;
         run->reopen();
         TermOccurrence term = run->read();
@@ -110,7 +109,7 @@ File* Reducer::kmerge(vector<File* >* &runs){
         }
     }
     
-    for(it = runs->begin(); it != runs->end(); it++){
+    for(auto it = runs->begin(); it != runs->end(); it++){
         File* run = *it;
         run->delete_file();
         delete run;
@@ -152,9 +151,8 @@ vector<long>* Reducer::reduce(unsigned size){
         doc.frequency_ = term.frequency_;
         doc.doc_id_ = term.doc_id_;
         vector<unsigned> positions = term.get_positions();
-        vector<unsigned>::iterator it;
         doc.positions_ = new vector<unsigned>();
-        for (it = positions.begin(); it != positions.end(); it++) {
+        for (auto it = positions.begin(); it != positions.end(); it++) {
             doc.positions_->push_back(*it);
         }
         aggr_term.docs_->push_back(doc);

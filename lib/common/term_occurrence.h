@@ -60,7 +60,18 @@ public:
         }
         return false;
     }
+    
+    bool operator==(const TermOccurrence &other) const { return (term_id_ == other.term_id_
+              && doc_id_ == other.doc_id_
+              && frequency_ == other.frequency_);
+    }
 
+};
+
+
+class TermHash {
+public:
+    size_t operator()(const TermOccurrence& x) const { return std::hash<int>()(x.term_id_); }
 };
 
 

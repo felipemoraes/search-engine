@@ -13,6 +13,7 @@
 #include "../common/file.h"
 #include "../index/index_file.h"
 #include <vector>
+#include <unordered_map>
 
 class Reducer {
 private:

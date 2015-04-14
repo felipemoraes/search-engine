@@ -17,7 +17,7 @@ Mapper::Mapper(unsigned run_size, string index_directory){
     buffer_size_ = 0;
     cout << "Writer created\n" << endl;
     runs_ = new vector<File*>();
-    vocabulary_ = new map<string,unsigned>();
+    vocabulary_ = new unordered_map<string,unsigned>();
     doc_file_.open(directory_ + "documents");
     doc_counter_ = 0;
 }
@@ -39,8 +39,7 @@ void Mapper::process_frequencies(Page& p, map<string, vector<unsigned> > &positi
     remove_accents(text);
     transform(text.begin(), text.end(), text.begin(),::tolower);
     tokenizer<> tokens(text);
-    tokenizer<>::iterator token;
-    for(token=tokens.begin(); token!=tokens.end();++token){
+    for(auto token = tokens.begin(); token!=tokens.end();++token){
         string term = *token;
         if (positions.count(*token)) {
             positions[*token].push_back(position);
@@ -61,8 +60,7 @@ void Mapper::process_page(Page& p){
     process_frequencies(p,positions);
     unsigned length = 0;
     unsigned doc_id = doc_counter_++;
-    map<string, vector<unsigned> >::iterator it;
-    for (it = positions.begin(); it != positions.end(); it++){
+    for (auto it = positions.begin(); it != positions.end(); it++){
         unsigned term_id = add_vocabulary(it->first);
         add_buffer(term_id, doc_id, it->second);
         flush();
@@ -106,8 +104,7 @@ void Mapper::dump(vector<long>* seeks){
     string filename(directory_ + "vocabulary");
     ofstream file;
     file.open(filename);
-    map<string,unsigned>::iterator it;
-    for (it = vocabulary_->begin(); it!= vocabulary_->end(); it++) {
+    for (auto it = vocabulary_->begin(); it!= vocabulary_->end(); it++) {
         file << it->first << "\t"<< it->second  << "\t" << (*seeks)[it->second] << endl;
     }
     file.close();
