@@ -27,14 +27,12 @@ using namespace htmlcxx;
 
 
 int main(int argc, char** argv) {
-    
-    
     string input_directory("/Users/felipemoraes/Developer/search-engine/data/irCollection");
     string index_fileName("index.txt");
     string index_directory("/Users/felipemoraes/Developer/search-engine/data/");
-    int num_docs = 100;
+    int num_docs = MAX_DOCS;
     int doc_counter = 0;
-    int run_size = 50;
+    int run_size = 5000;
     
     //Parse comand line arguments
     for(int i=0; i<argc; i++){
@@ -62,15 +60,12 @@ int main(int argc, char** argv) {
             index_directory = string(argv[i]);
         }
     }
-    
-    
     Document doc;
     doc.clear();
     vector<File* >* runs;
     CollectionReader* reader = new CollectionReader(input_directory, index_fileName);
     run_size = (run_size * 10000000)/24;
     Mapper mapper(run_size, index_directory);
-                                                     
     while(reader->getNextDocument(doc) && doc_counter < num_docs) {
         Page p(doc.getURL(), doc.getText());
         mapper.process_page(p);
