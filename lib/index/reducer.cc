@@ -95,10 +95,10 @@ File* Reducer::kmerge(vector<File* >* &runs){
             buffer->clear();
             buffer_length = 0;
         }
-        
         unsigned index = top.run_number_;
         if((*runs)[index]->has_next()){
             TermOccurrence head = (*runs)[index]->read();
+            head.run_number_ = index;
             heap->push(head);
         }
     }

@@ -21,8 +21,8 @@ using namespace std;
 using namespace RICPNS;
 using namespace htmlcxx;
 
-#define MAX_DOCS 1000
-#define RUN_SIZE 5000000
+#define MAX_DOCS 9999999
+#define RUN_SIZE 5
 
 
 int main(int argc, char** argv) {
@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
     string stopwords_directory("/Users/felipemoraes/Developer/search-engine/util/stopwords/");
     int num_docs = MAX_DOCS;
     int doc_counter = 0;
-    int run_size = 5000;
+    int run_size = 5;
     
     
     //Parse comand line arguments
@@ -69,7 +69,7 @@ int main(int argc, char** argv) {
     doc.clear();
     vector<File* >* runs;
     CollectionReader* reader = new CollectionReader(input_directory, index_fileName);
-    run_size = (run_size * 10000000)/24;
+    //run_size = (run_size * 10000000)/24;
     Mapper mapper(run_size, index_directory,stopwords_directory);
     while(reader->getNextDocument(doc) && doc_counter < num_docs) {
         string text = doc.getText();
