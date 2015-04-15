@@ -21,7 +21,7 @@ using namespace std;
 using namespace RICPNS;
 using namespace htmlcxx;
 
-#define MAX_DOCS 9999999
+#define MAX_DOCS 100
 #define RUN_SIZE 5
 
 

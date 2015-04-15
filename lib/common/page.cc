@@ -41,7 +41,7 @@ static string clean_text(GumboNode* node) {
 
 
 bool Page::remove_header(string& str) {
-    unsigned pos = str.find("<!DOC");
+    size_t pos = str.find("<!DOC");
     // either we are already at the beginning of the <html> tag or it doesn't
     // exist.
     if (!pos || pos == string::npos) {
