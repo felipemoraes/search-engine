@@ -69,7 +69,7 @@ int main(int argc, char** argv) {
     doc.clear();
     vector<File* >* runs;
     CollectionReader* reader = new CollectionReader(input_directory, index_fileName);
-    //run_size = (run_size * 10000000)/24;
+    run_size = (run_size * 10000000)/24;
     Mapper mapper(run_size, index_directory,stopwords_directory);
     while(reader->getNextDocument(doc) && doc_counter < num_docs) {
         string text = doc.getText();
