@@ -29,7 +29,7 @@ public:
     unsigned term_id_;
     unsigned doc_id_;
     unsigned frequency_;
-    
+    unsigned run_number_;
     
     void add_position(unsigned position);
     vector<unsigned> get_positions();

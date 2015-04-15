@@ -76,16 +76,12 @@ File* Reducer::kmerge(vector<File* >* &runs){
     file_name << directory << "/run" << block_number_;
     File* merged = new File(file_name.str());
     
-    unordered_map<TermOccurrence, unsigned, TermHash> indices;
-    
     for(auto it = runs->begin(); it != runs->end(); it++){
         File* run = *it;
         run->reopen();
         TermOccurrence term = run->read();
-        
+        term.run_number_ = it - runs->begin();
         heap->push(term);
-        indices[term] = it - runs->begin();
-        
         cout << "Run "<< run->get_name() << " size: " << run->get_size() << endl;
     }
     while( !heap->empty() ){
@@ -100,12 +96,10 @@ File* Reducer::kmerge(vector<File* >* &runs){
             buffer_length = 0;
         }
         
-        unsigned index = indices[top];
-        indices.erase(top);
+        unsigned index = top.run_number_;
         if((*runs)[index]->has_next()){
             TermOccurrence head = (*runs)[index]->read();
             heap->push(head);
-            indices[head] = index;
         }
     }
     
