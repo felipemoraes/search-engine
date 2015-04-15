@@ -44,27 +44,25 @@ public:
     
     IndexFile();
     
-    IndexFile(const string &file_name);
+    IndexFile(string file_name);
     
-    IndexFile(const string &file_name, const int &size);
+    IndexFile(string file_name, int size);
     
-    void open(const string &file_name, const int &size);
+    void open(string file_name, int size);
     
-    void open(const string &file_name);
+    void open(string file_name);
     
-    int write(const Term &oc);
+    int write(Term oc);
     
-    //FIXME
-    int write_block(const Term* &oc, const int &block_size);
+    int write_block(Term *oc, int block_size);
     
-    void write_size(const int &size);
+    void write_size(int size);
     
     Term read();
     
     Term read(long seek);
     
-    //FIXME
-    Term* read_block(const unsigned &block_size);
+    Term* read_block(unsigned block_size);
     
     void read_size();
     

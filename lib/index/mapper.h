@@ -26,7 +26,6 @@ using namespace std;
 using namespace boost;
 using namespace std::placeholders;
 
-
 class Mapper {
 
 public:
@@ -34,9 +33,11 @@ public:
     ~Mapper();
     void process_page(Page& p);
     void write (vector<TermOccurrence>::iterator it);
+    bool vocabulary_contains(string term);
     int add_vocabulary(string term);
     void remove_accents(string &str);
-    void process_frequencies(Page& p, unordered_map<string, vector<unsigned> > &positions);
+    void process_frequencies(Page& p, map<string, vector<unsigned> > &positions);
+    void add_buffer(unsigned term_id, unsigned doc_id, vector<unsigned> positions);
     void flush();
     vector<File* >* exec();
     vector<File* >* get_runs();

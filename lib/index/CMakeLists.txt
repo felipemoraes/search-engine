@@ -8,7 +8,7 @@ file(GLOB index_SRC
 
 
 ADD_LIBRARY( index ${index_SRC})
-target_link_libraries(index common gumbo)
+target_link_libraries(index common)
 
 
 

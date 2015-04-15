@@ -6,14 +6,22 @@
 #include <map>
 #include <fstream>
 #include <boost/algorithm/string.hpp>
+#include <htmlcxx/html/Node.h>
+#include <htmlcxx/html/ParserDom.h>
+#include <htmlcxx/html/utils.h>
+#include <htmlcxx/html/Uri.h>
+#include <htmlcxx/html/CharsetConverter.h>
 #include "../../lib/common/page.h"
 #include "../../lib/index/mapper.h"
 #include "../../lib/index/reducer.h"
 
+#include "gumbo.h"
+
 using namespace std;
 using namespace RICPNS;
+using namespace htmlcxx;
 
-#define MAX_DOCS 9999999
+#define MAX_DOCS 1000
 #define RUN_SIZE 5000000
 
 
@@ -23,7 +31,7 @@ int main(int argc, char** argv) {
     string index_directory("/Users/felipemoraes/Developer/search-engine/data/");
     int num_docs = MAX_DOCS;
     int doc_counter = 0;
-    int run_size = 50;
+    int run_size = 5000;
     
     
     //Parse comand line arguments

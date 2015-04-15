@@ -32,9 +32,9 @@ vector<File* >*  Mapper::get_runs(){
     return runs_;
 }
 
-void Mapper::process_frequencies(Page& p, unordered_map<string, vector<unsigned> > &positions){
+void Mapper::process_frequencies(Page& p, map<string, vector<unsigned> > &positions){
     
-    string text = p.get_text();
+    string text(p.get_text());
     unsigned position = 0;
     remove_accents(text);
     transform(text.begin(), text.end(), text.begin(),::tolower);
@@ -48,7 +48,7 @@ void Mapper::process_frequencies(Page& p, unordered_map<string, vector<unsigned>
             pair<string,vector<unsigned> > p;
             p.first = *token;
             p.second.push_back(position);
-            positions.emplace(p);
+            positions.insert(p);
         }
         position++;
     }
@@ -56,15 +56,13 @@ void Mapper::process_frequencies(Page& p, unordered_map<string, vector<unsigned>
 
 void Mapper::process_page(Page& p){
 
-    unordered_map<string, vector<unsigned> > positions;
+    map<string, vector<unsigned> > positions;
     process_frequencies(p,positions);
     unsigned length = 0;
     unsigned doc_id = doc_counter_++;
     for (auto it = positions.begin(); it != positions.end(); it++){
         unsigned term_id = add_vocabulary(it->first);
-        TermOccurrence term(term_id, doc_id, it->second);
-        buffer->push_back(term);
-        buffer_size_++;
+        add_buffer(term_id, doc_id, it->second);
         flush();
         length++;
     }
@@ -78,6 +76,11 @@ void Mapper::flush(){
     }
 }
 
+void Mapper::add_buffer(unsigned term_id, unsigned doc_id, vector<unsigned> positions){
+    TermOccurrence term(term_id, doc_id, positions);
+    buffer->push_back(term);
+    buffer_size_++;
+}
 
 vector<File* >* Mapper::exec(){
     string directory = directory_ + "tmp_files";
@@ -111,7 +114,7 @@ int Mapper::add_vocabulary(const string term){
     if (vocabulary_->count(term)) {
         return (*vocabulary_)[term];
     }
-    vocabulary_->emplace(term,voc_counter_);
+    (*vocabulary_)[term] = voc_counter_;
     voc_counter_++;
     return (*vocabulary_)[term];
 }
@@ -151,7 +154,7 @@ void Mapper::remove_accents(string &str) {
             //ù, ú, û, ü
         } else if ((c >= 0xb9 && c <= 0xbc)){
             str[i]='u';
-            // if not space
+            //Se nao for espaco
         }
         else if(c!=0x20){
             unsigned int x;
