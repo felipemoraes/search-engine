@@ -4,7 +4,7 @@
 
 ADD_LIBRARY( RICPlib CollectionReader.h CollectionReader.cpp CollectionWriter.h CollectionWriter.cpp Document.h Document.cpp envDefault.h)
 
-target_link_libraries(RICPlib htmlcxx)
+target_link_libraries(RICPlib)
 
 
 

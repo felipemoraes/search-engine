@@ -15,15 +15,14 @@
 #include "../../lib/index/mapper.h"
 #include "../../lib/index/reducer.h"
 
+#include "gumbo.h"
 
 using namespace std;
 using namespace RICPNS;
 using namespace htmlcxx;
 
-#define MAX_DOCS 99999999
+#define MAX_DOCS 1000
 #define RUN_SIZE 5000000
-
-
 
 
 int main(int argc, char** argv) {
@@ -33,6 +32,7 @@ int main(int argc, char** argv) {
     int num_docs = MAX_DOCS;
     int doc_counter = 0;
     int run_size = 5000;
+    
     
     //Parse comand line arguments
     for(int i=0; i<argc; i++){
@@ -67,6 +67,7 @@ int main(int argc, char** argv) {
     run_size = (run_size * 10000000)/24;
     Mapper mapper(run_size, index_directory);
     while(reader->getNextDocument(doc) && doc_counter < num_docs) {
+        string text = doc.getText();
         Page p(doc.getURL(), doc.getText());
         mapper.process_page(p);
         doc.clear();

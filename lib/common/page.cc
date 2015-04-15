@@ -8,86 +8,52 @@
 
 
 #include "page.h"
+#include "gumbo.h"
 #include <iostream>
 using namespace std;
 
 Page::Page(string url, string httpResponse){
     url_ = url;
-    parse_HTML(HTML::single_blank(HTML::decode_entities(httpResponse)));
+    remove_header(httpResponse);
+    parse(httpResponse);
 }
 
-void Page::parse_HTML(string html) {
-
-    HTML::ParserDom parser;
-    tree<HTML::Node> dom = parser.parseTree(html);
-    tree<HTML::Node>::iterator it = dom.begin();
-    //text_ += url_;
-    bool http_response = false;
-    for (; it != dom.end(); ++it) {
-        if (it.node != 0 && dom.parent(it) != NULL){
-            string parent_tag = dom.parent(it)->tagName();
-            //Jump javascript code
-            boost::to_lower(parent_tag);
-            if (parent_tag == "script" || parent_tag == "noscript" ){
-                it.skip_children();
-                continue;
+static string clean_text(GumboNode* node) {
+    if (node->type == GUMBO_NODE_TEXT) {
+        return std::string(node->v.text.text);
+    } else if (node->type == GUMBO_NODE_ELEMENT &&
+               node->v.element.tag != GUMBO_TAG_SCRIPT &&
+               node->v.element.tag != GUMBO_TAG_STYLE) {
+        std::string contents = "";
+        GumboVector* children = &node->v.element.children;
+        for (unsigned int i = 0; i < children->length; ++i) {
+            const std::string text = clean_text((GumboNode*)children->data[i]);
+            if (i != 0 && !text.empty()) {
+                contents.append(" ");
             }
+            contents.append(text);
         }
-        //Parse plain text of the page
-        if ((!it->isTag()) && (!it->isComment()) ) {
-            if (!http_response) {
-                http_response = true;
-                continue;
-            }
-            text_ += " ";
-            text_ += it->text();
-        }
-        else { //Parse metadata
-            string tagName = it->tagName();
-            boost::to_lower(tagName);
-            if(tagName == "title"){
-                it++;
-                if(it == dom.end()) return;
-                title_ = it->text();
-                
-            }
-            else if(tagName == "meta"){
-                it->parseAttributes();
-                std::pair<bool, std::string> attrib = it->attribute("name");
-                if(attrib.first == true){
-                    boost::to_lower(attrib.second);
-                    if(attrib.second == "description")
-                        description_ = it->attribute("content").second;
-                    if(attrib.second == "keywords")
-                        keywords_ = it->attribute("content").second;
-                }
-                attrib = it->attribute("http-equiv");
-                boost::to_lower(attrib.second);
-                if(attrib.first == true && attrib.second == "content-type"){
-                    content_type_ = it->attribute("content").second;
-                }
-                
-            }
-            else if(tagName == "a"){
-                it->parseAttributes();
-                std::pair<bool, std::string> attrib = it->attribute("rel");
-                boost::to_lower(attrib.second);
-                if(attrib.first == true && attrib.second == "nofollow"){
-
-                }else{
-                    attrib = it->attribute("href");
-                    string anchor_text;
-                    int children = it.number_of_children();
-                    for(int i=0; i<children; i++){
-                        it++;
-                        if(it == dom.end()) return;
-                        if(!it->isTag()) anchor_text += it->text();
-                    }
-                    links_[HTML::convert_link(attrib.second, url_)] = anchor_text;
-                    text_ += " ";
-                    text_ += anchor_text;
-                }
-            }
-        }
+        return contents;
+    } else {
+        return "";
     }
+}
+
+
+bool Page::remove_header(string& str) {
+    unsigned pos = str.find("<!DOC");
+    // either we are already at the beginning of the <html> tag or it doesn't
+    // exist.
+    if (!pos || pos == string::npos) {
+        return false;
+    }
+    str.erase(0, pos - 1);
+    return true;
+}
+
+void Page::parse(const std::string& html) {
+    GumboOutput* output = NULL;
+    output = gumbo_parse(html.c_str());
+    text_ = clean_text(output->root);
+    gumbo_destroy_output(&kGumboDefaultOptions, output);
 }

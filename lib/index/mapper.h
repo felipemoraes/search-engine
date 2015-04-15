@@ -41,7 +41,7 @@ public:
     void flush();
     vector<File* >* exec();
     vector<File* >* get_runs();
-    void dump(vector<long>* seeks);
+    void dump(vector<long>* &seeks);
     
     int get_vocabulary_size();
     

@@ -100,7 +100,7 @@ vector<File* >* Mapper::exec(){
 }
 
 
-void Mapper::dump(vector<long>* seeks){
+void Mapper::dump(vector<long>* &seeks){
     string filename(directory_ + "vocabulary");
     ofstream file;
     file.open(filename);

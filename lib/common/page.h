@@ -38,8 +38,8 @@ class Page {
 
   private:
 
-    void parse_HTML(string html);
-
+    void parse(const std::string& html);
+    bool remove_header(string& str);
     string url_;
     string text_;
     string title_;
