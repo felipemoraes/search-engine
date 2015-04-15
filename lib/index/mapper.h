@@ -17,6 +17,7 @@
 #include <algorithm>
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
 #include<boost/tokenizer.hpp>
 #include "../common/page.h"
 #include "../common/term_occurrence.h"
@@ -30,7 +31,7 @@ using namespace std::placeholders;
 class Mapper {
 
 public:
-    Mapper(unsigned run_size, string index_directory);
+    Mapper(unsigned run_size, string index_directory, string stopwords_directory);
     ~Mapper();
     void process_page(Page& p);
     void write (vector<TermOccurrence>::iterator it);
@@ -53,10 +54,10 @@ private:
     string directory_;
     unordered_map<string,unsigned>* vocabulary_;
     vector<TermOccurrence>* buffer;
+    unordered_set<string> stopwords_;
     vector<File* >* runs_;
     ofstream doc_file_;
-    
-    
+    void load_stopwords(string stopwords_dir);
     
 };
 

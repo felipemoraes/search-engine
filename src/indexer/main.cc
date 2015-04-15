@@ -21,6 +21,7 @@ int main(int argc, char** argv) {
     string input_directory("/Users/felipemoraes/Developer/search-engine/data/irCollection");
     string index_fileName("index.txt");
     string index_directory("/Users/felipemoraes/Developer/search-engine/data/");
+    string stopwords_directory("/Users/felipemoraes/Developer/search-engine/util/stopwords/");
     int num_docs = MAX_DOCS;
     int doc_counter = 0;
     int run_size = 50;
@@ -51,13 +52,17 @@ int main(int argc, char** argv) {
             i++;
             index_directory = string(argv[i]);
         }
+        else if(param == "-s" || param == "--stopwords"){
+            i++;
+            stopwords_directory = string(argv[i]);
+        }
     }
     Document doc;
     doc.clear();
     vector<File* >* runs;
     CollectionReader* reader = new CollectionReader(input_directory, index_fileName);
     run_size = (run_size * 10000000)/24;
-    Mapper mapper(run_size, index_directory);
+    Mapper mapper(run_size, index_directory,stopwords_directory);
     while(reader->getNextDocument(doc) && doc_counter < num_docs) {
         string text = doc.getText();
         Page p(doc.getURL(), doc.getText());
