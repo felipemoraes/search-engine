@@ -26,6 +26,8 @@ using namespace std;
 using namespace boost;
 using namespace std::placeholders;
 
+#define MAX_VOCABULARY_SIZE 2000000
+
 class Mapper {
 
 public:

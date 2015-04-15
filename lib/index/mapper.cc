@@ -18,6 +18,7 @@ Mapper::Mapper(unsigned run_size, string index_directory){
     cout << "Writer created\n" << endl;
     runs_ = new vector<File*>();
     vocabulary_ = new unordered_map<string,unsigned>();
+    vocabulary_->reserve(MAX_VOCABULARY_SIZE);
     doc_file_.open(directory_ + "documents");
     doc_counter_ = 0;
 }
@@ -114,7 +115,7 @@ int Mapper::add_vocabulary(const string term){
     if (vocabulary_->count(term)) {
         return (*vocabulary_)[term];
     }
-    (*vocabulary_)[term] = voc_counter_;
+    vocabulary_->emplace(term,voc_counter_);
     voc_counter_++;
     return (*vocabulary_)[term];
 }
@@ -154,7 +155,7 @@ void Mapper::remove_accents(string &str) {
             //ù, ú, û, ü
         } else if ((c >= 0xb9 && c <= 0xbc)){
             str[i]='u';
-            //Se nao for espaco
+            // if not space
         }
         else if(c!=0x20){
             unsigned int x;

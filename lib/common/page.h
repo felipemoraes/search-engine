@@ -12,16 +12,9 @@
 
 #include <string>
 #include <map>
-
 #include <boost/algorithm/string.hpp>
-#include <htmlcxx/html/Node.h>
-#include <htmlcxx/html/ParserDom.h>
-#include <htmlcxx/html/utils.h>
-#include <htmlcxx/html/Uri.h>
-#include <htmlcxx/html/CharsetConverter.h>
 
 using namespace std;
-using namespace htmlcxx;
 
 class Page {
   public:
@@ -38,7 +31,7 @@ class Page {
 
   private:
 
-    void parse(const std::string& html);
+    void parse(const string& html);
     bool remove_header(string& str);
     string url_;
     string text_;

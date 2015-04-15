@@ -405,14 +405,6 @@ dependencies: \
   /usr/local/include/boost/algorithm/string/formatter.hpp \
   /usr/local/include/boost/algorithm/string/detail/formatter.hpp \
   /usr/local/include/boost/algorithm/string/erase.hpp \
-  /usr/local/include/htmlcxx/html/Node.h \
-  /usr/local/include/htmlcxx/html/ParserDom.h \
-  /usr/local/include/htmlcxx/html/ParserSax.h \
-  /usr/local/include/htmlcxx/html/ParserSax.tcc \
-  /usr/local/include/htmlcxx/html/tree.h \
-  /usr/local/include/htmlcxx/html/utils.h \
-  /usr/local/include/htmlcxx/html/Uri.h \
-  /usr/local/include/htmlcxx/html/CharsetConverter.h \
   /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/common/page.h \
   /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/index/mapper.h \
   /usr/local/include/boost/tokenizer.hpp \
@@ -423,5 +415,4 @@ dependencies: \
   /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/index/../common/term_occurrence.h \
   /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/index/../common/file.h \
   /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/index/reducer.h \
-  /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/index/../index/index_file.h \
-  /usr/local/include/gumbo.h /usr/local/include/tag_enum.h
+  /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/index/../index/index_file.h
