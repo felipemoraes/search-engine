@@ -13,18 +13,18 @@ IndexFile::IndexFile(){
     
 }
 
-IndexFile::IndexFile(string file_name){
+IndexFile::IndexFile(const string &file_name){
     name_ = file_name;
     reopen();
     ensure_file_is_open();
     read_size();
 }
 
-IndexFile::IndexFile(string file_name, int size){
+IndexFile::IndexFile(const string &file_name, const int &size){
     open(file_name, size);
 }
 
-void IndexFile::open(string file_name, int size){
+void IndexFile::open(const string &file_name, const int &size){
     name_ = file_name;
     file_ = fopen(name_.c_str(), "w+b");
     write_size(size);
@@ -32,14 +32,14 @@ void IndexFile::open(string file_name, int size){
     seeks_ = new vector<long>();
 }
 
-void IndexFile::open(string file_name){
+void IndexFile::open(const string &file_name){
     name_ = file_name;
     file_ = fopen(name_.c_str(), "w+b");
     size_ = 0;
     seeks_ = new vector<long>();
 }
 
-int IndexFile::write(Term oc){
+int IndexFile::write(const Term &oc){
     ensure_file_is_open();
     seeks_->push_back(ftell(file_));
     fwrite(&(oc.term_id_), sizeof(int), 1, file_);
@@ -56,7 +56,7 @@ int IndexFile::write(Term oc){
     return size_;
 }
 
-int IndexFile::write_block(Term *oc, int block_size){
+int IndexFile::write_block(const Term* &oc, const int &block_size){
     ensure_file_is_open();
     for (int i = 0; i<block_size; i++) {
         write(oc[i]);
@@ -109,7 +109,7 @@ Term IndexFile::read(long seek){
     return oc;
 }
 
-Term* IndexFile::read_block(unsigned block_size){
+Term* IndexFile::read_block(const unsigned &block_size){
     Term *oc = (Term*)calloc(block_size, sizeof(Term));
     ensure_file_is_open();
     for (unsigned i = 0; i< block_size; i++) {
@@ -125,7 +125,7 @@ void IndexFile::ensure_file_is_open(){
     }
 }
 
-void IndexFile::write_size(int size){
+void IndexFile::write_size(const int &size){
     fwrite(&(size), sizeof(int), 1, file_);
 }
 

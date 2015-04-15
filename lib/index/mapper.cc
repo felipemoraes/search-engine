@@ -18,7 +18,6 @@ Mapper::Mapper(unsigned run_size, string index_directory){
     cout << "Writer created\n" << endl;
     runs_ = new vector<File*>();
     vocabulary_ = new unordered_map<string,unsigned>();
-    vocabulary_->reserve(MAX_VOCABULARY_SIZE);
     doc_file_.open(directory_ + "documents");
     doc_counter_ = 0;
 }
@@ -33,9 +32,9 @@ vector<File* >*  Mapper::get_runs(){
     return runs_;
 }
 
-void Mapper::process_frequencies(Page& p, map<string, vector<unsigned> > &positions){
+void Mapper::process_frequencies(Page& p, unordered_map<string, vector<unsigned> > &positions){
     
-    string text(p.get_text());
+    string text = p.get_text();
     unsigned position = 0;
     remove_accents(text);
     transform(text.begin(), text.end(), text.begin(),::tolower);
@@ -49,7 +48,7 @@ void Mapper::process_frequencies(Page& p, map<string, vector<unsigned> > &positi
             pair<string,vector<unsigned> > p;
             p.first = *token;
             p.second.push_back(position);
-            positions.insert(p);
+            positions.emplace(p);
         }
         position++;
     }
@@ -57,13 +56,15 @@ void Mapper::process_frequencies(Page& p, map<string, vector<unsigned> > &positi
 
 void Mapper::process_page(Page& p){
 
-    map<string, vector<unsigned> > positions;
+    unordered_map<string, vector<unsigned> > positions;
     process_frequencies(p,positions);
     unsigned length = 0;
     unsigned doc_id = doc_counter_++;
     for (auto it = positions.begin(); it != positions.end(); it++){
         unsigned term_id = add_vocabulary(it->first);
-        add_buffer(term_id, doc_id, it->second);
+        TermOccurrence term(term_id, doc_id, it->second);
+        buffer->push_back(term);
+        buffer_size_++;
         flush();
         length++;
     }
@@ -77,11 +78,6 @@ void Mapper::flush(){
     }
 }
 
-void Mapper::add_buffer(unsigned term_id, unsigned doc_id, vector<unsigned> positions){
-    TermOccurrence term(term_id, doc_id, positions);
-    buffer->push_back(term);
-    buffer_size_++;
-}
 
 vector<File* >* Mapper::exec(){
     string directory = directory_ + "tmp_files";
