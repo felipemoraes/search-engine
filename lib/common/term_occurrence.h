@@ -29,7 +29,7 @@ public:
     unsigned term_id_;
     unsigned doc_id_;
     unsigned frequency_;
-    
+    unsigned run_number_;
     
     void add_position(unsigned position);
     vector<unsigned> get_positions();
@@ -60,18 +60,7 @@ public:
         }
         return false;
     }
-    
-    bool operator==(const TermOccurrence &other) const { return (term_id_ == other.term_id_
-              && doc_id_ == other.doc_id_
-              && frequency_ == other.frequency_);
-    }
 
-};
-
-
-class TermHash {
-public:
-    size_t operator()(const TermOccurrence& x) const { return std::hash<int>()(x.term_id_); }
 };
 
 

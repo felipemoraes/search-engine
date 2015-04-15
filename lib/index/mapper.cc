@@ -9,7 +9,7 @@
 
 #include "mapper.h"
 
-Mapper::Mapper(unsigned run_size, string index_directory){
+Mapper::Mapper(unsigned run_size, string index_directory, string stopwords_directory){
     run_size_ = run_size;
     directory_ = index_directory;
     voc_counter_ = 0;
@@ -20,6 +20,7 @@ Mapper::Mapper(unsigned run_size, string index_directory){
     vocabulary_ = new unordered_map<string,unsigned>();
     doc_file_.open(directory_ + "documents");
     doc_counter_ = 0;
+    load_stopwords(stopwords_directory);
 }
 
 Mapper::~Mapper(){
@@ -41,6 +42,9 @@ void Mapper::process_frequencies(Page& p, map<string, vector<unsigned> > &positi
     tokenizer<> tokens(text);
     for(auto token = tokens.begin(); token!=tokens.end();++token){
         string term = *token;
+        if (stopwords_.count(term)) {
+            continue;
+        }
         if (positions.count(*token)) {
             positions[*token].push_back(position);
         }
@@ -122,6 +126,21 @@ int Mapper::add_vocabulary(const string term){
 int Mapper::get_vocabulary_size(){
     return vocabulary_->size();
     
+}
+
+void Mapper::load_stopwords(string stopwords_directory){
+    ifstream file;
+    string stopwords_list[] = {"portuguese.txt","spanish.txt","english.txt"};
+    for (int i = 0; i < 3; i++) {
+        cout << stopwords_directory+stopwords_list[i] << endl;
+        file.open(stopwords_directory+stopwords_list[i]);
+        string stopword;
+        while (!file.eof()) {
+            file >> stopword;
+            stopwords_.insert(stopword);
+        }
+        file.close();
+    }
 }
 void Mapper::remove_accents(string &str) {
     for(unsigned int i=0;i<str.length();i++) {
