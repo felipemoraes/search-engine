@@ -423,5 +423,4 @@ dependencies: \
   /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/index/../common/term_occurrence.h \
   /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/index/../common/file.h \
   /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/index/reducer.h \
-  /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/index/../index/index_file.h \
-  /usr/local/include/gumbo.h /usr/local/include/tag_enum.h
+  /Users/felipemoraes/Developer/search-engine/src/indexer/../../lib/index/../index/index_file.h

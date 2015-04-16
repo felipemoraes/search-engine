@@ -1,7 +1,7 @@
 //
 //  file.h
 //  search_engine
-//
+//  Objective: run files operations such as write, read, open and reopen
 //  Created by Felipe Moraes on 4/01/15.
 //
 //

@@ -1,7 +1,7 @@
 //
 //  reducer.cc
 //  search_engine
-//
+//  Objective: reduce file in one and aggregate it in a index file
 //  Created by Felipe Moraes on 3/28/15.
 //
 //
@@ -29,7 +29,7 @@ Reducer::~Reducer(){
 void Reducer::merge(){
     cout << ">> Started merging with " << runs_->size() << " blocks" << endl;
     
-
+    // merge 1024 runs
     vector<File* >* runs = new vector<File*>();
     vector<File*>::iterator it = runs_->begin();
     unsigned count = 0;
@@ -43,7 +43,7 @@ void Reducer::merge(){
             }
         }
         cout << " >> Kmerge with " << runs->size() << " blocks" << endl;
- 
+        // call kmerge for 1024 runs
         File* run = kmerge(runs);
         if (runs->size() <= 1) {
             merged_ = run;
@@ -56,7 +56,6 @@ void Reducer::merge(){
 
     }
     cout << " >> Finished merge step "<< endl;
-    //leak memory here
     delete runs;
 }
 
@@ -66,16 +65,17 @@ File* Reducer::kmerge(vector<File* >* &runs){
         return runs->front();
     }
     
-    
+    // sorting runs with external sort with multi ways
     unsigned buffer_length = 0;
     vector<TermOccurrence>* buffer = new vector<TermOccurrence>();
     stringstream file_name;
+    // create heap to be used
     priority_queue< TermOccurrence, vector<TermOccurrence>, greater<TermOccurrence> > *heap;
     heap = new priority_queue< TermOccurrence, vector<TermOccurrence>, greater<TermOccurrence> >();
     string directory = directory_ + "tmp_files";
     file_name << directory << "/run" << block_number_;
     File* merged = new File(file_name.str());
-    
+    // initiliaze heap with one occurrence per run file
     for(auto it = runs->begin(); it != runs->end(); it++){
         File* run = *it;
         run->reopen();
@@ -84,31 +84,34 @@ File* Reducer::kmerge(vector<File* >* &runs){
         heap->push(term);
         cout << "Run "<< run->get_name() << " size: " << run->get_size() << endl;
     }
+
     while( !heap->empty() ){
+        // get top from heap and put it in buffer
         TermOccurrence top = heap->top();
-        
         buffer->push_back(top);
         heap->pop();
         buffer_length++;
+        // check if buffer has been ful and write it in file
         if(buffer_length >= buffer_size_){
             merged->write_block(buffer, buffer_size_);
             buffer->clear();
             buffer_length = 0;
         }
         unsigned index = top.run_number_;
+        // replace top for one other occurrence from the same run file
         if((*runs)[index]->has_next()){
             TermOccurrence head = (*runs)[index]->read();
             head.run_number_ = index;
             heap->push(head);
         }
     }
-    
+    // delete all run files
     for(auto it = runs->begin(); it != runs->end(); it++){
         File* run = *it;
         run->delete_file();
         delete run;
     }
-    
+    // write rest of buffer
     if(buffer_length > 0){
         merged->write_block(buffer, buffer_length);
         buffer_length = 0;
@@ -122,7 +125,8 @@ File* Reducer::kmerge(vector<File* >* &runs){
 }
 
 vector<long>* Reducer::reduce(unsigned size){
-    cout << "Starting reducing" << endl;
+    cout << " >> Start reducing" << endl;
+    // open merged file and start aggregating it per term_id
     merged_->reopen();
     int term_id = -1;
     Term aggr_term;
@@ -130,6 +134,7 @@ vector<long>* Reducer::reduce(unsigned size){
     aggr_term.docs_ = new vector<Doc>();
     while (merged_->has_next()) {
         TermOccurrence term = merged_->read();
+        // if term_id is differente from other file write it in buffer
         if(term_id != term.term_id_){
             if (term_id != -1) {
                 index->write(aggr_term);
@@ -139,15 +144,15 @@ vector<long>* Reducer::reduce(unsigned size){
             aggr_term.frequency_ = term.frequency_;
             aggr_term.docs_->clear();
         }
+        // get frequency of term
         aggr_term.frequency_ += term.frequency_;
         Doc doc;
         doc.frequency_ = term.frequency_;
         doc.doc_id_ = term.doc_id_;
+        // get positions of term in document
         vector<unsigned> positions = term.get_positions();
-        doc.positions_ = new vector<unsigned>();
-        for (auto it = positions.begin(); it != positions.end(); it++) {
-            doc.positions_->push_back(*it);
-        }
+        doc.positions_ = new vector<unsigned>(positions);
+        // aggregas it in term aggregation
         aggr_term.docs_->push_back(doc);
         
     }

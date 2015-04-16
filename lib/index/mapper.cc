@@ -1,7 +1,7 @@
 //
 //  mapper.cc
 //  search_engine
-//
+//  Objective: process texts and write it in sorted files
 //  Created by Felipe Moraes on 3/28/15.
 //
 //
@@ -15,7 +15,6 @@ Mapper::Mapper(unsigned run_size, string index_directory, string stopwords_direc
     voc_counter_ = 0;
     buffer = new vector<TermOccurrence>;
     buffer_size_ = 0;
-    cout << "Writer created\n" << endl;
     runs_ = new vector<File*>();
     vocabulary_ = new unordered_map<string,unsigned>();
     doc_file_.open(directory_ + "documents");
@@ -34,17 +33,20 @@ vector<File* >*  Mapper::get_runs(){
 }
 
 void Mapper::process_frequencies(Page& p, map<string, vector<unsigned> > &positions){
-    
+
     string text(p.get_text());
     unsigned position = 0;
+    // remove accents, transform tolower and tokenize text
     remove_accents(text);
     transform(text.begin(), text.end(), text.begin(),::tolower);
     tokenizer<> tokens(text);
+    // aggregate terms by positions
     for(auto token = tokens.begin(); token!=tokens.end();++token){
-        string term = *token;
-        if (stopwords_.count(term)) {
+        // check if term is not a stopword
+        if (stopwords_.count(*token)) {
             continue;
         }
+        // check if term exists in vocabulary
         if (positions.count(*token)) {
             positions[*token].push_back(position);
         }
@@ -59,21 +61,24 @@ void Mapper::process_frequencies(Page& p, map<string, vector<unsigned> > &positi
 }
 
 void Mapper::process_page(Page& p){
-
+    
     map<string, vector<unsigned> > positions;
+    // get positions from texts
     process_frequencies(p,positions);
     unsigned length = 0;
     unsigned doc_id = doc_counter_++;
+    // for each term write it in buffer
     for (auto it = positions.begin(); it != positions.end(); it++){
         unsigned term_id = add_vocabulary(it->first);
         add_buffer(term_id, doc_id, it->second);
+        // check if buffer needs to be write
         flush();
         length++;
     }
     doc_file_ << doc_id << "\t" <<  p.get_url() <<  "\t" <<length <<  endl;
 
 }
-
+// check if buffer size and write it in run file if necesssary
 void Mapper::flush(){
     if(buffer_size_ >= run_size_){
         exec();
@@ -87,16 +92,20 @@ void Mapper::add_buffer(unsigned term_id, unsigned doc_id, vector<unsigned> posi
 }
 
 vector<File* >* Mapper::exec(){
+    // open file for write buffer
     string directory = directory_ + "tmp_files";
+    // sorting buffer
     cout << ">> Flushing buffer of "<< buffer_size_ <<" occurrences to disk..." << endl;
     sort(buffer->begin(), buffer->begin() + buffer_size_);
     int block_number = runs_->size();
     stringstream file_name;
     file_name << directory << "/run" << block_number;
     cout << ">> Writing ordered run in file " << file_name.str() << endl;
+    // writing buffer
     File* run_file = new File(file_name.str());
     run_file->write_block(buffer, buffer_size_);
     buffer->clear();
+    // keep File object in a runs vector
     runs_->push_back(run_file);
     run_file->close();
     buffer_size_ = 0;
@@ -132,7 +141,6 @@ void Mapper::load_stopwords(string stopwords_directory){
     ifstream file;
     string stopwords_list[] = {"portuguese.txt","spanish.txt","english.txt"};
     for (int i = 0; i < 3; i++) {
-        cout << stopwords_directory+stopwords_list[i] << endl;
         file.open(stopwords_directory+stopwords_list[i]);
         string stopword;
         while (!file.eof()) {

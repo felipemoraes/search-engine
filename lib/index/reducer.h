@@ -1,7 +1,7 @@
 //
 //  reducer.h
 //  search_engine
-//
+//  Objective: reduce file in one and aggregate it in a index file
 //  Created by Felipe Moraes on 3/28/15.
 //
 //

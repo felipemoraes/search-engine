@@ -1,7 +1,7 @@
 //
 //  term_occurrence.cc
 //  search_engine
-//
+//  Objective: term occurence data structure
 //  Created by Felipe Moraes on 3/28/15.
 //
 //

@@ -1,7 +1,7 @@
 //
 //  mapper.h
 //  search_engine
-//
+//  Objective: process texts and write it in sorted files
 //  Created by Felipe Moraes on 3/28/15.
 //
 //

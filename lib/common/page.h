@@ -1,7 +1,7 @@
 //
 //  page.h
 //  search_engine
-//
+//  Objective: parse html file, clean it and remove headers
 //  Created by Felipe Moraes on 03/20/15.
 //
 //
@@ -14,14 +14,8 @@
 #include <map>
 
 #include <boost/algorithm/string.hpp>
-#include <htmlcxx/html/Node.h>
-#include <htmlcxx/html/ParserDom.h>
-#include <htmlcxx/html/utils.h>
-#include <htmlcxx/html/Uri.h>
-#include <htmlcxx/html/CharsetConverter.h>
 
 using namespace std;
-using namespace htmlcxx;
 
 class Page {
   public:

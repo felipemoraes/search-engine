@@ -1,7 +1,7 @@
 //
 //  page.cc
 //  search_engine
-//
+//  Objective: parse html file, clean it and remove headers
 //  Created by Felipe Moraes on 3/20/15.
 //
 //

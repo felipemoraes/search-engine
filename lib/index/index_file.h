@@ -1,7 +1,7 @@
 //
 //  index_file.h
 //  search_engine
-//
+//  Objective: index file operations such as write, read, open and reopen
 //  Created by Felipe Moraes on 4/3/15.
 //
 //

@@ -1,7 +1,7 @@
 //
 //  vocabulary.cc
 //  search_engine
-//
+//  Objective: load vocabulary from file and provide efficient get seek and get term identification operations
 //  Created by Felipe Moraes on 4/11/15.
 //
 //
