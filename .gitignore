@@ -1,4 +1,6 @@
 search_engine.xcodeproj/
+src/Project.xcodeproj/
+/Project.xcodeproj/
 search_engine.build/
 .idea/
 .ignore
