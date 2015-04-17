@@ -6,11 +6,6 @@
 #include <map>
 #include <fstream>
 #include <boost/algorithm/string.hpp>
-#include <htmlcxx/html/Node.h>
-#include <htmlcxx/html/ParserDom.h>
-#include <htmlcxx/html/utils.h>
-#include <htmlcxx/html/Uri.h>
-#include <htmlcxx/html/CharsetConverter.h>
 #include "../../lib/common/page.h"
 #include "../../lib/index/mapper.h"
 #include "../../lib/index/reducer.h"
