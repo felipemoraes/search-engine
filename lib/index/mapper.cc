@@ -17,6 +17,8 @@ Mapper::Mapper(unsigned run_size, string index_directory, string stopwords_direc
     buffer_size_ = 0;
     runs_ = new vector<File*>();
     vocabulary_ = new unordered_map<string,unsigned>();
+    docs_ = new unordered_map<string,unsigned>();
+    links_ = new unordered_map<unsigned,vector<unsigned> >();
     doc_file_.open(directory_ + "documents");
     doc_counter_ = 0;
     load_stopwords(stopwords_directory);
@@ -32,9 +34,7 @@ vector<File* >*  Mapper::get_runs(){
     return runs_;
 }
 
-void Mapper::process_frequencies(Page& p, map<string, vector<unsigned> > &positions){
-
-    string text(p.get_text());
+void Mapper::process_frequencies(string text, map<string, vector<unsigned> > &positions){
     unsigned position = 0;
     // remove accents, transform tolower and tokenize text
     remove_accents(text);
@@ -43,11 +43,11 @@ void Mapper::process_frequencies(Page& p, map<string, vector<unsigned> > &positi
     // aggregate terms by positions
     for(auto token = tokens.begin(); token!=tokens.end();++token){
         // check if term is not a stopword
-        if (stopwords_.count(*token)) {
+        if (stopwords_.find(*token) != stopwords_.end()) {
             continue;
         }
         // check if term exists in vocabulary
-        if (positions.count(*token)) {
+        if (positions.find(*token)!=positions.end()) {
             positions[*token].push_back(position);
         }
         else {
@@ -64,19 +64,44 @@ void Mapper::process_page(Page& p){
     
     map<string, vector<unsigned> > positions;
     // get positions from texts
-    process_frequencies(p,positions);
+    process_frequencies(p.get_text(),positions);
     unsigned length = 0;
-    unsigned doc_id = doc_counter_++;
+    unsigned page_id = doc_counter_;
     // for each term write it in buffer
     for (auto it = positions.begin(); it != positions.end(); it++){
         unsigned term_id = add_vocabulary(it->first);
-        add_buffer(term_id, doc_id, it->second);
+        add_buffer(term_id, page_id, it->second,0);
         // check if buffer needs to be write
         flush();
         length++;
     }
-    doc_file_ << doc_id << "\t" <<  p.get_url() <<  "\t" <<length <<  endl;
-
+    if (docs_->find(p.get_url())==docs_->end()) {
+        (*docs_)[p.get_url()] = doc_counter_;
+        ++doc_counter_;
+        doc_file_ << page_id << "\t" <<  p.get_url() <<  "\t" <<length <<  endl;
+    }
+    auto links = p.get_links();
+    for(auto link : links){
+        int doc_id;
+        if (docs_->find(link.first)==docs_->end()) {
+            (*docs_)[p.get_url()] = doc_counter_;
+            doc_id = doc_counter_;
+            (*links_)[page_id].push_back(doc_id);
+            ++doc_counter_;
+        }
+        for (auto text:link.second) {
+            if (text == "") {
+                continue;
+            }
+            cout << link.first << endl;
+            positions.clear();
+            process_frequencies(text, positions);
+            for (auto term : positions) {
+                unsigned term_id = add_vocabulary(term.first);
+                add_buffer(term_id, doc_id, term.second,1);
+            }
+        }
+    }
 }
 // check if buffer size and write it in run file if necesssary
 void Mapper::flush(){
@@ -85,8 +110,8 @@ void Mapper::flush(){
     }
 }
 
-void Mapper::add_buffer(unsigned term_id, unsigned doc_id, vector<unsigned> positions){
-    TermOccurrence term(term_id, doc_id, positions);
+void Mapper::add_buffer(unsigned term_id, unsigned doc_id, vector<unsigned> positions, unsigned field){
+    TermOccurrence term(term_id, doc_id, positions,field);
     buffer->push_back(term);
     buffer_size_++;
 }
@@ -123,8 +148,8 @@ void Mapper::dump(vector<long>* &seeks){
     file.close();
 }
 
-int Mapper::add_vocabulary(const string term){
-    if (vocabulary_->count(term)) {
+int Mapper::add_vocabulary(const string& term){
+    if (vocabulary_->find(term) != vocabulary_->end()) {
         return (*vocabulary_)[term];
     }
     (*vocabulary_)[term] = voc_counter_;

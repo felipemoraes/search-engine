@@ -35,15 +35,14 @@ public:
     void process_page(Page& p);
     void write (vector<TermOccurrence>::iterator it);
     bool vocabulary_contains(string term);
-    int add_vocabulary(string term);
+    int add_vocabulary(const string& term);
     void remove_accents(string &str);
-    void process_frequencies(Page& p, map<string, vector<unsigned> > &positions);
-    void add_buffer(unsigned term_id, unsigned doc_id, vector<unsigned> positions);
+    void process_frequencies(string text, map<string, vector<unsigned> > &positions);
+    void add_buffer(unsigned term_id, unsigned doc_id, vector<unsigned> positions,unsigned field);
     void flush();
     vector<File* >* exec();
     vector<File* >* get_runs();
     void dump(vector<long>* &seeks);
-    
     int get_vocabulary_size();
     
 private:
@@ -54,6 +53,8 @@ private:
     unsigned doc_counter_;
     string directory_;
     unordered_map<string,unsigned>* vocabulary_;
+    unordered_map<string,unsigned>* docs_;
+    unordered_map<unsigned,vector<unsigned> >* links_;
     vector<TermOccurrence>* buffer;
     unordered_set<string> stopwords_;
     vector<File* >* runs_;

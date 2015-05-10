@@ -20,7 +20,7 @@ class TermOccurrence {
 private:
     vector<unsigned> positions_;
 public:
-    TermOccurrence(unsigned term_id, unsigned doc_id, vector<unsigned> positions);
+    TermOccurrence(unsigned term_id, unsigned doc_id, vector<unsigned> positions, unsigned field);
     
     TermOccurrence();
     ~TermOccurrence();
@@ -30,6 +30,7 @@ public:
     unsigned doc_id_;
     unsigned frequency_;
     unsigned run_number_;
+    unsigned field_;
     
     void add_position(unsigned position);
     vector<unsigned> get_positions();

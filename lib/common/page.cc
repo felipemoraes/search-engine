@@ -11,6 +11,7 @@
 #include "gumbo.h"
 #include <iostream>
 using namespace std;
+using namespace htmlcxx;
 
 Page::Page(string url, string httpResponse){
     url_ = url;
@@ -39,6 +40,42 @@ static string clean_text(GumboNode* node) {
     }
 }
 
+void Page::search_for_links(GumboNode* node) {
+    if (node->type != GUMBO_NODE_ELEMENT) {
+        return;
+    }
+    GumboAttribute* href;
+    if (node->v.element.tag == GUMBO_TAG_A) {
+        href = gumbo_get_attribute(&node->v.element.attributes, "href");
+        GumboVector* children = &node->v.element.children;
+        std::string anchor = "";
+    
+        for (unsigned int i = 0; i < children->length; ++i) {
+            const std::string text = clean_text((GumboNode*)children->data[i]);
+            if (i != 0 && !text.empty()) {
+                anchor.append(" ");
+            }
+            anchor.append(text);
+        }
+        string uri = HTML::convert_link(href->value, url_);
+        auto it = links_.find(uri);
+        if (it != links_.end()) {
+            links_[uri].push_back(anchor);
+        } else {
+            vector<string> a;
+            a.push_back(anchor);
+            links_[uri] = a;
+        }
+
+    }
+    
+    GumboVector* children = &node->v.element.children;
+    for (unsigned int i = 0; i < children->length; ++i) {
+        search_for_links(static_cast<GumboNode*>(children->data[i]));
+    }
+    
+}
+
 
 bool Page::remove_header(string& str) {
     size_t pos = str.find("<!DOC");
@@ -55,5 +92,6 @@ void Page::parse(const std::string& html) {
     GumboOutput* output = NULL;
     output = gumbo_parse(html.c_str());
     text_ = clean_text(output->root);
+    search_for_links(output->root);
     gumbo_destroy_output(&kGumboDefaultOptions, output);
 }

@@ -9,11 +9,12 @@
 #include "term_occurrence.h"
 
 
-TermOccurrence::TermOccurrence(unsigned term_id, unsigned doc_id, vector<unsigned> positions){
+TermOccurrence::TermOccurrence(unsigned term_id, unsigned doc_id, vector<unsigned> positions, unsigned field){
     term_id_ = term_id;
     doc_id_ = doc_id;
     positions_ = positions;
     frequency_ = positions_.size();
+    field_ = field;
 }
 
 TermOccurrence::TermOccurrence(){
