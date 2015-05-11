@@ -17,7 +17,8 @@ Mapper::Mapper(unsigned run_size, string index_directory, string stopwords_direc
     buffer_size_ = 0;
     runs_ = new vector<File*>();
     vocabulary_ = new unordered_map<string,unsigned>();
-    docs_ = new unordered_map<string,unsigned>();
+    vocabulary_anchor_ = new unordered_map<string,unsigned>();
+    docs_ = new unordered_map<string,pair<unsigned,unsigned> >();
     links_ = new unordered_map<unsigned,vector<unsigned> >();
     doc_file_.open(directory_ + "documents");
     doc_counter_ = 0;
@@ -27,6 +28,7 @@ Mapper::Mapper(unsigned run_size, string index_directory, string stopwords_direc
 Mapper::~Mapper(){
     doc_file_.close();
     delete vocabulary_;
+    delete vocabulary_anchor_;
     delete buffer;
 }
 
@@ -76,15 +78,17 @@ void Mapper::process_page(Page& p){
         length++;
     }
     if (docs_->find(p.get_url())==docs_->end()) {
-        (*docs_)[p.get_url()] = doc_counter_;
+        pair<unsigned,unsigned> tmp = make_pair(doc_counter_,length);
+        (*docs_)[p.get_url()] = tmp;
         ++doc_counter_;
-        doc_file_ << page_id << "\t" <<  p.get_url() <<  "\t" <<length <<  endl;
     }
+    cout << p.get_url() << endl;
     auto links = p.get_links();
-    for(auto link : links){
+    for (auto link : links){
         int doc_id;
         if (docs_->find(link.first)==docs_->end()) {
-            (*docs_)[p.get_url()] = doc_counter_;
+            (*docs_)[link.first].first = doc_counter_;
+            (*docs_)[link.first].second = 0;
             doc_id = doc_counter_;
             (*links_)[page_id].push_back(doc_id);
             ++doc_counter_;
@@ -93,12 +97,11 @@ void Mapper::process_page(Page& p){
             if (text == "") {
                 continue;
             }
-            cout << link.first << endl;
             positions.clear();
             process_frequencies(text, positions);
             for (auto term : positions) {
-                unsigned term_id = add_vocabulary(term.first);
-                add_buffer(term_id, doc_id, term.second,1);
+              //  unsigned term_id = add_vocabulary_anchor(term.first);
+             //   add_buffer(term_id, doc_id, term.second,1);
             }
         }
     }
@@ -111,6 +114,9 @@ void Mapper::flush(){
 }
 
 void Mapper::add_buffer(unsigned term_id, unsigned doc_id, vector<unsigned> positions, unsigned field){
+    if (field == 1) {
+        return;
+    }
     TermOccurrence term(term_id, doc_id, positions,field);
     buffer->push_back(term);
     buffer_size_++;
@@ -138,14 +144,25 @@ vector<File* >* Mapper::exec(){
 }
 
 
-void Mapper::dump(vector<long>* &seeks){
+void Mapper::dump(vector<long>* &seeks_voc, vector<long>* &seeks_anchor){
     string filename(directory_ + "vocabulary");
     ofstream file;
     file.open(filename);
     for (auto it = vocabulary_->begin(); it!= vocabulary_->end(); it++) {
-        file << it->first << "\t"<< it->second  << "\t" << (*seeks)[it->second] << endl;
+        file << it->first << "\t"<< it->second  << "\t" << (*seeks_voc)[it->second] << endl;
     }
     file.close();
+    
+    filename = directory_ + "vocabulary_anchor";
+    file.open(filename);
+    for (auto it = vocabulary_anchor_->begin(); it!= vocabulary_anchor_->end(); it++) {
+        file << it->first << "\t"<< it->second  << "\t" << (*seeks_anchor)[it->second] << endl;
+    }
+    file.close();
+    
+    for (auto it=docs_->begin(); it!=docs_->end();++it) {
+        doc_file_ << it->first <<  "\t" << it->second.first << "\t" << it->second.second<< endl;
+    }
 }
 
 int Mapper::add_vocabulary(const string& term){
@@ -157,9 +174,21 @@ int Mapper::add_vocabulary(const string& term){
     return (*vocabulary_)[term];
 }
 
+int Mapper::add_vocabulary_anchor(const string& term){
+    if (vocabulary_anchor_->find(term) != vocabulary_anchor_->end()) {
+        return (*vocabulary_anchor_)[term];
+    }
+    (*vocabulary_anchor_)[term] = voc_anchor_counter_;
+    voc_anchor_counter_++;
+    return (*vocabulary_anchor_)[term];
+}
+
 int Mapper::get_vocabulary_size(){
     return vocabulary_->size();
-    
+}
+
+int Mapper::get_vocabulary_anchor_size(){
+    return vocabulary_anchor_->size();
 }
 
 void Mapper::load_stopwords(string stopwords_directory){

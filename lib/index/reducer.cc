@@ -124,43 +124,60 @@ File* Reducer::kmerge(vector<File* >* &runs){
     return merged;
 }
 
-vector<long>* Reducer::reduce(unsigned size){
+void Reducer::aggregate(IndexFile &index, Term& aggr, TermOccurrence term, unsigned& previous){
+ 
+    if(previous != term.term_id_){
+        if (previous != -1) {
+            index.write(aggr);
+        }
+        previous = term.term_id_;
+        aggr.term_id_ = previous;
+        aggr.frequency_ = 0;
+        aggr.docs_->clear();
+    }
+    // get frequency of term
+    aggr.frequency_++;
+    Doc doc;
+    doc.frequency_ = term.frequency_;
+    doc.doc_id_ = term.doc_id_;
+    // get positions of term in document
+    vector<unsigned> positions = term.get_positions();
+    doc.positions_ = new vector<unsigned>(positions);
+    // aggregas it in term aggregation
+    aggr.docs_->push_back(doc);
+    
+}
+
+
+pair<vector<long>*,vector<long>*> Reducer::reduce(unsigned voc_size, unsigned anchor_size){
     cout << " >> Start reducing" << endl;
     // open merged file and start aggregating it per term_id
     merged_->reopen();
-    int term_id = -1;
-    Term aggr_term;
-    IndexFile* index = new IndexFile(directory_ + "index", size);
+    unsigned term_id_index = -1;
+    unsigned term_id_anchor = -1;
+    Term aggr_term, aggr_anchor;
+    IndexFile* index = new IndexFile(directory_ + "index", voc_size);
+    IndexFile* anchor_index = new IndexFile(directory_ + "anchor_index", anchor_size);
     aggr_term.docs_ = new vector<Doc>();
+    aggr_anchor.docs_ = new vector<Doc>();
     while (merged_->has_next()) {
         TermOccurrence term = merged_->read();
         // if term_id is differente from other file write it in buffer
-        if(term_id != term.term_id_){
-            if (term_id != -1) {
-                index->write(aggr_term);
-            }
-            term_id = term.term_id_;
-            aggr_term.term_id_ = term_id;
-            aggr_term.frequency_ = term.frequency_;
-            aggr_term.docs_->clear();
+        if (term.field_ == 0) {
+            aggregate(*index, aggr_term, term, term_id_index);
+        } else {
+            aggregate(*anchor_index, aggr_anchor, term, term_id_anchor);
         }
-        // get frequency of term
-        aggr_term.frequency_ += term.frequency_;
-        Doc doc;
-        doc.frequency_ = term.frequency_;
-        doc.doc_id_ = term.doc_id_;
-        // get positions of term in document
-        vector<unsigned> positions = term.get_positions();
-        doc.positions_ = new vector<unsigned>(positions);
-        // aggregas it in term aggregation
-        aggr_term.docs_->push_back(doc);
         
     }
     index->write(aggr_term);
     merged_->delete_file();
     index->close();
-    vector<long>* seeks = index->get_seeks();
+    vector<long>* seeks_voc = index->get_seeks();
+    vector<long>* seeks_anchor = anchor_index->get_seeks();
     delete aggr_term.docs_;
     delete index;
-    return seeks;
+    delete anchor_index;
+    pair<vector<long>*,vector<long>*> p = make_pair(seeks_voc, seeks_anchor);
+    return p;
 }

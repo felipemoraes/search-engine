@@ -35,6 +35,7 @@ int File::write(TermOccurrence oc){
     unsigned position;
     fwrite(&(oc.term_id_), sizeof(int), 1, file_);
     fwrite(&(oc.doc_id_), sizeof(int), 1, file_);
+    fwrite(&(oc.field_), sizeof(int), 1, file_);
     vector<unsigned>::iterator it;
     vector<unsigned> positions = oc.get_positions();
     fwrite(&(oc.frequency_), sizeof(int), 1, file_);
@@ -62,6 +63,7 @@ int File::write(TermOccurrence oc){
         int position;
         fread((unsigned*) &oc.term_id_, sizeof(oc.term_id_), 1, file_);
         fread((unsigned*) &oc.doc_id_, sizeof(oc.doc_id_), 1, file_);
+        fread((unsigned*) &oc.field_, sizeof(oc.field_), 1, file_);
         fread((unsigned*) &oc.frequency_, sizeof(oc.frequency_), 1, file_);
         for (unsigned i = 0; i<oc.frequency_; i++) {
             fread((int*) &position, sizeof(position), 1, file_);

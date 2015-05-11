@@ -48,10 +48,10 @@ if (test)
   add_executable(test test/test.cc)
 
   # Standard linking to gtest stuff.
-  target_link_libraries(test gtest gtest_main)
+  target_link_libraries(test gtest gtest_main index common gumbo)
 
   # Extra linking for the project.
-  # target_link_libraries(test indexer)
+  # target_link_libraries(test)
 
   # This is so you can do 'make test' to see all your tests run, instead of
   # manually running the executable runUnitTests to see those specific tests.

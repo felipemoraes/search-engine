@@ -45,8 +45,8 @@ void Page::search_for_links(GumboNode* node) {
         return;
     }
     GumboAttribute* href;
-    if (node->v.element.tag == GUMBO_TAG_A) {
-        href = gumbo_get_attribute(&node->v.element.attributes, "href");
+    if (node->v.element.tag == GUMBO_TAG_A &&
+         (href = gumbo_get_attribute(&node->v.element.attributes, "href"))) {
         GumboVector* children = &node->v.element.children;
         std::string anchor = "";
     
@@ -57,7 +57,13 @@ void Page::search_for_links(GumboNode* node) {
             }
             anchor.append(text);
         }
-        string uri = HTML::convert_link(href->value, url_);
+        string uri;
+        try {
+            uri = HTML::convert_link(href->value, url_);
+        } catch (...) {
+            cout << "Fail normalize url: " << href->value << endl;
+        }
+       
         auto it = links_.find(uri);
         if (it != links_.end()) {
             links_[uri].push_back(anchor);

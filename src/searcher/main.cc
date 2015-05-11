@@ -122,6 +122,7 @@ int main(int argc, char** argv){
                 terms->push_back(term);
             }
         }
+        
         vector<unsigned> result;
         if (!op.compare("and")){
             result = intersection_terms(terms);
