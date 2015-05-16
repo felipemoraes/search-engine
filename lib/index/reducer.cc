@@ -124,7 +124,7 @@ File* Reducer::kmerge(vector<File* >* &runs){
     return merged;
 }
 
-void Reducer::aggregate(IndexFile &index, Term& aggr, TermOccurrence term, unsigned& previous){
+void Reducer::aggregate(IndexFile &index, Term& aggr, TermOccurrence term, int& previous){
  
     if(previous != term.term_id_){
         if (previous != -1) {
@@ -153,8 +153,8 @@ pair<vector<long>*,vector<long>*> Reducer::reduce(unsigned voc_size, unsigned an
     cout << " >> Start reducing" << endl;
     // open merged file and start aggregating it per term_id
     merged_->reopen();
-    unsigned term_id_index = -1;
-    unsigned term_id_anchor = -1;
+    int term_id_index = -1;
+    int term_id_anchor = -1;
     Term aggr_term, aggr_anchor;
     IndexFile* index = new IndexFile(directory_ + "index", voc_size);
     IndexFile* anchor_index = new IndexFile(directory_ + "anchor_index", anchor_size);
@@ -170,7 +170,6 @@ pair<vector<long>*,vector<long>*> Reducer::reduce(unsigned voc_size, unsigned an
         }
         
     }
-    index->write(aggr_term);
     merged_->delete_file();
     index->close();
     vector<long>* seeks_voc = index->get_seeks();

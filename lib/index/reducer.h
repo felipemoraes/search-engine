@@ -28,7 +28,7 @@ public:
     void merge();
     File* kmerge(vector<File* >* &runs);
     pair<vector<long>*,vector<long>*> reduce(unsigned voc_size, unsigned anchor_size);
-    void aggregate(IndexFile &index, Term& aggr, TermOccurrence term, unsigned& previous);
+    void aggregate(IndexFile &index, Term& aggr, TermOccurrence term, int& previous);
 };
 
 

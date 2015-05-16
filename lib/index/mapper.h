@@ -54,15 +54,18 @@ private:
     unsigned voc_counter_;
     unsigned voc_anchor_counter_;
     unsigned doc_counter_;
+    unsigned doc_counter_anchor_;
     string directory_;
     unordered_map<string,unsigned>* vocabulary_;
     unordered_map<string,unsigned>* vocabulary_anchor_;
     unordered_map<string,pair<unsigned,unsigned> >* docs_;
+    unordered_map<string,pair<unsigned,unsigned> >* docs_anchor_;
     unordered_map<unsigned,vector<unsigned> >* links_;
     vector<TermOccurrence>* buffer;
     unordered_set<string> stopwords_;
     vector<File* >* runs_;
     ofstream doc_file_;
+    ofstream doc_file_anchor_;
     void load_stopwords(string stopwords_dir);
     
 };

@@ -19,14 +19,18 @@ Mapper::Mapper(unsigned run_size, string index_directory, string stopwords_direc
     vocabulary_ = new unordered_map<string,unsigned>();
     vocabulary_anchor_ = new unordered_map<string,unsigned>();
     docs_ = new unordered_map<string,pair<unsigned,unsigned> >();
+    docs_anchor_ = new unordered_map<string,pair<unsigned,unsigned> >();
     links_ = new unordered_map<unsigned,vector<unsigned> >();
     doc_file_.open(directory_ + "documents");
     doc_counter_ = 0;
+    doc_file_anchor_.open(directory_ + "documents_anchor");
+    doc_counter_anchor_ = 0;
     load_stopwords(stopwords_directory);
 }
 
 Mapper::~Mapper(){
     doc_file_.close();
+    doc_file_anchor_.close();
     delete vocabulary_;
     delete vocabulary_anchor_;
     delete buffer;
@@ -86,12 +90,12 @@ void Mapper::process_page(Page& p){
     auto links = p.get_links();
     for (auto link : links){
         int doc_id;
-        if (docs_->find(link.first)==docs_->end()) {
-            (*docs_)[link.first].first = doc_counter_;
-            (*docs_)[link.first].second = 0;
+        if (docs_anchor_->find(link.first)==docs_anchor_->end()) {
+            (*docs_anchor_)[link.first].first = doc_counter_anchor_;
+            (*docs_anchor_)[link.first].second = 0;
             doc_id = doc_counter_;
             (*links_)[page_id].push_back(doc_id);
-            ++doc_counter_;
+            ++doc_counter_anchor_;
         }
         for (auto text:link.second) {
             if (text == "") {
@@ -100,8 +104,8 @@ void Mapper::process_page(Page& p){
             positions.clear();
             process_frequencies(text, positions);
             for (auto term : positions) {
-              //  unsigned term_id = add_vocabulary_anchor(term.first);
-             //   add_buffer(term_id, doc_id, term.second,1);
+                unsigned term_id = add_vocabulary_anchor(term.first);
+                add_buffer(term_id, doc_id, term.second,1);
             }
         }
     }
@@ -114,9 +118,6 @@ void Mapper::flush(){
 }
 
 void Mapper::add_buffer(unsigned term_id, unsigned doc_id, vector<unsigned> positions, unsigned field){
-    if (field == 1) {
-        return;
-    }
     TermOccurrence term(term_id, doc_id, positions,field);
     buffer->push_back(term);
     buffer_size_++;
@@ -155,6 +156,7 @@ void Mapper::dump(vector<long>* &seeks_voc, vector<long>* &seeks_anchor){
     
     filename = directory_ + "vocabulary_anchor";
     file.open(filename);
+    cout << vocabulary_anchor_->size() << endl;
     for (auto it = vocabulary_anchor_->begin(); it!= vocabulary_anchor_->end(); it++) {
         file << it->first << "\t"<< it->second  << "\t" << (*seeks_anchor)[it->second] << endl;
     }
@@ -162,6 +164,13 @@ void Mapper::dump(vector<long>* &seeks_voc, vector<long>* &seeks_anchor){
     
     for (auto it=docs_->begin(); it!=docs_->end();++it) {
         doc_file_ << it->first <<  "\t" << it->second.first << "\t" << it->second.second<< endl;
+        cout << it->first <<  "\t" << it->second.first << "\t" << it->second.second<< endl;
+
+    }
+    for (auto it=docs_anchor_->begin(); it!=docs_anchor_->end();++it) {
+        doc_file_anchor_ << it->first <<  "\t" << it->second.first << "\t" << it->second.second<< endl;
+        cout << it->first <<  "\t" << it->second.first << "\t" << it->second.second<< endl;
+        
     }
 }
 
