@@ -45,21 +45,25 @@ if (test)
   ##############
   # Unit Tests
   ##############
-  add_executable(test test/test.cc)
+
+  file(GLOB test_SRC
+          "test/*.h"
+          "test/*.cc"
+  )
+  add_executable(unitTests ${test_SRC})
 
   # Standard linking to gtest stuff.
-  target_link_libraries(test gtest gtest_main index common gumbo)
+  target_link_libraries(unitTests gtest gtest_main index common gumbo)
 
   # Extra linking for the project.
   # target_link_libraries(test)
 
   # This is so you can do 'make test' to see all your tests run, instead of
   # manually running the executable runUnitTests to see those specific tests.
-  add_test(NAME that-test-I-made COMMAND runUnitTests)
 
   # You can also omit NAME and COMMAND. The second argument could be some other
   # test executable.
-  add_test(that-other-test-I-made runUnitTests)
+  add_test(GraphTest unitTests)
 endif()
 
 

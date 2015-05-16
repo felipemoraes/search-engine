@@ -12,7 +12,6 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 
-
 using namespace std;
 using namespace RICPNS;
 
@@ -103,6 +102,7 @@ int main(int argc, char** argv) {
     execution_time = (t_end.tv_sec-t_start.tv_sec)*1000000;
     execution_time = (execution_time+(t_end.tv_usec-t_start.tv_usec))/1000000;
     printf("Execution time %.3f minutes\n", execution_time/60);
+    
     return EXIT_SUCCESS;
 }
 

@@ -1,38 +1,66 @@
-#include <iostream>
-#include "../lib/index/index_file.h"
-#include <vector>
 
-using namespace std;
-int main(){
-    IndexFile* index = new IndexFile("/Users/felipemoraes/Developer/search-engine/data/test",2);
-    Term term1,term2, term3;
-    term1.term_id_ = 1;
-    term1.frequency_ = 1;
-    term1.docs_ = new vector<Doc>();
-    Doc doc1;
-    doc1.doc_id_ = 1;
-    doc1.frequency_ = 1;
-    doc1.positions_ = new vector<unsigned>();
-    doc1.positions_->push_back(10);
-    term1.docs_->push_back(doc1);
-    index->write(term1);
-   
-    term2.term_id_ = 4;
-    term2.frequency_ = 1;
-    term2.docs_ = new vector<Doc>();
-    Doc doc2;
-    doc2.doc_id_ = 1;
-    doc2.frequency_ = 1;
-    doc2.positions_ = new vector<unsigned>();
-    doc2.positions_->push_back(10);
-    term2.docs_->push_back(doc2);
-    index->write(term2);
-    index->close();
-    delete index;
-    index = new IndexFile("/Users/felipemoraes/Developer/search-engine/data/test");
-    term3 = index->read();
-    term3 = index->read();
-    cout << term3.term_id_ << endl;
-    index->close();
-    return 0;
+
+#include "../lib/common/graph.h"
+#include <gtest/gtest.h>
+
+class GraphTest : public ::testing::Test {
+protected:
+    
+    virtual void SetUp(){
+        // A -> B,F
+        // B -> C,D,E,F
+        // C -> E,F
+        // D -> A,C,E, F
+        // E -> A
+        // F -> A, B, E
+        graph.insert(0, 1);
+        graph.insert(0, 5);
+        graph.insert(1, 2);
+        graph.insert(1, 3);
+        graph.insert(1, 4);
+        graph.insert(1, 5);
+        graph.insert(2, 4);
+        graph.insert(2, 5);
+        graph.insert(3, 0);
+        graph.insert(3, 2);
+        graph.insert(3, 4);
+        graph.insert(3, 5);
+        graph.insert(4, 0);
+        graph.insert(5, 0);
+        graph.insert(5, 1);
+        graph.insert(5, 4);
+        graph.compute_out_links();
+    }
+  
+    virtual void TearDown(){
+    }
+    
+    Graph graph;
+    
+};
+
+
+TEST_F(GraphTest, testSize){
+    EXPECT_EQ(graph.get_size(), 6);
+}
+
+TEST_F(GraphTest, testInlinks){
+    vector<int> inlinks = graph.get_inlinks(1);
+    EXPECT_EQ(inlinks.size(), 2);
+}
+
+TEST_F(GraphTest, testNoOutlinks){
+    unordered_set<int>* outlinks = graph.get_no_outlinks();
+    EXPECT_EQ(outlinks->size(), 0);
+}
+
+
+TEST_F(GraphTest, testOutlinksCount){
+    EXPECT_EQ(graph.get_outlink_count(0), 2);
+    EXPECT_EQ(graph.get_outlink_count(1), 4);
+    EXPECT_EQ(graph.get_outlink_count(2), 2);
+    EXPECT_EQ(graph.get_outlink_count(3), 4);
+    EXPECT_EQ(graph.get_outlink_count(4), 1);
+    EXPECT_EQ(graph.get_outlink_count(5), 3);
+    graph.pagerank(100);
 }
