@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.4)
 project(search_engine)
 
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1y -O3 -Wno-deprecated-declarations")
 
 option(test "Build all tests." OFF)
 
@@ -20,17 +20,14 @@ IF (APPLE)
     SET(CMAKE_LIBRARY_PATH ${CMAKE_LIBRARY_PATH} "/usr/local/lib/")
 ENDIF (APPLE)
 
-FIND_PACKAGE(Boost)
-IF (Boost_FOUND)
-   INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
-   ADD_DEFINITIONS( "-DHAS_BOOST" )
-ENDIF()
-
+find_package(Boost 1.54.0 COMPONENTS system thread coroutine context REQUIRED)
+message("Boost include dir: ${Boost_INCLUDE_DIR}")
+message("Boost libraries: ${Boost_LIBRARIES}")
+include_directories(${Boost_INCLUDE_DIR})
 
 ADD_SUBDIRECTORY(src)
 ADD_SUBDIRECTORY(lib)
 ADD_SUBDIRECTORY(test)
-
 
 if (test)
   # This adds another subdirectory, which has 'project(gtest)'.

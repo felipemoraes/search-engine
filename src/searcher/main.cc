@@ -10,78 +10,26 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
-
-#include <sys/time.h>
-#include <sys/resource.h>
+#include <unordered_map>
 #include "../../lib/index/index_file.h"
 #include "../../lib/common/vocabulary.h"
+#include "../../lib/search/vector_space_model.h"
+#include "../../lib/search/pagerank_model.h"
+#include "../../lib/common/doc_repository.h"
+#include "../../lib/common/hit.h"
+#include "server_ws.hpp"
+#include "client_ws.hpp"
+
+//Added for the json-example
+
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
+
 
 using namespace std;
-
-static vector<unsigned> intersection_terms(vector<Term>* &terms){
-    vector<unsigned> result;
-    vector<unsigned> v1;
-    vector<unsigned> v2;
-    result.clear();
-    v1.clear();
-    v2.clear();
-    if (terms->size() == 0) {
-        cout << "Empty result. Try other query." << endl;
-        return result;
-    }
-    Term term = terms->back();
-    for (auto it = term.docs_->begin(); it != term.docs_->end(); it++) {
-        v1.push_back(it->doc_id_);
-    }
-    terms->pop_back();
-    
-    for (auto it = terms->begin(); it!=terms->end(); it++) {
-        result.clear();
-        for (auto iter = it->docs_->begin(); iter != it->docs_->end(); iter++) {
-            v2.push_back(iter->doc_id_);
-        }
-        set_intersection(v1.begin(), v1.end(), v2.begin(), v2.end(), back_inserter(result));
-        v1 = result;
-        v2.clear();
-    }
-    sort(result.begin(),result.end());
-    auto aux = unique(result.begin(), result.end());
-    result.erase(aux, result.end());
-    return result;
-}
-
-static vector<unsigned> union_terms(vector<Term>* &terms){
-    vector<unsigned> result;
-    vector<unsigned> v1;
-    vector<unsigned> v2;
-    result.clear();
-    v1.clear();
-    v2.clear();
-    if (terms->size() == 0) {
-        cout << "Empty result. Try other query." << endl;
-        return result;
-    }
-    Term term = terms->back();
-    for (auto it = term.docs_->begin(); it != term.docs_->end(); it++) {
-        v1.push_back(it->doc_id_);
-    }
-    terms->pop_back();
-    
-    for (auto it = terms->begin(); it!=terms->end(); it++) {
-        result.clear();
-        for (auto iter = it->docs_->begin(); iter != it->docs_->end(); iter++) {
-            v2.push_back(iter->doc_id_);
-        }
-        set_union(v1.begin(), v1.end(), v2.begin(), v2.end(), back_inserter(result));
-        v1 = result;
-        v2.clear();
-    }
-    sort(result.begin(),result.end());
-    auto aux = unique(result.begin(), result.end());
-    result.erase(aux, result.end());
-    return result;
-}
-
+using namespace SimpleWeb;
+//Added for the json-example:
+using namespace boost::property_tree;
 
 int main(int argc, char** argv){
     
@@ -98,47 +46,87 @@ int main(int argc, char** argv){
     
     IndexFile* index = new IndexFile( input_directory + "index");
     Vocabulary* vocabulary = new Vocabulary(input_directory + "vocabulary");
+    DocRepository* doc_repository = new DocRepository("documentsInfo");
+    //TODO: Implement load
+    doc_repository->load(input_directory);
+    PageRankModel pgm(index,vocabulary,doc_repository);
+
+    //WebSocket (WS)-server at port 8080 using 4 threads
+    SocketServer<WS> server(8080, 4);
     
-    string word, op;
-    int n,m;
-    cin>> n >> op;
-    for (int i = 0; i<n; i++) {
-        cin >> m;
-        vector<Term> *terms = new vector<Term>(m);
-        terms->clear();
-        /*variable for time measure*/
-        float execution_time = 0;
-        struct timeval t_start;
-        struct timeval t_end;
+    auto& echo=server.endpoint["^/echo/?$"];
+    
+    //C++14, lambda parameters declared with auto
+    //For C++11 use: (shared_ptr<Server<WS>::Connection> connection, shared_ptr<Server<WS>::Message> message)
+    echo.onmessage=[&server, &pgm](auto connection, auto message) {
+        //To receive message from client as string (data_ss.str())
+        stringstream data_ss;
+        message->data >> data_ss.rdbuf();
         
-        gettimeofday(&t_start, NULL);
+        cout << "Server: Message received: \"" << data_ss.str() << "\" from " << (size_t)connection.get() << endl;
         
-        for (int j = 0; j < m; j++) {
-            cin >> word;
-            int term_id = vocabulary->get_term_id(word);
-            long seek = vocabulary->get_seek(term_id);
-            Term term = index->read(seek);
-            if (term.term_id_ != -1) {
-                terms->push_back(term);
+        ptree pt;
+        read_json(data_ss, pt);
+        
+        string query = pt.get<string>("query");
+        
+        vector<Hit>* hits = pgm.search(query);
+        
+        pt.clear();
+        ptree children;
+        
+        if (hits->size()) {
+            for (auto it = hits->begin(); it != hits->end(); ++it) {
+                ptree child;
+                child.put("doc_id", it->doc_.doc_id_);
+                child.put("pagerank", it->doc_.pagerank_);
+                child.put("length", it->doc_.length_);
+                child.put("title", it->doc_.title_);
+                child.put("url", it->doc_.url_);
+                child.put("score", it->score_);
+                children.push_back(make_pair("", child));
             }
         }
+        pt.add_child("hits", children);
         
-        vector<unsigned> result;
-        if (!op.compare("and")){
-            result = intersection_terms(terms);
-        } else if (!op.compare("or")){
-            result = union_terms(terms);
+        // cout << "Server: Sending message \"" << data_ss.str() <<  "\" to " << (size_t)connection.get() << endl;
+        
+        //server.send is an asynchronous function
+        
+        stringstream response_ss;
+        write_json(response_ss, pt);
+        
+        for(auto a_connection: server.get_connections()) {
+            
+            //server.send is an asynchronous function
+            server.send(a_connection, response_ss);
         }
-       for (int n : result) {
-            cout << n << ' ';
-        }
-        cout << endl;
-        gettimeofday(&t_end, NULL);
-        execution_time = (t_end.tv_sec-t_start.tv_sec)*1000000;
-        execution_time = (execution_time+(t_end.tv_usec-t_start.tv_usec))/1000000;
-        printf("Execution time %.3f seconds\n", execution_time);
-        delete terms;
-    }
+    };
+    
+    echo.onopen=[](auto connection) {
+        cout << "Server: Opened connection " << (size_t)connection.get() << endl;
+    };
+    
+    //See RFC 6455 7.4.1. for status codes
+    echo.onclose=[](auto connection, int status, const string& reason) {
+        cout << "Server: Closed connection " << (size_t)connection.get() << " with status code " << status << endl;
+    };
+    
+    //See http://www.boost.org/doc/libs/1_55_0/doc/html/boost_asio/reference.html, Error Codes for error code meanings
+    echo.onerror=[](auto connection, const boost::system::error_code& ec) {
+        cout << "Server: Error in connection " << (size_t)connection.get() << ". " <<
+        "Error: " << ec << ", error message: " << ec.message() << endl;
+    };
+    
+    
+    thread server_thread([&server](){
+        //Start WS-server
+        server.start();
+    });
+    
+    server_thread.join();
+   
+    delete vocabulary;
     delete index;
     return EXIT_SUCCESS;
 }
