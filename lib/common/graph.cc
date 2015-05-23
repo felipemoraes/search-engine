@@ -12,12 +12,23 @@
 #include <iostream>
 
 #include "graph.h"
+
 Graph::Graph(){
     inlinks_ = new unordered_map<int,vector<int> >();
     nodes_ = new unordered_set<int>();
     no_outlinks_ = new unordered_set<int>();
     outlinks_counts_ = new unordered_map<int,int>();
+    size_ = 0;
 }
+
+Graph::Graph(int size){
+    inlinks_ = new unordered_map<int,vector<int> >();
+    nodes_ = new unordered_set<int>();
+    no_outlinks_ = new unordered_set<int>();
+    outlinks_counts_ = new unordered_map<int,int>();
+    size_ = size;
+}
+
 
 
 
@@ -39,7 +50,6 @@ void Graph::insert(int left, int right){
     } else {
         (*inlinks_)[right].push_back(left);
     }
-    size_ = nodes_->size();
 }
 
 unordered_map<int, vector<int> >* Graph::get_inlinks(){
@@ -102,33 +112,45 @@ int Graph::get_size(){
 }
     
     
-vector<float> Graph::pagerank(int iterations){
+vector<float>* Graph::pagerank(int iterations){
     float d = 0.85;
-    vector<float> opagerank;
-    vector<float> npagerank;
-    opagerank.resize(size_);
-    npagerank.resize(size_);
+    int i = 0;
+    vector<float>* opagerank = new vector<float>();
+    vector<float>* npagerank = new vector<float>();
+    opagerank->resize(size_);
+    npagerank->resize(size_);
+    float current_gama = INT32_MAX;
+    
     for (auto node=nodes_->begin();node!=nodes_->end();++node) {
-        opagerank[*node] = 1.0/ (float)size_;
+        (*opagerank)[*node] = 1.0;
     }
-        
-        
-    for (int i = 0; i < iterations; ++i) {
+    
+    while ( i++ < iterations && current_gama > 0.00001) {
+        current_gama = 0;
         float dp = 0;
         for (auto node=no_outlinks_->begin();node!=no_outlinks_->end();++node) {
-            dp += d* ((float) opagerank[*node]/size_);
+            dp +=(*opagerank)[*node];
         }
-            
+        
         for (auto node=nodes_->begin();node!=nodes_->end();++node) {
-                
-            npagerank[*node] = dp + (1-d)/size_;
-                
-            for (auto ip : get_inlinks(*node)) {
-                npagerank[*node] += (d * opagerank[ip])/get_outlink_count(*node);
-            }
-            opagerank = npagerank;
-        }
             
+            (*npagerank)[*node] = d*(dp/size_) + (1-d)/size_;
+            
+            for (auto ip : get_inlinks(*node)) {
+                
+                (*npagerank)[*node] += (d * (*opagerank)[ip])/get_outlink_count(ip);
+            }
+        }
+        for (int i = 0; i < size_ ; ++i) {
+            float diff = abs((*npagerank)[i] - (*opagerank)[i]);
+            current_gama = diff > current_gama ? diff : current_gama;
+           
+        }
+        cout << current_gama << endl;
+        opagerank = npagerank;
+        
+        
     }
+    cout << "n iterations " << i << endl;
     return opagerank;
 }

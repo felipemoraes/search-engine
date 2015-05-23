@@ -19,9 +19,13 @@
 #include <unordered_map>
 #include <unordered_set>
 #include<boost/tokenizer.hpp>
+ #include <boost/algorithm/string.hpp>
 #include "../common/page.h"
 #include "../common/term_occurrence.h"
 #include "../common/file.h"
+#include "../common/util.h"
+#include "../common/graph.h"
+#include "../common/doc_repository.h"
 
 using namespace std;
 using namespace boost;
@@ -37,16 +41,18 @@ public:
     bool vocabulary_contains(string term);
     int add_vocabulary(const string& term);
     int add_vocabulary_anchor(const string& term);
-    void remove_accents(string &str);
     void process_frequencies(string text, map<string, vector<unsigned> > &positions);
     void add_buffer(unsigned term_id, unsigned doc_id, vector<unsigned> positions,unsigned field);
     void flush();
     vector<File* >* exec();
     vector<File* >* get_runs();
-    void dump(vector<long>* &seeks_voc, vector<long>* &seeks_anchor);
+    void dump(unordered_map<unsigned,long>* &seeks_voc, unordered_map<unsigned,long>* &seeks_anchor);
     int get_vocabulary_size();
     int get_vocabulary_anchor_size();
-    
+    unordered_map<string, unsigned >* get_urls_anchor();
+    unordered_map<string,unsigned >* get_urls();
+    DocRepository* get_docs_anchor();
+    void remove_doc_anchor(string doc_url);
 private:
     
     unsigned run_size_;
@@ -56,18 +62,19 @@ private:
     unsigned doc_counter_;
     unsigned doc_counter_anchor_;
     string directory_;
-    unordered_map<string,unsigned>* vocabulary_;
-    unordered_map<string,unsigned>* vocabulary_anchor_;
-    unordered_map<string,pair<unsigned,unsigned> >* docs_;
-    unordered_map<string,pair<unsigned,unsigned> >* docs_anchor_;
+    unordered_map<string,pair<unsigned,unsigned> >* vocabulary_;
+    unordered_map<string,pair<unsigned,unsigned> >* vocabulary_anchor_;
+    DocRepository* docs_;
+    unordered_map<string,unsigned>* urls_;
+    unordered_map<string,unsigned>* urls_anchor_;
+    DocRepository* docs_anchor_;
     unordered_map<unsigned,vector<unsigned> >* links_;
+    vector<float>* pagerank_;
     vector<TermOccurrence>* buffer;
     unordered_set<string> stopwords_;
     vector<File* >* runs_;
-    ofstream doc_file_;
-    ofstream doc_file_anchor_;
-    void load_stopwords(string stopwords_dir);
-    
+    fstream outlinks_file_;
+    void process_pagerank(int size);
 };
 
 

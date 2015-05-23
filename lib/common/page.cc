@@ -73,14 +73,31 @@ void Page::search_for_links(GumboNode* node) {
             links_[uri] = a;
         }
 
+    } else if ( node->v.element.tag == GUMBO_TAG_TITLE) {
+        if (node->v.element.children.length != 1) {
+            
+        } else {
+            std::string title = "";
+            GumboVector* children = &node->v.element.children;
+            
+            for (unsigned int i = 0; i < children->length; ++i) {
+                const std::string text = clean_text((GumboNode*)children->data[i]);
+                if (i != 0 && !text.empty()) {
+                    title_.append(" ");
+                }
+                title_.append(text);
+            }
+        }
     }
-    
     GumboVector* children = &node->v.element.children;
     for (unsigned int i = 0; i < children->length; ++i) {
         search_for_links(static_cast<GumboNode*>(children->data[i]));
     }
     
 }
+
+
+
 
 
 bool Page::remove_header(string& str) {
@@ -101,3 +118,4 @@ void Page::parse(const std::string& html) {
     search_for_links(output->root);
     gumbo_destroy_output(&kGumboDefaultOptions, output);
 }
+

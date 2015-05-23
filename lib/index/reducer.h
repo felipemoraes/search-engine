@@ -12,6 +12,7 @@
 #include "../common/term_occurrence.h"
 #include "../common/file.h"
 #include "../index/index_file.h"
+#include "../index/mapper.h"
 #include <vector>
 #include <unordered_map>
 
@@ -27,7 +28,7 @@ public:
     ~Reducer();
     void merge();
     File* kmerge(vector<File* >* &runs);
-    pair<vector<long>*,vector<long>*> reduce(unsigned voc_size, unsigned anchor_size);
+    void reduce(Mapper &mapper);
     void aggregate(IndexFile &index, Term& aggr, TermOccurrence term, int& previous);
 };
 

@@ -13,6 +13,7 @@
 #include <cstdio>
 #include <string>
 #include <vector>
+#include <unordered_map>
 #include <iostream>
 
 using namespace std;
@@ -37,7 +38,7 @@ private:
     int read_;
     string name_;
     FILE* file_;
-    vector<long>* seeks_;
+    unordered_map<unsigned,long>* seeks_;
     
 public:
     class FileClosedException {};
@@ -84,7 +85,7 @@ public:
     
     void close();
     
-    vector<long>* get_seeks();
+    unordered_map<unsigned,long>* get_seeks();
     
     void delete_file();
     

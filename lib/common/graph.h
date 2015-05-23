@@ -13,6 +13,7 @@
 #include <unordered_set>
 #include <vector>
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -25,6 +26,7 @@ private:
     unordered_map<int, int>* outlinks_counts_;
 public:
     Graph();
+    Graph(int size);
     ~Graph();
     void insert(int left, int right);
     unordered_map<int, vector<int> >* get_inlinks();
@@ -40,7 +42,7 @@ public:
     int get_size();
     
     
-    vector<float> pagerank(int iterations);
+    vector<float>* pagerank(int iterations);
 };
 
 #endif /* defined(__search_engine__graph__) */

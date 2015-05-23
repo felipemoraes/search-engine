@@ -15,7 +15,7 @@
 using namespace std;
 using namespace RICPNS;
 
-#define MAX_DOCS 1
+#define MAX_DOCS 100
 #define RUN_SIZE 5
 
 
@@ -87,17 +87,11 @@ int main(int argc, char** argv) {
     Reducer reducer(run_size,runs, index_directory);
     // Merge run files in one
     reducer.merge();
-    int size = mapper.get_vocabulary_size();
-    int size_anchor = mapper.get_vocabulary_anchor_size();
     // start reducing file aggregating by term_id
-    pair<vector<long>*,vector<long> *> seeks = reducer.reduce(size,size_anchor);
-    mapper.dump(seeks.first, seeks.second);
-    cout << "Vocabulary size " << size << endl;
+    reducer.reduce(mapper);
     cout << "Doc counter " << doc_counter << endl;
     cout << "Finished indexer file at " << index_directory + "index" << endl;
     delete reader;
-    delete seeks.first;
-    delete seeks.second;
     gettimeofday(&t_end, NULL);
     execution_time = (t_end.tv_sec-t_start.tv_sec)*1000000;
     execution_time = (execution_time+(t_end.tv_usec-t_start.tv_usec))/1000000;

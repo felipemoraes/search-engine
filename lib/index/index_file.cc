@@ -29,19 +29,19 @@ void IndexFile::open(string file_name, int size){
     file_ = fopen(name_.c_str(), "w+b");
     write_size(size);
     size_ = 0;
-    seeks_ = new vector<long>();
+    seeks_ = new unordered_map<unsigned,long>();
 }
 
 void IndexFile::open(string file_name){
     name_ = file_name;
     file_ = fopen(name_.c_str(), "w+b");
     size_ = 0;
-    seeks_ = new vector<long>();
+    seeks_ = new unordered_map<unsigned,long>();
 }
 
 int IndexFile::write(Term oc){
     ensure_file_is_open();
-    seeks_->push_back(ftell(file_));
+    seeks_->insert(make_pair(oc.term_id_, ftell(file_)));
     fwrite(&(oc.term_id_), sizeof(int), 1, file_);
     fwrite(&(oc.frequency_), sizeof(int), 1, file_);
     for (auto it = oc.docs_->begin() ; it!= oc.docs_->end(); it++) {
@@ -169,7 +169,7 @@ void IndexFile::delete_file(){
     remove(name_.c_str());
 }
 
-vector<long>* IndexFile::get_seeks(){
+unordered_map<unsigned,long>* IndexFile::get_seeks(){
     return seeks_;
 }
 

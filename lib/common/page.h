@@ -11,11 +11,13 @@
 #define __search_engine__page__
 
 #include <string>
+#include <fstream>
 #include <map>
 #include <vector>
 #include <boost/algorithm/string.hpp>
 #include <htmlcxx/html/utils.h>
 #include <htmlcxx/html/Uri.h>
+#include <unordered_set>
 #include "gumbo.h"
 
 
@@ -48,6 +50,9 @@ class Page {
     map<string, vector<string> > links_;
 	
 };
+
+
+
 
 inline string Page::get_text(){
     return text_;

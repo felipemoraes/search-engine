@@ -149,34 +149,48 @@ void Reducer::aggregate(IndexFile &index, Term& aggr, TermOccurrence term, int& 
 }
 
 
-pair<vector<long>*,vector<long>*> Reducer::reduce(unsigned voc_size, unsigned anchor_size){
+void Reducer::reduce(Mapper &mapper){
     cout << " >> Start reducing" << endl;
     // open merged file and start aggregating it per term_id
     merged_->reopen();
     int term_id_index = -1;
     int term_id_anchor = -1;
     Term aggr_term, aggr_anchor;
-    IndexFile* index = new IndexFile(directory_ + "index", voc_size);
-    IndexFile* anchor_index = new IndexFile(directory_ + "anchor_index", anchor_size);
+    IndexFile* index = new IndexFile(directory_ + "index", mapper.get_vocabulary_size());
+    IndexFile* anchor_index = new IndexFile(directory_ + "anchor_index", mapper.get_vocabulary_anchor_size());
     aggr_term.docs_ = new vector<Doc>();
     aggr_anchor.docs_ = new vector<Doc>();
+    DocRepository* docs_anchor = mapper.get_docs_anchor();
+    unordered_map<string,unsigned>* docs = mapper.get_urls();
     while (merged_->has_next()) {
         TermOccurrence term = merged_->read();
         // if term_id is differente from other file write it in buffer
         if (term.field_ == 0) {
             aggregate(*index, aggr_term, term, term_id_index);
         } else {
-            aggregate(*anchor_index, aggr_anchor, term, term_id_anchor);
+            // check doc_id in documents and change
+            
+            DocumentInfo doc = docs_anchor->find(term.doc_id_);
+            if (doc.doc_id_ != term.doc_id_ +1 ) {
+                string url = doc.url_;
+                auto doc = docs->find(url);
+                if (doc != docs->end()) {
+                    term.doc_id_ = doc->second;
+                    aggregate(*anchor_index, aggr_anchor, term, term_id_anchor);
+                } else {
+                    mapper.remove_doc_anchor(url);
+                }
+            }
         }
         
     }
     merged_->delete_file();
     index->close();
-    vector<long>* seeks_voc = index->get_seeks();
-    vector<long>* seeks_anchor = anchor_index->get_seeks();
+    unordered_map<unsigned,long>* seeks_voc = index->get_seeks();
+    unordered_map<unsigned,long>* seeks_anchor = anchor_index->get_seeks();
+   
+    mapper.dump(seeks_voc,seeks_anchor);
     delete aggr_term.docs_;
     delete index;
     delete anchor_index;
-    pair<vector<long>*,vector<long>*> p = make_pair(seeks_voc, seeks_anchor);
-    return p;
 }

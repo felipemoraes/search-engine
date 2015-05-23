@@ -7,36 +7,36 @@
        objects = {
 
 /* Begin PBXAggregateTarget section */
-              7C95B3D7360743458FEB7037 /* ALL_BUILD */ = {
+              E2654B4B10F64770BCA88B39 /* ALL_BUILD */ = {
                      isa = PBXAggregateTarget;
-                     buildConfigurationList = BE3CCAE92BE84008AAB84D75 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+                     buildConfigurationList = B3897C830A314C969A5C3D2F /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
                      buildPhases = (
-                            B23E25D4891349A2B7428E16 /* CMake Rules */,
+                            ADB526E6058A45BB99415020 /* CMake Rules */,
                      );
                      dependencies = (
-                            7AAF6A9CD83D48C1A9175FCD /* PBXTargetDependency */,
-                            1CFEA282E4ED417892328409 /* PBXTargetDependency */,
-                            FEAE74F50AF54202BD361229 /* PBXTargetDependency */,
+                            C212F23A5CB44833AA161A51 /* PBXTargetDependency */,
+                            421F1926FD834500B9C0355A /* PBXTargetDependency */,
+                            F6CAF6E23D924DE48311B2EB /* PBXTargetDependency */,
                      );
                      name = ALL_BUILD;
                      productName = ALL_BUILD;
               };
-              608E7D7EF6C84561B6805200 /* RUN_TESTS */ = {
+              10A33209FE074DD999B0DCA7 /* RUN_TESTS */ = {
                      isa = PBXAggregateTarget;
-                     buildConfigurationList = 9687E84F6C244A55BED21324 /* Build configuration list for PBXAggregateTarget "RUN_TESTS" */;
+                     buildConfigurationList = 3E362A0B5B30422B8CD72C04 /* Build configuration list for PBXAggregateTarget "RUN_TESTS" */;
                      buildPhases = (
-                            247A8E4843B14931B5CF9F36 /* CMake PostBuild Rules */,
+                            1B61FA6B46DE4D0EB0413A5F /* CMake PostBuild Rules */,
                      );
                      dependencies = (
                      );
                      name = RUN_TESTS;
                      productName = RUN_TESTS;
               };
-              3119D78569694172AE77BD4F /* ZERO_CHECK */ = {
+              08F92949D3474AD19C1E0DAD /* ZERO_CHECK */ = {
                      isa = PBXAggregateTarget;
-                     buildConfigurationList = D44608DF36A8493BA593376E /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+                     buildConfigurationList = 196D5B0927A546559B8F34FB /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
                      buildPhases = (
-                            AA9FCCD6B69244F198974FEA /* CMake Rules */,
+                            FE9BBE5C70A746E1BB49ACD1 /* CMake Rules */,
                      );
                      dependencies = (
                      );
@@ -46,38 +46,38 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-710AC9396938439CA758439D /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 9DB89AC7E2904A5FACE5A0A3 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/CMakeLists.txt */; settings = { COMPILER_FLAGS = ""; }; };
-27D3A9B2230D485381270AE9 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/src/gtest-all.cc */ = {isa = PBXBuildFile; fileRef = 7A1A21A2206D43C9A8B94903 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/src/gtest-all.cc */; settings = { COMPILER_FLAGS = ""; }; };
-2B52FF1618C843B6B68FB7A0 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 403F63A0171A45938E4E6915 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/CMakeLists.txt */; settings = { COMPILER_FLAGS = ""; }; };
-4813B2AB2CD64BDC9664710C /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/src/gtest_main.cc */ = {isa = PBXBuildFile; fileRef = 016D10A5D30D4258BDC55FE8 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/src/gtest_main.cc */; settings = { COMPILER_FLAGS = ""; }; };
+0D94C259C09F4D60A171FC06 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = E41B11CF3B00468BAAE3FB6F /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/CMakeLists.txt */; settings = { COMPILER_FLAGS = ""; }; };
+F7A38174C0DE44F586AD78A9 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/src/gtest-all.cc */ = {isa = PBXBuildFile; fileRef = C83204FB59D3414297F5DE60 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/src/gtest-all.cc */; settings = { COMPILER_FLAGS = ""; }; };
+C14025C623324086A29C51F1 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = A56DA78D9BAC415A84120C14 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/CMakeLists.txt */; settings = { COMPILER_FLAGS = ""; }; };
+53354EBA2C0549B1B3D12D52 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/src/gtest_main.cc */ = {isa = PBXBuildFile; fileRef = F499066BE0524CE2AF5D797B /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/src/gtest_main.cc */; settings = { COMPILER_FLAGS = ""; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildStyle section */
-              06CC102A845C4757A8BAF236 /*  */ = {
+              47824FAAF4844B1680CCB303 /*  */ = {
                      isa = PBXBuildStyle;
               };
-              299F7AFE778E47B4818A8A3A /* Debug */ = {
+              A7E35D2255D64E91A9461741 /* Debug */ = {
                      isa = PBXBuildStyle;
                      buildSettings = {
                             COPY_PHASE_STRIP = NO;
                      };
                      name = Debug;
               };
-              4D009D3701EB4F16AEF5C09A /* Release */ = {
+              2378680BD7A2499586F052B6 /* Release */ = {
                      isa = PBXBuildStyle;
                      buildSettings = {
                             COPY_PHASE_STRIP = NO;
                      };
                      name = Release;
               };
-              7848905FE5CB402280235553 /* MinSizeRel */ = {
+              B4AF56B110E64BE0856867AF /* MinSizeRel */ = {
                      isa = PBXBuildStyle;
                      buildSettings = {
                             COPY_PHASE_STRIP = NO;
                      };
                      name = MinSizeRel;
               };
-              B8984C80F2264C9B9AF01589 /* RelWithDebInfo */ = {
+              979BF696CD98447395F640C8 /* RelWithDebInfo */ = {
                      isa = PBXBuildStyle;
                      buildSettings = {
                             COPY_PHASE_STRIP = NO;
@@ -87,160 +87,160 @@
 /* End PBXBuildStyle section */
 
 /* Begin PBXContainerItemProxy section */
-              463421CCEF104123B8F613EC /* PBXContainerItemProxy */ = {
+              BE5D197BE3844F06A39BB048 /* PBXContainerItemProxy */ = {
                      isa = PBXContainerItemProxy;
-                     containerPortal = 86EFC69C82E64EA383C2FACC /* Project object */;
+                     containerPortal = 811D583EB15E4911B30C8EDC /* Project object */;
                      proxyType = 1;
-                     remoteGlobalIDString = 3119D78569694172AE77BD4F;
-                     remoteInfo = ZERO_CHECK;
-              };
-              22DF76DC14274788BF2CD40A /* PBXContainerItemProxy */ = {
-                     isa = PBXContainerItemProxy;
-                     containerPortal = 86EFC69C82E64EA383C2FACC /* Project object */;
-                     proxyType = 1;
-                     remoteGlobalIDString = 267B5B060D724C6CB4EABF8E;
+                     remoteGlobalIDString = 3D43BB23FC694025A9A9B101;
                      remoteInfo = gtest_main;
               };
-              CC70A1A2619A4C63AFEB2372 /* PBXContainerItemProxy */ = {
+              F787416A2F9245EE9B18B582 /* PBXContainerItemProxy */ = {
                      isa = PBXContainerItemProxy;
-                     containerPortal = 86EFC69C82E64EA383C2FACC /* Project object */;
+                     containerPortal = 811D583EB15E4911B30C8EDC /* Project object */;
                      proxyType = 1;
-                     remoteGlobalIDString = 0A06FAB4808749F2AFE641B6;
+                     remoteGlobalIDString = B1CA1F794A4C466093C748F1;
                      remoteInfo = gtest;
               };
-              CD97BE47C88248CD9D191721 /* PBXContainerItemProxy */ = {
+              9D78ABCB967F424B8BEB17B2 /* PBXContainerItemProxy */ = {
                      isa = PBXContainerItemProxy;
-                     containerPortal = 86EFC69C82E64EA383C2FACC /* Project object */;
+                     containerPortal = 811D583EB15E4911B30C8EDC /* Project object */;
                      proxyType = 1;
-                     remoteGlobalIDString = 3119D78569694172AE77BD4F;
+                     remoteGlobalIDString = 08F92949D3474AD19C1E0DAD;
                      remoteInfo = ZERO_CHECK;
               };
-              68598B3982F84DDEB9C6ACE3 /* PBXContainerItemProxy */ = {
+              846C887B19374E25B4308FCF /* PBXContainerItemProxy */ = {
                      isa = PBXContainerItemProxy;
-                     containerPortal = 86EFC69C82E64EA383C2FACC /* Project object */;
+                     containerPortal = 811D583EB15E4911B30C8EDC /* Project object */;
                      proxyType = 1;
-                     remoteGlobalIDString = 3119D78569694172AE77BD4F;
+                     remoteGlobalIDString = 08F92949D3474AD19C1E0DAD;
                      remoteInfo = ZERO_CHECK;
               };
-              946B2030C9B848B8A2E8C94C /* PBXContainerItemProxy */ = {
+              E502BDE71A67415AA013C07A /* PBXContainerItemProxy */ = {
                      isa = PBXContainerItemProxy;
-                     containerPortal = 86EFC69C82E64EA383C2FACC /* Project object */;
+                     containerPortal = 811D583EB15E4911B30C8EDC /* Project object */;
                      proxyType = 1;
-                     remoteGlobalIDString = 0A06FAB4808749F2AFE641B6;
+                     remoteGlobalIDString = B1CA1F794A4C466093C748F1;
                      remoteInfo = gtest;
+              };
+              DA504B49EFCE47DD836D17A6 /* PBXContainerItemProxy */ = {
+                     isa = PBXContainerItemProxy;
+                     containerPortal = 811D583EB15E4911B30C8EDC /* Project object */;
+                     proxyType = 1;
+                     remoteGlobalIDString = 08F92949D3474AD19C1E0DAD;
+                     remoteInfo = ZERO_CHECK;
               };
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-81717DE64D144111992EA5ED /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
-AC8EF88F193C4F2782CB8596 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
-9DB89AC7E2904A5FACE5A0A3 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
-7A1A21A2206D43C9A8B94903 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/src/gtest-all.cc */ = {isa = PBXFileReference; explicitFileType = "sourcecode.cpp.cpp"; fileEncoding = 4; name = "gtest-all.cc"; path = "src/gtest-all.cc"; sourceTree = SOURCE_ROOT; };
-6A1E343E95D444BCBB554E17 /* gtest */ = {isa = PBXFileReference; explicitFileType = "archive.ar"; path = "libgtest.a"; refType = 0; sourceTree = BUILT_PRODUCTS_DIR; };
-403F63A0171A45938E4E6915 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
-016D10A5D30D4258BDC55FE8 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/src/gtest_main.cc */ = {isa = PBXFileReference; explicitFileType = "sourcecode.cpp.cpp"; fileEncoding = 4; name = "gtest_main.cc"; path = "src/gtest_main.cc"; sourceTree = SOURCE_ROOT; };
-18D7ADD936B546FDB195FA6C /* gtest_main */ = {isa = PBXFileReference; explicitFileType = "archive.ar"; path = "libgtest_main.a"; refType = 0; sourceTree = BUILT_PRODUCTS_DIR; };
+5BED4447CED94FA896E0B640 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+B03D9C95B3744CDC8AF15069 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+E41B11CF3B00468BAAE3FB6F /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+C83204FB59D3414297F5DE60 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/src/gtest-all.cc */ = {isa = PBXFileReference; explicitFileType = "sourcecode.cpp.cpp"; fileEncoding = 4; name = "gtest-all.cc"; path = "src/gtest-all.cc"; sourceTree = SOURCE_ROOT; };
+7F67ABECCF264764A7EBDF44 /* gtest */ = {isa = PBXFileReference; explicitFileType = "archive.ar"; path = "libgtest.a"; refType = 0; sourceTree = BUILT_PRODUCTS_DIR; };
+A56DA78D9BAC415A84120C14 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = "sourcecode.text"; fileEncoding = 4; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+F499066BE0524CE2AF5D797B /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/src/gtest_main.cc */ = {isa = PBXFileReference; explicitFileType = "sourcecode.cpp.cpp"; fileEncoding = 4; name = "gtest_main.cc"; path = "src/gtest_main.cc"; sourceTree = SOURCE_ROOT; };
+2F4CBA685DF8461481443101 /* gtest_main */ = {isa = PBXFileReference; explicitFileType = "archive.ar"; path = "libgtest_main.a"; refType = 0; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-              3596510E820B415A8428965B  = {
+              6783B653457341FF8C5A4E92  = {
                      isa = PBXGroup;
                      children = (
-                            841ADCDCAB13492483A4F96E /* Sources */,
-                            5A60ACD71FB74DDC8B3ECB66 /* Resources */,
-                            B64AC734EBC64931981FD58F /* Products */,
+                            099C78C8F58343F787DB3078 /* Sources */,
+                            245A89B21E9E4BB08CF8D9E2 /* Resources */,
+                            E065E695D71D409A9F645DE3 /* Products */,
                      );
                      sourceTree = "<group>";
               };
-              841ADCDCAB13492483A4F96E /* Sources */ = {
+              099C78C8F58343F787DB3078 /* Sources */ = {
                      isa = PBXGroup;
                      children = (
-                            B01E16F11E96471B8FF260AF /* gtest */,
-                            54C7C118B32046B39893F6B1 /* ALL_BUILD */,
-                            A2CED0E3DAE24B5AA0B4DFE7 /* gtest_main */,
-                            B7B3FE69AED84100968FE452 /* ZERO_CHECK */,
+                            CD5EA9FBD0AC4F5EB0AFF447 /* gtest */,
+                            4BCEBD9D62A94D298BB835C1 /* ALL_BUILD */,
+                            0820B02712F241CE81268721 /* gtest_main */,
+                            F46CD730FFB2482781E675B4 /* ZERO_CHECK */,
                      );
                      name = Sources;
                      sourceTree = "<group>";
               };
-              5A60ACD71FB74DDC8B3ECB66 /* Resources */ = {
+              245A89B21E9E4BB08CF8D9E2 /* Resources */ = {
                      isa = PBXGroup;
                      children = (
                      );
                      name = Resources;
                      sourceTree = "<group>";
               };
-              B01E16F11E96471B8FF260AF /* gtest */ = {
+              CD5EA9FBD0AC4F5EB0AFF447 /* gtest */ = {
                      isa = PBXGroup;
                      children = (
-                            777296D93E4D4F00A0559E66 /* Source Files */,
-                            9DB89AC7E2904A5FACE5A0A3 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/CMakeLists.txt */,
+                            E2C0FC77B29C4D78A66E0837 /* Source Files */,
+                            E41B11CF3B00468BAAE3FB6F /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/CMakeLists.txt */,
                      );
                      name = gtest;
                      sourceTree = "<group>";
               };
-              777296D93E4D4F00A0559E66 /* Source Files */ = {
+              E2C0FC77B29C4D78A66E0837 /* Source Files */ = {
                      isa = PBXGroup;
                      children = (
-                            7A1A21A2206D43C9A8B94903 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/src/gtest-all.cc */,
+                            C83204FB59D3414297F5DE60 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/src/gtest-all.cc */,
                      );
                      name = "Source Files";
                      sourceTree = "<group>";
               };
-              54C7C118B32046B39893F6B1 /* ALL_BUILD */ = {
+              4BCEBD9D62A94D298BB835C1 /* ALL_BUILD */ = {
                      isa = PBXGroup;
                      children = (
-                            57A693F19B804284BEB774E1 /* CMake Rules */,
-                            81717DE64D144111992EA5ED /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/CMakeLists.txt */,
+                            C88540787B4946C6A45108AF /* CMake Rules */,
+                            5BED4447CED94FA896E0B640 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/CMakeLists.txt */,
                      );
                      name = ALL_BUILD;
                      sourceTree = "<group>";
               };
-              57A693F19B804284BEB774E1 /* CMake Rules */ = {
+              C88540787B4946C6A45108AF /* CMake Rules */ = {
                      isa = PBXGroup;
                      children = (
                      );
                      name = "CMake Rules";
                      sourceTree = "<group>";
               };
-              A2CED0E3DAE24B5AA0B4DFE7 /* gtest_main */ = {
+              0820B02712F241CE81268721 /* gtest_main */ = {
                      isa = PBXGroup;
                      children = (
-                            F59A9A36E4074F55AAA63D1E /* Source Files */,
-                            403F63A0171A45938E4E6915 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/CMakeLists.txt */,
+                            1405C717794D47BC89C6485F /* Source Files */,
+                            A56DA78D9BAC415A84120C14 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/CMakeLists.txt */,
                      );
                      name = gtest_main;
                      sourceTree = "<group>";
               };
-              F59A9A36E4074F55AAA63D1E /* Source Files */ = {
+              1405C717794D47BC89C6485F /* Source Files */ = {
                      isa = PBXGroup;
                      children = (
-                            016D10A5D30D4258BDC55FE8 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/src/gtest_main.cc */,
+                            F499066BE0524CE2AF5D797B /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/src/gtest_main.cc */,
                      );
                      name = "Source Files";
                      sourceTree = "<group>";
               };
-              B7B3FE69AED84100968FE452 /* ZERO_CHECK */ = {
+              F46CD730FFB2482781E675B4 /* ZERO_CHECK */ = {
                      isa = PBXGroup;
                      children = (
-                            21B7450B8ECD45F8AB1E1CFC /* CMake Rules */,
-                            AC8EF88F193C4F2782CB8596 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/CMakeLists.txt */,
+                            AFF2B7CBF3D443B997EF30D8 /* CMake Rules */,
+                            B03D9C95B3744CDC8AF15069 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/CMakeLists.txt */,
                      );
                      name = ZERO_CHECK;
                      sourceTree = "<group>";
               };
-              21B7450B8ECD45F8AB1E1CFC /* CMake Rules */ = {
+              AFF2B7CBF3D443B997EF30D8 /* CMake Rules */ = {
                      isa = PBXGroup;
                      children = (
                      );
                      name = "CMake Rules";
                      sourceTree = "<group>";
               };
-              B64AC734EBC64931981FD58F /* Products */ = {
+              E065E695D71D409A9F645DE3 /* Products */ = {
                      isa = PBXGroup;
                      children = (
-                            6A1E343E95D444BCBB554E17 /* gtest */,
-                            18D7ADD936B546FDB195FA6C /* gtest_main */,
+                            7F67ABECCF264764A7EBDF44 /* gtest */,
+                            2F4CBA685DF8461481443101 /* gtest_main */,
                      );
                      name = Products;
                      sourceTree = "<group>";
@@ -248,73 +248,73 @@ AC8EF88F193C4F2782CB8596 /* /Users/felipemoraes/Developer/search-engine/test/gte
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-              0A06FAB4808749F2AFE641B6 /* gtest */ = {
+              B1CA1F794A4C466093C748F1 /* gtest */ = {
                      isa = PBXNativeTarget;
-                     buildConfigurationList = 7D15D717BD07414489A375F7 /* Build configuration list for PBXNativeTarget "gtest" */;
+                     buildConfigurationList = 083D2BD370A74B0FA9DF2189 /* Build configuration list for PBXNativeTarget "gtest" */;
                      buildPhases = (
-                            99E5CB2315E84687BCC267F7 /* Sources */,
+                            DC2B4E9C86364DB8B3CBF47A /* Sources */,
                      );
                      buildRules = (
                      );
                      dependencies = (
-                            A253BE7CB12641A68B4063BB /* PBXTargetDependency */,
+                            FB6F5B984A754B87B0FA09B5 /* PBXTargetDependency */,
                      );
                      name = gtest;
                      productName = gtest;
-                     productReference = 6A1E343E95D444BCBB554E17 /* gtest */;
+                     productReference = 7F67ABECCF264764A7EBDF44 /* gtest */;
                      productType = "com.apple.product-type.library.static";
               };
-              267B5B060D724C6CB4EABF8E /* gtest_main */ = {
+              3D43BB23FC694025A9A9B101 /* gtest_main */ = {
                      isa = PBXNativeTarget;
-                     buildConfigurationList = 0E45A9E2EEBF4B8980E62EDE /* Build configuration list for PBXNativeTarget "gtest_main" */;
+                     buildConfigurationList = 67610863E5EA40F2A2B95FE8 /* Build configuration list for PBXNativeTarget "gtest_main" */;
                      buildPhases = (
-                            49DD011FE3B44269808D641B /* Sources */,
+                            4CE16A52832442F692AE9781 /* Sources */,
                      );
                      buildRules = (
                      );
                      dependencies = (
-                            4322A60289284949A39E03D9 /* PBXTargetDependency */,
-                            C413A48937614F31B416D80E /* PBXTargetDependency */,
+                            49658D96ED034C32B0D5447C /* PBXTargetDependency */,
+                            66CF9D8A784C461A8F9A4B0B /* PBXTargetDependency */,
                      );
                      name = gtest_main;
                      productName = gtest_main;
-                     productReference = 18D7ADD936B546FDB195FA6C /* gtest_main */;
+                     productReference = 2F4CBA685DF8461481443101 /* gtest_main */;
                      productType = "com.apple.product-type.library.static";
               };
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-              86EFC69C82E64EA383C2FACC /* Project object */ = {
+              811D583EB15E4911B30C8EDC /* Project object */ = {
                      isa = PBXProject;
                      attributes = {
                             BuildIndependentTargetsInParallel = YES;
                      };
-                     buildConfigurationList = D18C12C5EB614D6BB32DE181 /* Build configuration list for PBXProject  "gtest" */;
+                     buildConfigurationList = 9726A83D217D42DE817499A8 /* Build configuration list for PBXProject  "gtest" */;
                      buildSettings = {
                      };
                      buildStyles = (
-                            299F7AFE778E47B4818A8A3A /* Debug */,
-                            4D009D3701EB4F16AEF5C09A /* Release */,
-                            7848905FE5CB402280235553 /* MinSizeRel */,
-                            B8984C80F2264C9B9AF01589 /* RelWithDebInfo */,
+                            A7E35D2255D64E91A9461741 /* Debug */,
+                            2378680BD7A2499586F052B6 /* Release */,
+                            B4AF56B110E64BE0856867AF /* MinSizeRel */,
+                            979BF696CD98447395F640C8 /* RelWithDebInfo */,
                      );
                      compatibilityVersion = "Xcode 3.2";
                      hasScannedForEncodings = 0;
-                     mainGroup = 3596510E820B415A8428965B;
+                     mainGroup = 6783B653457341FF8C5A4E92;
                      projectDirPath = ".";
                      projectRoot = "";
                      targets = (
-                            7C95B3D7360743458FEB7037 /* ALL_BUILD */,
-                            608E7D7EF6C84561B6805200 /* RUN_TESTS */,
-                            3119D78569694172AE77BD4F /* ZERO_CHECK */,
-                            0A06FAB4808749F2AFE641B6 /* gtest */,
-                            267B5B060D724C6CB4EABF8E /* gtest_main */,
+                            E2654B4B10F64770BCA88B39 /* ALL_BUILD */,
+                            10A33209FE074DD999B0DCA7 /* RUN_TESTS */,
+                            08F92949D3474AD19C1E0DAD /* ZERO_CHECK */,
+                            B1CA1F794A4C466093C748F1 /* gtest */,
+                            3D43BB23FC694025A9A9B101 /* gtest_main */,
                      );
               };
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-              0BF852E4358D442DA3AC185C /*  */ = {
+              4CC4D96D10BF480781EF5F80 /*  */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -329,7 +329,7 @@ AC8EF88F193C4F2782CB8596 /* /Users/felipemoraes/Developer/search-engine/test/gte
 exit 0";
                      showEnvVarsInLog = 0;
               };
-              B23E25D4891349A2B7428E16 /* CMake Rules */ = {
+              ADB526E6058A45BB99415020 /* CMake Rules */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -340,7 +340,7 @@ exit 0";
                      shellScript = "make -C /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0 -f /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION all";
                      showEnvVarsInLog = 0;
               };
-              B3C976FF063749B1A5DF8DD1 /*  */ = {
+              1754E0D98A334B769B760523 /*  */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -355,7 +355,7 @@ exit 0";
 exit 0";
                      showEnvVarsInLog = 0;
               };
-              247A8E4843B14931B5CF9F36 /* CMake PostBuild Rules */ = {
+              1B61FA6B46DE4D0EB0413A5F /* CMake PostBuild Rules */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -366,7 +366,7 @@ exit 0";
                      shellScript = "make -C /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0 -f /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/CMakeScripts/RUN_TESTS_postBuildPhase.make$CONFIGURATION all";
                      showEnvVarsInLog = 0;
               };
-              2CC0367BC805447D9D46C312 /*  */ = {
+              260FB6C7199F47C599219A40 /*  */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -381,7 +381,7 @@ exit 0";
 exit 0";
                      showEnvVarsInLog = 0;
               };
-              AA9FCCD6B69244F198974FEA /* CMake Rules */ = {
+              FE9BBE5C70A746E1BB49ACD1 /* CMake Rules */ = {
                      isa = PBXShellScriptBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
@@ -395,59 +395,59 @@ exit 0";
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-              99E5CB2315E84687BCC267F7 /* Sources */ = {
+              DC2B4E9C86364DB8B3CBF47A /* Sources */ = {
                      isa = PBXSourcesBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
-                            27D3A9B2230D485381270AE9 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/src/gtest-all.cc */,
+                            F7A38174C0DE44F586AD78A9 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/src/gtest-all.cc */,
                      );
                      runOnlyForDeploymentPostprocessing = 0;
               };
-              49DD011FE3B44269808D641B /* Sources */ = {
+              4CE16A52832442F692AE9781 /* Sources */ = {
                      isa = PBXSourcesBuildPhase;
                      buildActionMask = 2147483647;
                      files = (
-                            4813B2AB2CD64BDC9664710C /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/src/gtest_main.cc */,
+                            53354EBA2C0549B1B3D12D52 /* /Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/src/gtest_main.cc */,
                      );
                      runOnlyForDeploymentPostprocessing = 0;
               };
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-              7AAF6A9CD83D48C1A9175FCD /* PBXTargetDependency */ = {
+              C212F23A5CB44833AA161A51 /* PBXTargetDependency */ = {
                      isa = PBXTargetDependency;
-                     target = 3119D78569694172AE77BD4F /* ZERO_CHECK */;
-                     targetProxy = 463421CCEF104123B8F613EC /* PBXContainerItemProxy */;
+                     target = 3D43BB23FC694025A9A9B101 /* gtest_main */;
+                     targetProxy = BE5D197BE3844F06A39BB048 /* PBXContainerItemProxy */;
               };
-              1CFEA282E4ED417892328409 /* PBXTargetDependency */ = {
+              421F1926FD834500B9C0355A /* PBXTargetDependency */ = {
                      isa = PBXTargetDependency;
-                     target = 267B5B060D724C6CB4EABF8E /* gtest_main */;
-                     targetProxy = 22DF76DC14274788BF2CD40A /* PBXContainerItemProxy */;
+                     target = B1CA1F794A4C466093C748F1 /* gtest */;
+                     targetProxy = F787416A2F9245EE9B18B582 /* PBXContainerItemProxy */;
               };
-              FEAE74F50AF54202BD361229 /* PBXTargetDependency */ = {
+              F6CAF6E23D924DE48311B2EB /* PBXTargetDependency */ = {
                      isa = PBXTargetDependency;
-                     target = 0A06FAB4808749F2AFE641B6 /* gtest */;
-                     targetProxy = CC70A1A2619A4C63AFEB2372 /* PBXContainerItemProxy */;
+                     target = 08F92949D3474AD19C1E0DAD /* ZERO_CHECK */;
+                     targetProxy = 9D78ABCB967F424B8BEB17B2 /* PBXContainerItemProxy */;
               };
-              A253BE7CB12641A68B4063BB /* PBXTargetDependency */ = {
+              FB6F5B984A754B87B0FA09B5 /* PBXTargetDependency */ = {
                      isa = PBXTargetDependency;
-                     target = 3119D78569694172AE77BD4F /* ZERO_CHECK */;
-                     targetProxy = CD97BE47C88248CD9D191721 /* PBXContainerItemProxy */;
+                     target = 08F92949D3474AD19C1E0DAD /* ZERO_CHECK */;
+                     targetProxy = 846C887B19374E25B4308FCF /* PBXContainerItemProxy */;
               };
-              4322A60289284949A39E03D9 /* PBXTargetDependency */ = {
+              49658D96ED034C32B0D5447C /* PBXTargetDependency */ = {
                      isa = PBXTargetDependency;
-                     target = 3119D78569694172AE77BD4F /* ZERO_CHECK */;
-                     targetProxy = 68598B3982F84DDEB9C6ACE3 /* PBXContainerItemProxy */;
+                     target = B1CA1F794A4C466093C748F1 /* gtest */;
+                     targetProxy = E502BDE71A67415AA013C07A /* PBXContainerItemProxy */;
               };
-              C413A48937614F31B416D80E /* PBXTargetDependency */ = {
+              66CF9D8A784C461A8F9A4B0B /* PBXTargetDependency */ = {
                      isa = PBXTargetDependency;
-                     target = 0A06FAB4808749F2AFE641B6 /* gtest */;
-                     targetProxy = 946B2030C9B848B8A2E8C94C /* PBXContainerItemProxy */;
+                     target = 08F92949D3474AD19C1E0DAD /* ZERO_CHECK */;
+                     targetProxy = DA504B49EFCE47DD836D17A6 /* PBXContainerItemProxy */;
               };
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-              88FF06723ADC4588AB0A3C6E /* Debug */ = {
+              87CE4EEFE48C4897B82EA3F4 /* Debug */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
@@ -457,7 +457,7 @@ exit 0";
                      };
                      name = Debug;
               };
-              D416270AAD4644C4B4183639 /* Release */ = {
+              57C812500BAA4765864D9857 /* Release */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
@@ -467,7 +467,7 @@ exit 0";
                      };
                      name = Release;
               };
-              0B426673157B4E06BA111853 /* MinSizeRel */ = {
+              5F4D8DB1833444419EE4C38C /* MinSizeRel */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
@@ -477,7 +477,7 @@ exit 0";
                      };
                      name = MinSizeRel;
               };
-              21DD954A694B4F66AB190849 /* RelWithDebInfo */ = {
+              02317408F66943F89E252934 /* RelWithDebInfo */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
@@ -487,14 +487,14 @@ exit 0";
                      };
                      name = RelWithDebInfo;
               };
-              DBC4783B98E24435AEF2BCDA /* Debug */ = {
+              34695F88FE774C35A07F98EE /* Debug */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
                             GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
                             GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", HAS_BOOST, );
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
                             HEADER_SEARCH_PATHS = (/usr/local/include, "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/include", "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0", );
                             INSTALL_PATH = "";
@@ -509,14 +509,14 @@ exit 0";
                      };
                      name = Debug;
               };
-              F5359310BAD7415BAC6EC6B1 /* Release */ = {
+              3DF47808A15145468DB0FEDC /* Release */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
                             GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
                             GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", HAS_BOOST, );
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
                             HEADER_SEARCH_PATHS = (/usr/local/include, "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/include", "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0", );
                             INSTALL_PATH = "";
@@ -531,14 +531,14 @@ exit 0";
                      };
                      name = Release;
               };
-              AB1F804683604FFC816AEC17 /* MinSizeRel */ = {
+              B7F2C060F67B42BFB7BA4043 /* MinSizeRel */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
                             GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
                             GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", HAS_BOOST, );
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
                             HEADER_SEARCH_PATHS = (/usr/local/include, "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/include", "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0", );
                             INSTALL_PATH = "";
@@ -553,14 +553,14 @@ exit 0";
                      };
                      name = MinSizeRel;
               };
-              2D66FA9286CC4A758103BFC8 /* RelWithDebInfo */ = {
+              C3D4AE18CE4A43AF9597B1CC /* RelWithDebInfo */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
                             GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
                             GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", HAS_BOOST, );
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
                             HEADER_SEARCH_PATHS = (/usr/local/include, "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/include", "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0", );
                             INSTALL_PATH = "";
@@ -575,7 +575,7 @@ exit 0";
                      };
                      name = RelWithDebInfo;
               };
-              39BA0224AD694A478D4024C2 /* Debug */ = {
+              0AB918D8527149A080F11675 /* Debug */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -597,7 +597,7 @@ exit 0";
                      };
                      name = Debug;
               };
-              347EC312224C4A0D981B0B3A /* Release */ = {
+              05763E172203462AA5F3257E /* Release */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -619,7 +619,7 @@ exit 0";
                      };
                      name = Release;
               };
-              A51DF3093E904AD890C116F9 /* MinSizeRel */ = {
+              5B7B622AE23748FEBF892D50 /* MinSizeRel */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -641,7 +641,7 @@ exit 0";
                      };
                      name = MinSizeRel;
               };
-              ED145177D5114D1E8B6C03EE /* RelWithDebInfo */ = {
+              D840B81F8EE04F4DB645E1CA /* RelWithDebInfo */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -663,14 +663,14 @@ exit 0";
                      };
                      name = RelWithDebInfo;
               };
-              B141696FE1B44F7A9392C172 /* Debug */ = {
+              1F8D79B14A254788B353F2D8 /* Debug */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
                             GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
                             GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", HAS_BOOST, );
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
                             HEADER_SEARCH_PATHS = (/usr/local/include, "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/include", "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0", );
                             INSTALL_PATH = "";
@@ -685,14 +685,14 @@ exit 0";
                      };
                      name = Debug;
               };
-              12C03CF99B5249248E70063D /* Release */ = {
+              3B50260085DD4B28B28A839F /* Release */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
                             GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
                             GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", HAS_BOOST, );
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
                             HEADER_SEARCH_PATHS = (/usr/local/include, "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/include", "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0", );
                             INSTALL_PATH = "";
@@ -707,14 +707,14 @@ exit 0";
                      };
                      name = Release;
               };
-              0F3D1A4477C2479D88F5DF28 /* MinSizeRel */ = {
+              6C43CC38B1C04FDB9EA3BD51 /* MinSizeRel */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
                             GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
                             GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", HAS_BOOST, );
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
                             HEADER_SEARCH_PATHS = (/usr/local/include, "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/include", "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0", );
                             INSTALL_PATH = "";
@@ -729,14 +729,14 @@ exit 0";
                      };
                      name = MinSizeRel;
               };
-              67FE545B8BFC4791AD07BE2B /* RelWithDebInfo */ = {
+              6730C3D72725452181ED257C /* RelWithDebInfo */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
                             GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
                             GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", HAS_BOOST, );
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
                             HEADER_SEARCH_PATHS = (/usr/local/include, "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/include", "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0", );
                             INSTALL_PATH = "";
@@ -751,7 +751,7 @@ exit 0";
                      };
                      name = RelWithDebInfo;
               };
-              5A9373064EC9476F936E38B5 /* Debug */ = {
+              B696E31C778A44819CAEE1AF /* Debug */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -759,14 +759,14 @@ exit 0";
                             EXECUTABLE_SUFFIX = ".a";
                             GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
                             GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", HAS_BOOST, );
+                            GCC_OPTIMIZATION_LEVEL = 3;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
                             HEADER_SEARCH_PATHS = (/usr/local/include, "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/include", "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0", );
                             INSTALL_PATH = "";
                             LIBRARY_STYLE = STATIC;
-                            OTHER_CFLAGS = "     -std=c++11  -DGTEST_HAS_PTHREAD=1    ";
-                            OTHER_CPLUSPLUSFLAGS = "  -std=c++11      -std=c++11  -DGTEST_HAS_PTHREAD=1    ";
+                            OTHER_CFLAGS = "    -std=c++1y     -Wno-deprecated-declarations  -DGTEST_HAS_PTHREAD=1    ";
+                            OTHER_CPLUSPLUSFLAGS = " -std=c++1y     -Wno-deprecated-declarations     -std=c++1y     -Wno-deprecated-declarations  -DGTEST_HAS_PTHREAD=1    ";
                             OTHER_LIBTOOLFLAGS = " ";
                             OTHER_REZFLAGS = "";
                             PRODUCT_NAME = gtest;
@@ -777,7 +777,7 @@ exit 0";
                      };
                      name = Debug;
               };
-              EAFB299AA3194F3994B14BCA /* Release */ = {
+              4C0966C095B241E5B5A5429D /* Release */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -786,13 +786,13 @@ exit 0";
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
                             GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
                             GCC_OPTIMIZATION_LEVEL = 3;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", HAS_BOOST, );
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
                             HEADER_SEARCH_PATHS = (/usr/local/include, "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/include", "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0", );
                             INSTALL_PATH = "";
                             LIBRARY_STYLE = STATIC;
-                            OTHER_CFLAGS = "    -DNDEBUG   -std=c++11  -DGTEST_HAS_PTHREAD=1    ";
-                            OTHER_CPLUSPLUSFLAGS = "  -std=c++11     -DNDEBUG   -std=c++11  -DGTEST_HAS_PTHREAD=1    ";
+                            OTHER_CFLAGS = "    -DNDEBUG  -std=c++1y     -Wno-deprecated-declarations  -DGTEST_HAS_PTHREAD=1    ";
+                            OTHER_CPLUSPLUSFLAGS = " -std=c++1y     -Wno-deprecated-declarations     -DNDEBUG  -std=c++1y     -Wno-deprecated-declarations  -DGTEST_HAS_PTHREAD=1    ";
                             OTHER_LIBTOOLFLAGS = " ";
                             OTHER_REZFLAGS = "";
                             PRODUCT_NAME = gtest;
@@ -803,7 +803,7 @@ exit 0";
                      };
                      name = Release;
               };
-              CDCD255E83B14859AD078AA1 /* MinSizeRel */ = {
+              6AD36649C16E4962A2509CAD /* MinSizeRel */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -811,14 +811,14 @@ exit 0";
                             EXECUTABLE_SUFFIX = ".a";
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
                             GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = s;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", HAS_BOOST, );
+                            GCC_OPTIMIZATION_LEVEL = 3;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
                             HEADER_SEARCH_PATHS = (/usr/local/include, "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/include", "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0", );
                             INSTALL_PATH = "";
                             LIBRARY_STYLE = STATIC;
-                            OTHER_CFLAGS = "    -DNDEBUG   -std=c++11  -DGTEST_HAS_PTHREAD=1    ";
-                            OTHER_CPLUSPLUSFLAGS = "  -std=c++11     -DNDEBUG   -std=c++11  -DGTEST_HAS_PTHREAD=1    ";
+                            OTHER_CFLAGS = "    -DNDEBUG  -std=c++1y     -Wno-deprecated-declarations  -DGTEST_HAS_PTHREAD=1    ";
+                            OTHER_CPLUSPLUSFLAGS = " -std=c++1y     -Wno-deprecated-declarations     -DNDEBUG  -std=c++1y     -Wno-deprecated-declarations  -DGTEST_HAS_PTHREAD=1    ";
                             OTHER_LIBTOOLFLAGS = " ";
                             OTHER_REZFLAGS = "";
                             PRODUCT_NAME = gtest;
@@ -829,7 +829,7 @@ exit 0";
                      };
                      name = MinSizeRel;
               };
-              F8D4870228FF4D9EA1E5CDB4 /* RelWithDebInfo */ = {
+              80341A698F5140A89C705CB8 /* RelWithDebInfo */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -837,14 +837,14 @@ exit 0";
                             EXECUTABLE_SUFFIX = ".a";
                             GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
                             GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = 2;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", HAS_BOOST, );
+                            GCC_OPTIMIZATION_LEVEL = 3;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
                             HEADER_SEARCH_PATHS = (/usr/local/include, "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/include", "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0", );
                             INSTALL_PATH = "";
                             LIBRARY_STYLE = STATIC;
-                            OTHER_CFLAGS = "       -DNDEBUG   -std=c++11  -DGTEST_HAS_PTHREAD=1    ";
-                            OTHER_CPLUSPLUSFLAGS = "  -std=c++11        -DNDEBUG   -std=c++11  -DGTEST_HAS_PTHREAD=1    ";
+                            OTHER_CFLAGS = "       -DNDEBUG  -std=c++1y     -Wno-deprecated-declarations  -DGTEST_HAS_PTHREAD=1    ";
+                            OTHER_CPLUSPLUSFLAGS = " -std=c++1y     -Wno-deprecated-declarations        -DNDEBUG  -std=c++1y     -Wno-deprecated-declarations  -DGTEST_HAS_PTHREAD=1    ";
                             OTHER_LIBTOOLFLAGS = " ";
                             OTHER_REZFLAGS = "";
                             PRODUCT_NAME = gtest;
@@ -855,7 +855,7 @@ exit 0";
                      };
                      name = RelWithDebInfo;
               };
-              DA4512BACEE541D8949130EA /* Debug */ = {
+              A7251721EC844601A6DF9BFB /* Debug */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -863,14 +863,14 @@ exit 0";
                             EXECUTABLE_SUFFIX = ".a";
                             GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
                             GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = 0;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", HAS_BOOST, );
+                            GCC_OPTIMIZATION_LEVEL = 3;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
                             HEADER_SEARCH_PATHS = (/usr/local/include, "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/include", "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0", );
                             INSTALL_PATH = "";
                             LIBRARY_STYLE = STATIC;
-                            OTHER_CFLAGS = "     -std=c++11  -DGTEST_HAS_PTHREAD=1    ";
-                            OTHER_CPLUSPLUSFLAGS = "  -std=c++11      -std=c++11  -DGTEST_HAS_PTHREAD=1    ";
+                            OTHER_CFLAGS = "    -std=c++1y     -Wno-deprecated-declarations  -DGTEST_HAS_PTHREAD=1    ";
+                            OTHER_CPLUSPLUSFLAGS = " -std=c++1y     -Wno-deprecated-declarations     -std=c++1y     -Wno-deprecated-declarations  -DGTEST_HAS_PTHREAD=1    ";
                             OTHER_LIBTOOLFLAGS = " ";
                             OTHER_REZFLAGS = "";
                             PRODUCT_NAME = gtest_main;
@@ -881,7 +881,7 @@ exit 0";
                      };
                      name = Debug;
               };
-              A9678A20C4EF4DFCAA9A5EDA /* Release */ = {
+              A3ADC08FEDA945C2B656C229 /* Release */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -890,13 +890,13 @@ exit 0";
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
                             GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
                             GCC_OPTIMIZATION_LEVEL = 3;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", HAS_BOOST, );
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
                             HEADER_SEARCH_PATHS = (/usr/local/include, "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/include", "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0", );
                             INSTALL_PATH = "";
                             LIBRARY_STYLE = STATIC;
-                            OTHER_CFLAGS = "    -DNDEBUG   -std=c++11  -DGTEST_HAS_PTHREAD=1    ";
-                            OTHER_CPLUSPLUSFLAGS = "  -std=c++11     -DNDEBUG   -std=c++11  -DGTEST_HAS_PTHREAD=1    ";
+                            OTHER_CFLAGS = "    -DNDEBUG  -std=c++1y     -Wno-deprecated-declarations  -DGTEST_HAS_PTHREAD=1    ";
+                            OTHER_CPLUSPLUSFLAGS = " -std=c++1y     -Wno-deprecated-declarations     -DNDEBUG  -std=c++1y     -Wno-deprecated-declarations  -DGTEST_HAS_PTHREAD=1    ";
                             OTHER_LIBTOOLFLAGS = " ";
                             OTHER_REZFLAGS = "";
                             PRODUCT_NAME = gtest_main;
@@ -907,7 +907,7 @@ exit 0";
                      };
                      name = Release;
               };
-              309BC8606C0543BEBBB26DFC /* MinSizeRel */ = {
+              069F1FA6EC75462EA6501BDF /* MinSizeRel */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -915,14 +915,14 @@ exit 0";
                             EXECUTABLE_SUFFIX = ".a";
                             GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
                             GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = s;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", HAS_BOOST, );
+                            GCC_OPTIMIZATION_LEVEL = 3;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
                             HEADER_SEARCH_PATHS = (/usr/local/include, "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/include", "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0", );
                             INSTALL_PATH = "";
                             LIBRARY_STYLE = STATIC;
-                            OTHER_CFLAGS = "    -DNDEBUG   -std=c++11  -DGTEST_HAS_PTHREAD=1    ";
-                            OTHER_CPLUSPLUSFLAGS = "  -std=c++11     -DNDEBUG   -std=c++11  -DGTEST_HAS_PTHREAD=1    ";
+                            OTHER_CFLAGS = "    -DNDEBUG  -std=c++1y     -Wno-deprecated-declarations  -DGTEST_HAS_PTHREAD=1    ";
+                            OTHER_CPLUSPLUSFLAGS = " -std=c++1y     -Wno-deprecated-declarations     -DNDEBUG  -std=c++1y     -Wno-deprecated-declarations  -DGTEST_HAS_PTHREAD=1    ";
                             OTHER_LIBTOOLFLAGS = " ";
                             OTHER_REZFLAGS = "";
                             PRODUCT_NAME = gtest_main;
@@ -933,7 +933,7 @@ exit 0";
                      };
                      name = MinSizeRel;
               };
-              3F118E21BD5047F8B2E44205 /* RelWithDebInfo */ = {
+              6D694988ED944C96BAE084F4 /* RelWithDebInfo */ = {
                      isa = XCBuildConfiguration;
                      buildSettings = {
                             COMBINE_HIDPI_IMAGES = YES;
@@ -941,14 +941,14 @@ exit 0";
                             EXECUTABLE_SUFFIX = ".a";
                             GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
                             GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-                            GCC_OPTIMIZATION_LEVEL = 2;
-                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", HAS_BOOST, );
+                            GCC_OPTIMIZATION_LEVEL = 3;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
                             GCC_SYMBOLS_PRIVATE_EXTERN = NO;
                             HEADER_SEARCH_PATHS = (/usr/local/include, "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0/include", "/Users/felipemoraes/Developer/search-engine/test/gtest-1.7.0", );
                             INSTALL_PATH = "";
                             LIBRARY_STYLE = STATIC;
-                            OTHER_CFLAGS = "       -DNDEBUG   -std=c++11  -DGTEST_HAS_PTHREAD=1    ";
-                            OTHER_CPLUSPLUSFLAGS = "  -std=c++11        -DNDEBUG   -std=c++11  -DGTEST_HAS_PTHREAD=1    ";
+                            OTHER_CFLAGS = "       -DNDEBUG  -std=c++1y     -Wno-deprecated-declarations  -DGTEST_HAS_PTHREAD=1    ";
+                            OTHER_CPLUSPLUSFLAGS = " -std=c++1y     -Wno-deprecated-declarations        -DNDEBUG  -std=c++1y     -Wno-deprecated-declarations  -DGTEST_HAS_PTHREAD=1    ";
                             OTHER_LIBTOOLFLAGS = " ";
                             OTHER_REZFLAGS = "";
                             PRODUCT_NAME = gtest_main;
@@ -962,73 +962,73 @@ exit 0";
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-              D18C12C5EB614D6BB32DE181 /* Build configuration list for PBXProject  "gtest" */ = {
+              9726A83D217D42DE817499A8 /* Build configuration list for PBXProject  "gtest" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            88FF06723ADC4588AB0A3C6E /* Debug */,
-                            D416270AAD4644C4B4183639 /* Release */,
-                            0B426673157B4E06BA111853 /* MinSizeRel */,
-                            21DD954A694B4F66AB190849 /* RelWithDebInfo */,
+                            87CE4EEFE48C4897B82EA3F4 /* Debug */,
+                            57C812500BAA4765864D9857 /* Release */,
+                            5F4D8DB1833444419EE4C38C /* MinSizeRel */,
+                            02317408F66943F89E252934 /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;
               };
-              BE3CCAE92BE84008AAB84D75 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+              B3897C830A314C969A5C3D2F /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            DBC4783B98E24435AEF2BCDA /* Debug */,
-                            F5359310BAD7415BAC6EC6B1 /* Release */,
-                            AB1F804683604FFC816AEC17 /* MinSizeRel */,
-                            2D66FA9286CC4A758103BFC8 /* RelWithDebInfo */,
+                            34695F88FE774C35A07F98EE /* Debug */,
+                            3DF47808A15145468DB0FEDC /* Release */,
+                            B7F2C060F67B42BFB7BA4043 /* MinSizeRel */,
+                            C3D4AE18CE4A43AF9597B1CC /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;
               };
-              9687E84F6C244A55BED21324 /* Build configuration list for PBXAggregateTarget "RUN_TESTS" */ = {
+              3E362A0B5B30422B8CD72C04 /* Build configuration list for PBXAggregateTarget "RUN_TESTS" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            39BA0224AD694A478D4024C2 /* Debug */,
-                            347EC312224C4A0D981B0B3A /* Release */,
-                            A51DF3093E904AD890C116F9 /* MinSizeRel */,
-                            ED145177D5114D1E8B6C03EE /* RelWithDebInfo */,
+                            0AB918D8527149A080F11675 /* Debug */,
+                            05763E172203462AA5F3257E /* Release */,
+                            5B7B622AE23748FEBF892D50 /* MinSizeRel */,
+                            D840B81F8EE04F4DB645E1CA /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;
               };
-              D44608DF36A8493BA593376E /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+              196D5B0927A546559B8F34FB /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            B141696FE1B44F7A9392C172 /* Debug */,
-                            12C03CF99B5249248E70063D /* Release */,
-                            0F3D1A4477C2479D88F5DF28 /* MinSizeRel */,
-                            67FE545B8BFC4791AD07BE2B /* RelWithDebInfo */,
+                            1F8D79B14A254788B353F2D8 /* Debug */,
+                            3B50260085DD4B28B28A839F /* Release */,
+                            6C43CC38B1C04FDB9EA3BD51 /* MinSizeRel */,
+                            6730C3D72725452181ED257C /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;
               };
-              7D15D717BD07414489A375F7 /* Build configuration list for PBXNativeTarget "gtest" */ = {
+              083D2BD370A74B0FA9DF2189 /* Build configuration list for PBXNativeTarget "gtest" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            5A9373064EC9476F936E38B5 /* Debug */,
-                            EAFB299AA3194F3994B14BCA /* Release */,
-                            CDCD255E83B14859AD078AA1 /* MinSizeRel */,
-                            F8D4870228FF4D9EA1E5CDB4 /* RelWithDebInfo */,
+                            B696E31C778A44819CAEE1AF /* Debug */,
+                            4C0966C095B241E5B5A5429D /* Release */,
+                            6AD36649C16E4962A2509CAD /* MinSizeRel */,
+                            80341A698F5140A89C705CB8 /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;
               };
-              0E45A9E2EEBF4B8980E62EDE /* Build configuration list for PBXNativeTarget "gtest_main" */ = {
+              67610863E5EA40F2A2B95FE8 /* Build configuration list for PBXNativeTarget "gtest_main" */ = {
                      isa = XCConfigurationList;
                      buildConfigurations = (
-                            DA4512BACEE541D8949130EA /* Debug */,
-                            A9678A20C4EF4DFCAA9A5EDA /* Release */,
-                            309BC8606C0543BEBBB26DFC /* MinSizeRel */,
-                            3F118E21BD5047F8B2E44205 /* RelWithDebInfo */,
+                            A7251721EC844601A6DF9BFB /* Debug */,
+                            A3ADC08FEDA945C2B656C229 /* Release */,
+                            069F1FA6EC75462EA6501BDF /* MinSizeRel */,
+                            6D694988ED944C96BAE084F4 /* RelWithDebInfo */,
                      );
                      defaultConfigurationIsVisible = 0;
                      defaultConfigurationName = Debug;
               };
 /* End XCConfigurationList section */
        };
-       rootObject = 86EFC69C82E64EA383C2FACC;
+       rootObject = 811D583EB15E4911B30C8EDC;
 }

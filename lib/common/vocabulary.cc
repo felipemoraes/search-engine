@@ -12,18 +12,18 @@
 Vocabulary::Vocabulary(string filename){
     ifstream file;
     file.open(filename);
-    string term; int term_id; long seek;
-    term_ids = new map<string, int>();
-    seeks = new map<int, long>();
+    string term; unsigned term_id; unsigned frequence; long seek;
+    terms = new unordered_map<string, pair<unsigned, unsigned>>();
+    seeks = new unordered_map<int, long>();
     while (!file.eof()) {
-        file >> term >> term_id >> seek;
-        term_ids->insert(make_pair(term, term_id));
+        file >> term >> term_id >> frequence >> seek;
+        terms->insert(make_pair(term, make_pair(term_id, frequence)));
         seeks->insert(make_pair(term_id, seek));
     }
 }
 
 long Vocabulary::get_seek(int term_id){
-    if (seeks->count(term_id)) {
+    if (seeks->find(term_id) != seeks->end()) {
         return (*seeks)[term_id];
     } else {
         return -1;
@@ -31,8 +31,16 @@ long Vocabulary::get_seek(int term_id){
 }
 
 int Vocabulary::get_term_id(string term){
-    if (term_ids->count(term)) {
-        return (*term_ids)[term];
+    if (terms->find(term)!= terms->end()) {
+        return (*terms)[term].first;
+    } else {
+        return -1;
+    }
+}
+
+int Vocabulary::get_frequence(string term){
+    if (terms->find(term)!=terms->end()) {
+        return (*terms)[term].second;
     } else {
         return -1;
     }

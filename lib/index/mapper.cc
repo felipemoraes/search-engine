@@ -9,6 +9,7 @@
 
 #include "mapper.h"
 
+
 Mapper::Mapper(unsigned run_size, string index_directory, string stopwords_directory){
     run_size_ = run_size;
     directory_ = index_directory;
@@ -16,24 +17,27 @@ Mapper::Mapper(unsigned run_size, string index_directory, string stopwords_direc
     buffer = new vector<TermOccurrence>;
     buffer_size_ = 0;
     runs_ = new vector<File*>();
-    vocabulary_ = new unordered_map<string,unsigned>();
-    vocabulary_anchor_ = new unordered_map<string,unsigned>();
-    docs_ = new unordered_map<string,pair<unsigned,unsigned> >();
-    docs_anchor_ = new unordered_map<string,pair<unsigned,unsigned> >();
+    vocabulary_ = new unordered_map<string,pair<unsigned,unsigned>>();
+    vocabulary_anchor_ = new unordered_map<string,pair<unsigned,unsigned>>();
+    docs_ = new DocRepository("documentsInfo");
+    docs_anchor_ = new DocRepository("documentsInfoAnchor");
     links_ = new unordered_map<unsigned,vector<unsigned> >();
-    doc_file_.open(directory_ + "documents");
+    urls_ = new unordered_map<string,unsigned>();
+    urls_anchor_ = new unordered_map<string,unsigned>();
     doc_counter_ = 0;
-    doc_file_anchor_.open(directory_ + "documents_anchor");
     doc_counter_anchor_ = 0;
-    load_stopwords(stopwords_directory);
+    stopwords_ = load_stopwords(stopwords_directory);
 }
 
 Mapper::~Mapper(){
-    doc_file_.close();
-    doc_file_anchor_.close();
+    outlinks_file_.close();
     delete vocabulary_;
     delete vocabulary_anchor_;
     delete buffer;
+    delete docs_;
+    delete docs_anchor_;
+    delete urls_;
+    delete urls_anchor_;
 }
 
 vector<File* >*  Mapper::get_runs(){
@@ -72,40 +76,55 @@ void Mapper::process_page(Page& p){
     // get positions from texts
     process_frequencies(p.get_text(),positions);
     unsigned length = 0;
-    unsigned page_id = doc_counter_;
+    unsigned doc_id = doc_counter_;
     // for each term write it in buffer
     for (auto it = positions.begin(); it != positions.end(); it++){
         unsigned term_id = add_vocabulary(it->first);
-        add_buffer(term_id, page_id, it->second,0);
+        add_buffer(term_id, doc_id, it->second,0);
         // check if buffer needs to be write
         flush();
         length++;
     }
-    if (docs_->find(p.get_url())==docs_->end()) {
-        pair<unsigned,unsigned> tmp = make_pair(doc_counter_,length);
-        (*docs_)[p.get_url()] = tmp;
+    if (urls_->find(p.get_url())==urls_->end()) {
+        urls_->insert(make_pair(p.get_url(), doc_counter_));
+        DocumentInfo doc;
+        doc.doc_id_ = doc_counter_;
+        doc.url_ = p.get_url();
+        doc.title_ = p.get_title();
+        doc.length_ = length;
+        docs_->insert(doc);
         ++doc_counter_;
     }
-    cout << p.get_url() << endl;
+    
     auto links = p.get_links();
     for (auto link : links){
-        int doc_id;
-        if (docs_anchor_->find(link.first)==docs_anchor_->end()) {
-            (*docs_anchor_)[link.first].first = doc_counter_anchor_;
-            (*docs_anchor_)[link.first].second = 0;
-            doc_id = doc_counter_;
-            (*links_)[page_id].push_back(doc_id);
-            ++doc_counter_anchor_;
+        if (urls_anchor_->find(link.first)==urls_anchor_->end()) {
+            DocumentInfo doc;
+            doc.doc_id_ = doc_counter_anchor_;
+            doc.url_ = link.first;
+            
+            outlinks_file_ << p.get_url() << " " << link.first << endl;
+            if (link.second.size() == 1) {
+                for (auto text:link.second) {
+                    if (text == " ") {
+                        continue;
+                    }
+                }
+            } else {
+                
+                (*urls_anchor_)[link.first] = doc_counter_anchor_;
+                doc.length_ = 0;
+                ++doc_counter_anchor_;
+                docs_anchor_->insert(doc);
+            }
+            
         }
         for (auto text:link.second) {
-            if (text == "") {
-                continue;
-            }
             positions.clear();
             process_frequencies(text, positions);
             for (auto term : positions) {
                 unsigned term_id = add_vocabulary_anchor(term.first);
-                add_buffer(term_id, doc_id, term.second,1);
+                add_buffer(term_id, doc_counter_anchor_, term.second,1);
             }
         }
     }
@@ -145,52 +164,110 @@ vector<File* >* Mapper::exec(){
 }
 
 
-void Mapper::dump(vector<long>* &seeks_voc, vector<long>* &seeks_anchor){
+void Mapper::dump(unordered_map<unsigned,long>* &seeks_voc, unordered_map<unsigned,long>* &seeks_anchor){
     string filename(directory_ + "vocabulary");
     ofstream file;
     file.open(filename);
     for (auto it = vocabulary_->begin(); it!= vocabulary_->end(); it++) {
-        file << it->first << "\t"<< it->second  << "\t" << (*seeks_voc)[it->second] << endl;
+        file << it->first << "\t"<< it->second.first  << "\t" << it->second.second<< "\t" << (*seeks_voc)[it->second.first] << endl;
     }
     file.close();
     
     filename = directory_ + "vocabulary_anchor";
     file.open(filename);
-    cout << vocabulary_anchor_->size() << endl;
     for (auto it = vocabulary_anchor_->begin(); it!= vocabulary_anchor_->end(); it++) {
-        file << it->first << "\t"<< it->second  << "\t" << (*seeks_anchor)[it->second] << endl;
+        auto seek = seeks_anchor->find(it->second.first);
+        if (seek != seeks_anchor->end()) {
+            file << it->first << "\t"<< it->second.first  << "\t"<< it->second.second << "\t" << (*seeks_anchor)[it->second.first] << endl;
+        }
     }
     file.close();
     
-    for (auto it=docs_->begin(); it!=docs_->end();++it) {
-        doc_file_ << it->first <<  "\t" << it->second.first << "\t" << it->second.second<< endl;
-        cout << it->first <<  "\t" << it->second.first << "\t" << it->second.second<< endl;
-
+    process_pagerank(docs_->size_);
+    
+    for (auto it=urls_->begin(); it!=urls_->end();++it) {
+        DocumentInfo doc = docs_->find(it->second);
+        docs_->remove(it->second);
+        doc.pagerank_ = (*pagerank_)[it->second];
+        docs_->insert(doc);
     }
-    for (auto it=docs_anchor_->begin(); it!=docs_anchor_->end();++it) {
-        doc_file_anchor_ << it->first <<  "\t" << it->second.first << "\t" << it->second.second<< endl;
-        cout << it->first <<  "\t" << it->second.first << "\t" << it->second.second<< endl;
+   
+    for (auto it=urls_anchor_->begin(); it!=urls_anchor_->end();++it) {
+        auto find_url = urls_->find(it->first);
+        if (find_url != urls_->end()) {
+            docs_anchor_->remove(it->second);
+            it->second = find_url->second;
+            DocumentInfo doc;
+            doc.doc_id_ = it->second;
+            doc.url_ = it->first;
+            doc.length_ = 0;
+            doc.pagerank_ = (*pagerank_)[it->second];
+            docs_anchor_->insert(doc);
+        } else {
+            docs_anchor_->remove(it->second);
+        }
         
+    }
+    docs_->dump(directory_);
+    docs_anchor_->dump(directory_);
+    cout << docs_anchor_->size_ << endl;
+}
+
+
+
+void Mapper::process_pagerank(int size){
+    Graph graph(size);
+    outlinks_file_.close();
+    outlinks_file_.open(directory_ + "outlinks", std::fstream::in);
+    while (!outlinks_file_.eof()) {
+        string in, out;
+        outlinks_file_ >> in >> out;
+        auto find_in = urls_->find(in);
+        auto find_out = urls_->find(out);
+        if (find_in != urls_->end() && find_out != urls_->end()) {
+            graph.insert(find_in->second, find_out->second);
+        }
+    }
+    
+    graph.compute_out_links();
+    pagerank_ = graph.pagerank(10);
+
+}
+
+void Mapper::remove_doc_anchor(string doc_url){
+    auto it = urls_anchor_->find(doc_url);
+    if (it != urls_anchor_->end()) {
+        docs_anchor_->remove(it->second);
+        urls_anchor_->erase(it);
     }
 }
 
+
+
 int Mapper::add_vocabulary(const string& term){
-    if (vocabulary_->find(term) != vocabulary_->end()) {
-        return (*vocabulary_)[term];
+    auto it = vocabulary_->find(term);
+    if ( it != vocabulary_->end()) {
+        it->second.second++;
+        return (*vocabulary_)[term].first;
     }
-    (*vocabulary_)[term] = voc_counter_;
+    (*vocabulary_)[term].first = voc_counter_;
+    (*vocabulary_)[term].second = 1;
     voc_counter_++;
-    return (*vocabulary_)[term];
+    return (*vocabulary_)[term].first;
 }
 
 int Mapper::add_vocabulary_anchor(const string& term){
-    if (vocabulary_anchor_->find(term) != vocabulary_anchor_->end()) {
-        return (*vocabulary_anchor_)[term];
+    auto it = vocabulary_anchor_->find(term);
+    if (it != vocabulary_anchor_->end()) {
+        it->second.second++;
+        return (*vocabulary_anchor_)[term].first;
     }
-    (*vocabulary_anchor_)[term] = voc_anchor_counter_;
+    (*vocabulary_anchor_)[term].first = voc_anchor_counter_;
+    (*vocabulary_anchor_)[term].second = 0;
     voc_anchor_counter_++;
-    return (*vocabulary_anchor_)[term];
+    return (*vocabulary_anchor_)[term].first;
 }
+
 
 int Mapper::get_vocabulary_size(){
     return vocabulary_->size();
@@ -200,62 +277,14 @@ int Mapper::get_vocabulary_anchor_size(){
     return vocabulary_anchor_->size();
 }
 
-void Mapper::load_stopwords(string stopwords_directory){
-    ifstream file;
-    string stopwords_list[] = {"portuguese.txt","spanish.txt","english.txt"};
-    for (int i = 0; i < 3; i++) {
-        file.open(stopwords_directory+stopwords_list[i]);
-        string stopword;
-        while (!file.eof()) {
-            file >> stopword;
-            stopwords_.insert(stopword);
-        }
-        file.close();
-    }
+DocRepository* Mapper::get_docs_anchor(){
+    return docs_anchor_;
 }
-void Mapper::remove_accents(string &str) {
-    for(unsigned int i=0;i<str.length();i++) {
-        str.at(i) = tolower(str.at(i));
-        unsigned char c = str.at(i);
-        if ((c == 0xc3) && ((i+1)<str.length())) {
-            str.erase (i,1);
-            c = str.at(i);
-            c = tolower(c);
-        }
-        if ((c >= 0x30 && c <= 0x39) || (str.at(i) >= 0x61 && str.at(i) <= 0x7a)) {
-            //à, á, â, ã, ä
-        }else if (( c >= 0xa0 && c <= 0xa4)){
-            str[i]='a';
-            //ç
-        }else if (c == 0xa7) {
-            str[i]='c';
-            //è, é, ê , ë
-        } else if ((c >= 0xa8 && c <= 0xab)){
-            str[i]='e';
-            //ì, í, î, ï
-        } else if ((c >= 0xac && c <= 0xaf)){
-            str[i]='i';
-            //ñ
-        } else if (c == 0xb1) {
-            str[i]='n';
-            //ò, ó, ô, õ, ö
-        } else if ((c >= 0xb2 && c <= 0xb6)){
-            str[i]='o';
-            //ù, ú, û, ü
-        } else if ((c >= 0xb9 && c <= 0xbc)){
-            str[i]='u';
-            //Se nao for espaco
-        }
-        else if(c!=0x20){
-            unsigned int x;
-            x=str[i];
-            if((x>=4294967265)&&(x<=4294967270)){ str[i]='a';}else
-                if((x>=4294967272)&&(x<=4294967275)){ str[i]='e';}else
-                    if((x>=4294967276)&&(x<=4294967279)) {str[i]='i';}else
-                        if(((x>=4294967282)&&(x<=4294967287))||(x==4294967280)){ str[i]='o';}else
-                            if(x==4294967281){ str[i]='n';}else
-                                if((x>=4294967289)&&(x<=4294967292)) {str[i]='u';}else
-                                    if(x==4294967271){ str[i]='c';}else{str.replace (i,1," ");}
-        }
-    }
+
+unordered_map<string,unsigned >* Mapper::get_urls_anchor(){
+    return urls_anchor_;
+}
+
+unordered_map<string,unsigned>* Mapper::get_urls(){
+    return urls_;
 }

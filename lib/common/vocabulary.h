@@ -12,20 +12,21 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <map>
+#include <unordered_map>
 
 
 using namespace std;
 
 class Vocabulary {
 private:
-    map<string, int >* term_ids;
-    map<int, long >* seeks;
+    unordered_map<string, pair<unsigned, unsigned> >* terms;
+    unordered_map<int, long >* seeks;
 public:
     
     Vocabulary(string filename);
     int get_term_id(string term);
     long get_seek(int term_id);
+    int get_frequence(string term);
 };
 
 
