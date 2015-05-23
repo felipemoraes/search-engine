@@ -6,6 +6,9 @@ search_engine.build/
 .ignore
 .DS_Store
 
+CTestTestfile.*
+Testing
+
 # Compiled Object files
 *.slo
 *.lo
