@@ -29,7 +29,11 @@
 #include <boost/property_tree/json_parser.hpp>
 
 
-using namespace std;
+using std::cout;
+using std::vector;
+using std::string;
+using std::stringstream;
+
 using namespace SimpleWeb;
 //Added for the json-example:
 using namespace boost::property_tree;
