@@ -1,6 +1,5 @@
-include_directories("../../lib")
-
 cmake_minimum_required (VERSION 2.8)
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1y -O3 -Wno-deprecated-declarations")
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
@@ -34,10 +33,8 @@ message("Threads libraries/flag: ${CMAKE_THREAD_LIBS_INIT}")
 include_directories(.)
 
 add_executable(searcher main.cc)
-target_link_libraries(searcher common index search)
-target_link_libraries(searcher ${Boost_LIBRARIES})
+target_link_libraries(searcher ${Boost_LIBRARIES} gumbo htmlcxx common index search)
 target_link_libraries(searcher ${OPENSSL_CRYPTO_LIBRARIES})
-target_link_libraries(searcher ${OPENSSL_SSL_LIBRARIES})
 target_link_libraries(searcher ${CMAKE_THREAD_LIBS_INIT})
 
 
