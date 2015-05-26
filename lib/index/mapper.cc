@@ -28,6 +28,7 @@ Mapper::Mapper(unsigned run_size, string index_directory, string stopwords_direc
     doc_counter_ = 0;
     doc_counter_anchor_ = 0;
     stopwords_ = load_stopwords(stopwords_directory);
+    outlinks_file_.open(directory_ + "outlinks", std::fstream::out);
 }
 
 Mapper::~Mapper(){

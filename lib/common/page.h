@@ -15,11 +15,14 @@
 #include <map>
 #include <vector>
 #include <boost/algorithm/string.hpp>
+#include <htmlcxx/html/Node.h>
+#include <htmlcxx/html/ParserDom.h>
 #include <htmlcxx/html/utils.h>
 #include <htmlcxx/html/Uri.h>
-#include <unordered_set>
-#include "gumbo.h"
+#include <htmlcxx/html/CharsetConverter.h>
 
+using namespace std;
+using namespace htmlcxx;
 
 using namespace std;
 
@@ -40,7 +43,6 @@ class Page {
 
     void parse(const std::string& html);
     bool remove_header(string& str);
-    void search_for_links(GumboNode* node);
     string url_;
     string text_;
     string title_;
