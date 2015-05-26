@@ -13,6 +13,7 @@ using namespace boost;
 using namespace std::placeholders;
 
 PageRankModel::PageRankModel(IndexFile* index, Vocabulary *vocabulary, DocRepository* doc_repository)  : RankingModel(index,vocabulary,doc_repository){
+    name_ = "pgm";
 }
 
 
@@ -39,11 +40,12 @@ vector<Hit>*  PageRankModel::search(string query){
             for (auto it = term.docs_->begin(); it != term.docs_->end();++it) {
                 
                 DocumentInfo doc = doc_repository_->find(it->doc_id_);
-                
                 if (doc.doc_id_ != it->doc_id_+ 1) {
                     accumulators->insert(make_pair(it->doc_id_, doc.pagerank_));
                 }
+                delete it->positions_;
             }
+            delete term.docs_;
         }
     }
     vector<Hit>* hits = new vector<Hit>();
@@ -52,5 +54,6 @@ vector<Hit>*  PageRankModel::search(string query){
         hits->push_back(hit);
     }
     sort(hits->begin(),hits->end());
+    delete accumulators;
     return hits;
 }

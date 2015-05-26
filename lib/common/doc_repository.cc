@@ -15,6 +15,10 @@ DocRepository::DocRepository(string name) {
     size_ = 0;
 }
 
+DocRepository::~DocRepository() {
+    delete documents_;
+}
+
 void DocRepository::insert(DocumentInfo doc){
     documents_->insert(make_pair(doc.doc_id_, doc));
     size_++;
@@ -36,6 +40,7 @@ void DocRepository::dump(string directory){
                 doc.second.title_.erase(std::remove(doc.second.title_.begin(), doc.second.title_.end(), '\n'), doc.second.title_.end());
         file_ << doc.second.doc_id_ << "\t" << doc.second.url_ << "\t" << doc.second.length_  << "\t" << doc.second.pagerank_ << "\t" << doc.second.title_ << endl;
     }
+    file_.close();
 }
 
 vector<string> splitString(string input, string delimiter){
@@ -74,10 +79,16 @@ void DocRepository::load(string directory){
         ++it;
         doc.pagerank_ = stof(*it);
         ++it;
-        doc.title_ = *it;
+            
+        if (result.size() >= 5) {
+            doc.title_ = *it;
+        }
+            
         insert(doc);
+
         
     }
+    file_.close();
 }
 
 void DocRepository::remove(unsigned doc_id){

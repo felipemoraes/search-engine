@@ -38,6 +38,7 @@ private:
 public:
     unsigned size_;
     DocRepository(string name);
+    ~DocRepository();
     void insert(DocumentInfo doc);
     DocumentInfo find(unsigned doc_id);
     void remove(unsigned doc_id);

@@ -22,7 +22,12 @@ public:
     IndexFile* index_;
     Vocabulary *vocabulary_;
     DocRepository* doc_repository_;
+    int weight_;
+    string name_;
     virtual vector<Hit>* search(string query) = 0;
+    void set_weight(int weight){
+        weight_ = weight;
+    }
 };
 
 #endif /* defined(__search_engine__ranking_model__) */

@@ -15,7 +15,7 @@ using namespace std::placeholders;
 
 
 VectorSpaceModel::VectorSpaceModel(IndexFile* index, Vocabulary *vocabulary, DocRepository* doc_repository)  : RankingModel(index,vocabulary,doc_repository) {
-   
+    name_ = "vsm";
 }
 
 
@@ -43,20 +43,31 @@ vector<Hit>* VectorSpaceModel::search(string query){
         if (term_id != -1) {
             float term_weight = 1 + log(vocabulary_->get_frequence(*token)/(float)term.frequency_);
             for (auto it = term.docs_->begin(); it != term.docs_->end();++it) {
+                
+                DocumentInfo doc = doc_repository_->find(it->doc_id_);
+                if (doc.doc_id_ == it->doc_id_ + 1) {
+                    delete it->positions_;
+                    continue;
+                }
                 if (accumulators->find(it->doc_id_) != accumulators->end()) {
                     (*accumulators)[it->doc_id_] += log(1 + it->frequency_)*term_weight;
                 } else {
                     accumulators->insert(make_pair(it->doc_id_, 0));
                 }
+                delete it->positions_;
             }
-            
+            /*
             for (auto it = accumulators->begin(); it != accumulators->end(); ++it) {
                 DocumentInfo doc = doc_repository_->find(it->first);
                 if (doc.doc_id_ != it->first + 1) {
-                    it->second /= doc.length_;
+                    if (doc.length_ > 0) {
+                        // it->second /= doc.length_;
+                    }
                 }
-            }
+            }*/
+            
         }
+        delete term.docs_;
     }
     vector<Hit>* hits = new vector<Hit>();
     for (auto item: *accumulators) {
@@ -64,5 +75,6 @@ vector<Hit>* VectorSpaceModel::search(string query){
         hits->push_back(hit);
     }
     sort(hits->begin(),hits->end());
+    delete accumulators;
     return hits;
 }

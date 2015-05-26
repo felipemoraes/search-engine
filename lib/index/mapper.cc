@@ -14,6 +14,7 @@ Mapper::Mapper(unsigned run_size, string index_directory, string stopwords_direc
     run_size_ = run_size;
     directory_ = index_directory;
     voc_counter_ = 0;
+    voc_anchor_counter_ = 0;
     buffer = new vector<TermOccurrence>;
     buffer_size_ = 0;
     runs_ = new vector<File*>();
@@ -38,6 +39,8 @@ Mapper::~Mapper(){
     delete docs_anchor_;
     delete urls_;
     delete urls_anchor_;
+    delete pagerank_;
+    delete links_;
 }
 
 vector<File* >*  Mapper::get_runs(){
@@ -211,6 +214,8 @@ void Mapper::dump(unordered_map<unsigned,long>* &seeks_voc, unordered_map<unsign
     docs_->dump(directory_);
     docs_anchor_->dump(directory_);
     cout << docs_anchor_->size_ << endl;
+    delete seeks_anchor;
+    delete seeks_voc;
 }
 
 
@@ -230,7 +235,7 @@ void Mapper::process_pagerank(int size){
     }
     
     graph.compute_out_links();
-    pagerank_ = graph.pagerank(10);
+    pagerank_ = graph.pagerank(100);
 
 }
 

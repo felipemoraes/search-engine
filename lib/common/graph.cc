@@ -92,7 +92,7 @@ void Graph::compute_out_links(){
             outlinks_counts_->insert(make_pair(*node, it->second.size()));
         }
     }
-        
+    delete outlinks;
 }
     
 unordered_set<int>* Graph::get_no_outlinks(){
@@ -125,7 +125,7 @@ vector<float>* Graph::pagerank(int iterations){
         (*opagerank)[*node] = 1.0;
     }
     
-    while ( i++ < iterations && current_gama > 0.00001) {
+    while ( i++ < iterations && current_gama > 0.0001) {
         current_gama = 0;
         float dp = 0;
         for (auto node=no_outlinks_->begin();node!=no_outlinks_->end();++node) {
@@ -147,10 +147,13 @@ vector<float>* Graph::pagerank(int iterations){
            
         }
         cout << current_gama << endl;
-        opagerank = npagerank;
-        
+        for (int i = 0; i < size_ ; ++i) {
+            (*opagerank)[i] =  (*npagerank)[i];
+            
+        }
         
     }
+    delete npagerank;
     cout << "n iterations " << i << endl;
     return opagerank;
 }

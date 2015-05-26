@@ -16,7 +16,7 @@
 #ifndef __search_engine__pagerank_model__
 #define __search_engine__pagerank_model__
 
-class PageRankModel : RankingModel {
+class PageRankModel : public RankingModel {
 public:
     PageRankModel(IndexFile* index, Vocabulary *vocabulary, DocRepository* doc_repository);
     vector<Hit>* search(string query);

@@ -63,7 +63,7 @@ TEST_F(GraphTest, testOutlinksCount){
     EXPECT_EQ(graph->get_outlink_count(3), 4);
     EXPECT_EQ(graph->get_outlink_count(4), 1);
     EXPECT_EQ(graph->get_outlink_count(5), 3);
-    vector<float>* result = graph->pagerank(1000);
+    vector<float>* result = graph->pagerank(100);
     for (auto rank: *result) {
         cout << rank << endl;
     }

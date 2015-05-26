@@ -15,7 +15,7 @@
 using namespace std;
 using namespace RICPNS;
 
-#define MAX_DOCS 100
+#define MAX_DOCS 10000
 #define RUN_SIZE 5
 
 
@@ -91,6 +91,7 @@ int main(int argc, char** argv) {
     reducer.reduce(mapper);
     cout << "Doc counter " << doc_counter << endl;
     cout << "Finished indexer file at " << index_directory + "index" << endl;
+    
     delete reader;
     gettimeofday(&t_end, NULL);
     execution_time = (t_end.tv_sec-t_start.tv_sec)*1000000;

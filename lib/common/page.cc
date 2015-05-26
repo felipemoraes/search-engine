@@ -17,6 +17,7 @@ Page::Page(string url, string httpResponse){
     url_ = url;
     remove_header(httpResponse);
     parse(httpResponse);
+   
 }
 
 static string clean_text(GumboNode* node) {
@@ -48,16 +49,16 @@ void Page::search_for_links(GumboNode* node) {
     if (node->v.element.tag == GUMBO_TAG_A &&
          (href = gumbo_get_attribute(&node->v.element.attributes, "href"))) {
         GumboVector* children = &node->v.element.children;
-        std::string anchor = "";
+        string anchor = "";
     
         for (unsigned int i = 0; i < children->length; ++i) {
-            const std::string text = clean_text((GumboNode*)children->data[i]);
+            const string text = clean_text((GumboNode*)children->data[i]);
             if (i != 0 && !text.empty()) {
                 anchor.append(" ");
             }
             anchor.append(text);
         }
-        string uri;
+        string uri="";
         try {
             uri = HTML::convert_link(href->value, url_);
         } catch (...) {
@@ -77,11 +78,11 @@ void Page::search_for_links(GumboNode* node) {
         if (node->v.element.children.length != 1) {
             
         } else {
-            std::string title = "";
+            
             GumboVector* children = &node->v.element.children;
             
             for (unsigned int i = 0; i < children->length; ++i) {
-                const std::string text = clean_text((GumboNode*)children->data[i]);
+                const string text = clean_text((GumboNode*)children->data[i]);
                 if (i != 0 && !text.empty()) {
                     title_.append(" ");
                 }

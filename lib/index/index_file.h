@@ -44,6 +44,7 @@ public:
     class FileClosedException {};
     
     IndexFile();
+    ~IndexFile();
     
     IndexFile(string file_name);
     

@@ -22,6 +22,11 @@ Vocabulary::Vocabulary(string filename){
     }
 }
 
+Vocabulary::~Vocabulary(){
+    delete terms;
+    delete seeks;
+}
+
 long Vocabulary::get_seek(int term_id){
     if (seeks->find(term_id) != seeks->end()) {
         return (*seeks)[term_id];

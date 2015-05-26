@@ -25,7 +25,7 @@ using namespace std::placeholders;
 #define __search_engine__vector_space_model__
 
 
-class VectorSpaceModel : private RankingModel {
+class VectorSpaceModel : public RankingModel {
 public:
 
     VectorSpaceModel(IndexFile* index, Vocabulary *vocabulary,  DocRepository* doc_repository);

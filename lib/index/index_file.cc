@@ -13,6 +13,11 @@ IndexFile::IndexFile(){
     
 }
 
+IndexFile::~IndexFile(){
+    fclose(file_);
+}
+
+
 IndexFile::IndexFile(string file_name){
     name_ = file_name;
     reopen();

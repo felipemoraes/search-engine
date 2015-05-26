@@ -12,5 +12,6 @@ RankingModel::RankingModel(IndexFile* index, Vocabulary *vocabulary, DocReposito
     index_ = index;
     vocabulary_ = vocabulary;
     doc_repository_ = doc_repository;
+    weight_ = 1;
 }
 

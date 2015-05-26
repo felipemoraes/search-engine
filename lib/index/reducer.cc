@@ -190,7 +190,14 @@ void Reducer::reduce(Mapper &mapper){
     unordered_map<unsigned,long>* seeks_anchor = anchor_index->get_seeks();
    
     mapper.dump(seeks_voc,seeks_anchor);
+    for (auto &doc : *aggr_term.docs_) {
+        delete doc.positions_;
+    }
+    for (auto &doc : *aggr_anchor.docs_) {
+        delete doc.positions_;
+    }
     delete aggr_term.docs_;
+    delete aggr_anchor.docs_;
     delete index;
     delete anchor_index;
 }
