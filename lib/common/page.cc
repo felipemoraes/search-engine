@@ -13,7 +13,7 @@
 using namespace std;
 using namespace htmlcxx;
 
-#include "Page.h"
+#include "page.h"
 
 Page::Page(string url, string httpResponse){
     url_ = url;
