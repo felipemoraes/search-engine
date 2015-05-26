@@ -6,6 +6,8 @@ search_engine.build/
 .ignore
 .DS_Store
 
+util/output.*
+util/*.pdf
 CTestTestfile.*
 Testing
 
