@@ -6,7 +6,7 @@ These are assignments from Information Retrieval class at Computer Science Depar
 ---
 
 ## Requirements:
-1. C++11 (Clang or GCC).
+1. C++14 (Clang or GCC).
 2. [Cmake](http://www.cmake.org/)
 3. [Gumbo Parser](https://github.com/google/gumbo-parser)
 4. [Google Test](https://code.google.com/p/googletest/)
