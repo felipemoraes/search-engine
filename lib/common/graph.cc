@@ -42,6 +42,9 @@ Graph::~Graph() {
 void Graph::insert(int left, int right){
     nodes_->insert(left);
     nodes_->insert(right);
+    if (left == right) {
+        return;
+    }
     if (inlinks_->find(right) == inlinks_->end()) {
         vector<int> tmp;
         tmp.clear();
@@ -147,6 +150,7 @@ vector<float>* Graph::pagerank(int iterations){
            
         }
         cout << current_gama << endl;
+
         for (int i = 0; i < size_ ; ++i) {
             (*opagerank)[i] =  (*npagerank)[i];
             

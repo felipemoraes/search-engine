@@ -217,8 +217,7 @@ void Mapper::process_pagerank(int size){
         string in, out, line;
         getline(outlinks_file_, line);
         stringstream ss(line);
-        ss >> in >> out;
-        auto find_in = urls_->find(in);
+        ss >> in >> out;        auto find_in = urls_->find(in);
         auto find_out = urls_->find(out);
         if (find_in != urls_->end() && find_out != urls_->end()) {
             graph.insert(find_in->second, find_out->second);

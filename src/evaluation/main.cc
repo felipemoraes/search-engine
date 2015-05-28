@@ -34,7 +34,7 @@ using namespace std;
 
 int main(int argc, char** argv){
     
-    string input_directory("/Users/felipemoraes/Developer/search-engine/data/result/");
+    string input_directory("/Users/felipemoraes/Developer/search-engine/data/");
     
     string query_file = "consultas-34.txt";
     int num_answers = 10;
