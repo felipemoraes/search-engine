@@ -121,23 +121,23 @@ vector<float>* Graph::pagerank(int iterations){
     npagerank->resize(size_);
     float current_gama = INT32_MAX;
     
-    for (auto node=nodes_->begin();node!=nodes_->end();++node) {
-        (*opagerank)[*node] = 1.0;
+    for (int i = 0; i< size_; ++i) {
+        (*opagerank)[i] = 1.0;
     }
     
     while ( i++ < iterations && current_gama > 0.00001) {
         current_gama = 0;
         
-        for (auto node=nodes_->begin();node!=nodes_->end();++node) {
+        for (auto node = 0; node < size_ ;++node) {
             
             float rank = 0;
             
-            for (auto ip : get_inlinks(*node)) {
+            for (auto ip : get_inlinks(node)) {
                 rank += (*opagerank)[ip]/get_outlink_count(ip);
             }
             rank = (1-d) + d*rank;
             
-            (*npagerank)[*node] = rank;
+            (*npagerank)[node] = rank;
             
             
         }

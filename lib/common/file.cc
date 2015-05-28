@@ -32,22 +32,30 @@ void File::open(string file_name){
     
 int File::write(TermOccurrence oc){
     ensure_file_is_open();
-    fwrite(&(oc), sizeof(TermOccurrence), 1, file_);
+    fwrite(&(oc.term_id_), sizeof(int), 1, file_);
+    fwrite(&(oc.doc_id_), sizeof(int), 1, file_);
+    fwrite(&(oc.field_), sizeof(int), 1, file_);
+    fwrite(&(oc.frequency_), sizeof(int), 1, file_);
     size_++;
     return size_;
 }
     
     int File::write_block(vector<TermOccurrence>* oc, unsigned block_size){
         ensure_file_is_open();
-        fwrite(&(oc), sizeof(TermOccurrence), block_size, file_);
-        size_+= block_size;
+        vector<TermOccurrence>::iterator it;
+        for (it=oc->begin(); it!=oc->end(); it++) {
+            write(*it);
+        }
         return size_;
     }
     
     TermOccurrence File::read(){
         ensure_file_is_open();
         TermOccurrence oc;
-        fread((TermOccurrence*) &oc, sizeof(TermOccurrence), 1, file_);
+        fread((unsigned*) &oc.term_id_, sizeof(oc.term_id_), 1, file_);
+        fread((unsigned*) &oc.doc_id_, sizeof(oc.doc_id_), 1, file_);
+        fread((unsigned*) &oc.field_, sizeof(oc.field_), 1, file_);
+        fread((unsigned*) &oc.frequency_, sizeof(oc.frequency_), 1, file_);
         read_++;
         return oc;
     }
