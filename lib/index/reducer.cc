@@ -22,6 +22,7 @@ Reducer::Reducer(unsigned buffer_size, vector<File* >* &runs, string index_direc
 }
 
 Reducer::~Reducer(){
+
     delete merged_;
     delete runs_;
 }
@@ -187,6 +188,8 @@ void Reducer::reduce(Mapper &mapper){
     unordered_map<unsigned,long>* seeks_anchor = anchor_index->get_seeks();
    
     mapper.dump(seeks_voc,seeks_anchor);
+    index->close();
+    anchor_index->close();
     delete aggr_term.docs_;
     delete aggr_anchor.docs_;
     delete index;

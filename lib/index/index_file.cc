@@ -14,7 +14,6 @@ IndexFile::IndexFile(){
 }
 
 IndexFile::~IndexFile(){
-    fclose(file_);
 }
 
 
