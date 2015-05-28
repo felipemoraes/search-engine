@@ -48,8 +48,7 @@ vector<File* >*  Mapper::get_runs(){
     return runs_;
 }
 
-void Mapper::process_frequencies(string text, map<string, vector<unsigned> > &positions){
-    unsigned position = 0;
+void Mapper::process_frequencies(string text, map<string, unsigned > &frequencies){
     // remove accents, transform tolower and tokenize text
     remove_accents(text);
     transform(text.begin(), text.end(), text.begin(),::tolower);
@@ -61,28 +60,24 @@ void Mapper::process_frequencies(string text, map<string, vector<unsigned> > &po
             continue;
         }
         // check if term exists in vocabulary
-        if (positions.find(*token)!=positions.end()) {
-            positions[*token].push_back(position);
+        if (frequencies.find(*token)!=frequencies.end()) {
+            frequencies[*token]++;
         }
         else {
-            pair<string,vector<unsigned> > p;
-            p.first = *token;
-            p.second.push_back(position);
-            positions.insert(p);
+            frequencies[*token] = 1;
         }
-        position++;
     }
 }
 
 void Mapper::process_page(Page& p){
     
-    map<string, vector<unsigned> > positions;
+    map<string,unsigned> frequencies;
     // get positions from texts
-    process_frequencies(p.get_text(),positions);
+    process_frequencies(p.get_text(),frequencies);
     unsigned length = 0;
     unsigned doc_id = doc_counter_;
     // for each term write it in buffer
-    for (auto it = positions.begin(); it != positions.end(); it++){
+    for (auto it = frequencies.begin(); it != frequencies.end(); it++){
         unsigned term_id = add_vocabulary(it->first);
         add_buffer(term_id, doc_id, it->second,0);
         // check if buffer needs to be write
@@ -106,30 +101,19 @@ void Mapper::process_page(Page& p){
             DocumentInfo doc;
             doc.doc_id_ = doc_counter_anchor_;
             doc.url_ = link.first;
-            
-            outlinks_file_ << p.get_url() << " " << link.first << endl;
-            if (link.second.size() == 1) {
-                for (auto text:link.second) {
-                    if (text == " ") {
-                        continue;
-                    }
-                }
-            } else {
-                
-                (*urls_anchor_)[link.first] = doc_counter_anchor_;
-                doc.length_ = 0;
-                ++doc_counter_anchor_;
-                docs_anchor_->insert(doc);
-            }
+            outlinks_file_ << p.get_url() << " " << link.first << "\n";
+            (*urls_anchor_)[link.first] = doc_counter_anchor_;
+            doc.length_ = 0;
+            ++doc_counter_anchor_;
+            docs_anchor_->insert(doc);
             
         }
-        for (auto text:link.second) {
-            positions.clear();
-            process_frequencies(text, positions);
-            for (auto term : positions) {
-                unsigned term_id = add_vocabulary_anchor(term.first);
-                add_buffer(term_id, doc_counter_anchor_, term.second,1);
-            }
+        
+        frequencies.clear();
+        process_frequencies(link.second, frequencies);
+        for (auto term : frequencies) {
+            unsigned term_id = add_vocabulary_anchor(term.first);
+            add_buffer(term_id, (*urls_anchor_)[link.first], term.second,1);
         }
     }
 }
@@ -140,8 +124,8 @@ void Mapper::flush(){
     }
 }
 
-void Mapper::add_buffer(unsigned term_id, unsigned doc_id, vector<unsigned> positions, unsigned field){
-    TermOccurrence term(term_id, doc_id, positions,field);
+void Mapper::add_buffer(unsigned term_id, unsigned doc_id, unsigned frequency, unsigned field){
+    TermOccurrence term(term_id, doc_id, frequency,field);
     buffer->push_back(term);
     buffer_size_++;
 }
@@ -173,7 +157,7 @@ void Mapper::dump(unordered_map<unsigned,long>* &seeks_voc, unordered_map<unsign
     ofstream file;
     file.open(filename);
     for (auto it = vocabulary_->begin(); it!= vocabulary_->end(); it++) {
-        file << it->first << "\t"<< it->second.first  << "\t" << it->second.second<< "\t" << (*seeks_voc)[it->second.first] << endl;
+        file << it->first << "\t"<< it->second.first  << "\t" << it->second.second<< "\t" << (*seeks_voc)[it->second.first] << "\n";
     }
     file.close();
     
@@ -182,7 +166,7 @@ void Mapper::dump(unordered_map<unsigned,long>* &seeks_voc, unordered_map<unsign
     for (auto it = vocabulary_anchor_->begin(); it!= vocabulary_anchor_->end(); it++) {
         auto seek = seeks_anchor->find(it->second.first);
         if (seek != seeks_anchor->end()) {
-            file << it->first << "\t"<< it->second.first  << "\t"<< it->second.second << "\t" << (*seeks_anchor)[it->second.first] << endl;
+            file << it->first << "\t"<< it->second.first  << "\t"<< it->second.second << "\t" << (*seeks_anchor)[it->second.first] << "\n";
         }
     }
     file.close();
@@ -201,10 +185,12 @@ void Mapper::dump(unordered_map<unsigned,long>* &seeks_voc, unordered_map<unsign
         if (find_url != urls_->end()) {
             docs_anchor_->remove(it->second);
             it->second = find_url->second;
+            DocumentInfo tmp = docs_->find(it->second);
             DocumentInfo doc;
             doc.doc_id_ = it->second;
             doc.url_ = it->first;
             doc.length_ = 0;
+            doc.title_ = tmp.title_;
             doc.pagerank_ = (*pagerank_)[it->second];
             docs_anchor_->insert(doc);
         } else {

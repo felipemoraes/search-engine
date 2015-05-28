@@ -41,22 +41,19 @@ vector<Hit>* VectorSpaceModel::search(string query){
 
         
         if (term_id != -1) {
-            float term_weight = 1 + log(vocabulary_->get_frequence(*token)/(float)term.frequency_);
+            float term_weight = 1 + log(doc_repository_->size_/(float)term.frequency_);
             for (auto it = term.docs_->begin(); it != term.docs_->end();++it) {
                 
                 DocumentInfo doc = doc_repository_->find(it->doc_id_);
                 if (doc.doc_id_ == it->doc_id_ + 1) {
-                    delete it->positions_;
                     continue;
                 }
-                if (accumulators->find(it->doc_id_) != accumulators->end()) {
-                    (*accumulators)[it->doc_id_] += log(1 + it->frequency_)*term_weight;
-                } else {
+                if (accumulators->find(it->doc_id_) == accumulators->end()) {
                     accumulators->insert(make_pair(it->doc_id_, 0));
                 }
-                delete it->positions_;
+                (*accumulators)[it->doc_id_] += log(1 + it->frequency_)*term_weight;
             }
-            /*
+            
             for (auto it = accumulators->begin(); it != accumulators->end(); ++it) {
                 DocumentInfo doc = doc_repository_->find(it->first);
                 if (doc.doc_id_ != it->first + 1) {
@@ -64,7 +61,7 @@ vector<Hit>* VectorSpaceModel::search(string query){
                         // it->second /= doc.length_;
                     }
                 }
-            }*/
+            }
             
         }
         delete term.docs_;

@@ -32,43 +32,22 @@ void File::open(string file_name){
     
 int File::write(TermOccurrence oc){
     ensure_file_is_open();
-    unsigned position;
-    fwrite(&(oc.term_id_), sizeof(int), 1, file_);
-    fwrite(&(oc.doc_id_), sizeof(int), 1, file_);
-    fwrite(&(oc.field_), sizeof(int), 1, file_);
-    vector<unsigned>::iterator it;
-    vector<unsigned> positions = oc.get_positions();
-    fwrite(&(oc.frequency_), sizeof(int), 1, file_);
-        
-    for (it = positions.begin(); it!=positions.end(); it++) {
-        position = *it;
-        fwrite(&position, sizeof(int), 1, file_);
-    }
+    fwrite(&(oc), sizeof(TermOccurrence), 1, file_);
     size_++;
     return size_;
 }
     
     int File::write_block(vector<TermOccurrence>* oc, unsigned block_size){
         ensure_file_is_open();
-        vector<TermOccurrence>::iterator it;
-        for (it=oc->begin(); it!=oc->end(); it++) {
-            write(*it);
-        }
+        fwrite(&(oc), sizeof(TermOccurrence), block_size, file_);
+        size_+= block_size;
         return size_;
     }
     
     TermOccurrence File::read(){
         ensure_file_is_open();
         TermOccurrence oc;
-        int position;
-        fread((unsigned*) &oc.term_id_, sizeof(oc.term_id_), 1, file_);
-        fread((unsigned*) &oc.doc_id_, sizeof(oc.doc_id_), 1, file_);
-        fread((unsigned*) &oc.field_, sizeof(oc.field_), 1, file_);
-        fread((unsigned*) &oc.frequency_, sizeof(oc.frequency_), 1, file_);
-        for (unsigned i = 0; i<oc.frequency_; i++) {
-            fread((int*) &position, sizeof(position), 1, file_);
-            oc.add_position(position);
-        }
+        fread((TermOccurrence*) &oc, sizeof(TermOccurrence), 1, file_);
         read_++;
         return oc;
     }

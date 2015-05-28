@@ -40,7 +40,7 @@ using namespace boost::property_tree;
 
 int main(int argc, char** argv){
     
-    string input_directory("/Users/felipemoraes/Developer/search-engine/data/completed/");
+    string input_directory("/Users/felipemoraes/Developer/search-engine/data/");
     
     //Parse comand line arguments
     for(int i=0; i<argc; i++){
@@ -98,8 +98,8 @@ int main(int argc, char** argv){
         struct timeval t_start;
         struct timeval t_end;
         gettimeofday(&t_start, NULL);
-        
-        hits = combiner.linear_combiner(models, query);
+        hits = atm.search(query);
+        //hits = combiner.linear_combiner(models, query);
         
         gettimeofday(&t_end, NULL);
         execution_time = (t_end.tv_sec-t_start.tv_sec)*1000000;

@@ -17,10 +17,8 @@
 using namespace std;
 
 class TermOccurrence {
-private:
-    vector<unsigned> positions_;
 public:
-    TermOccurrence(unsigned term_id, unsigned doc_id, vector<unsigned> positions, unsigned field);
+    TermOccurrence(unsigned term_id, unsigned doc_id, unsigned frequency, unsigned field);
     
     TermOccurrence();
     ~TermOccurrence();
@@ -31,9 +29,6 @@ public:
     unsigned frequency_;
     unsigned run_number_;
     unsigned field_;
-    
-    void add_position(unsigned position);
-    vector<unsigned> get_positions();
     
     
     friend bool operator>(const TermOccurrence &x, const TermOccurrence &y){

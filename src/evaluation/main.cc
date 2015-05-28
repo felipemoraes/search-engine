@@ -34,7 +34,7 @@ using namespace std;
 
 int main(int argc, char** argv){
     
-    string input_directory("/Users/felipemoraes/Developer/search-engine/data/completed/");
+    string input_directory("/Users/felipemoraes/Developer/search-engine/data/");
     
     string query_file = "consultas-34.txt";
     int num_answers = 10;
@@ -69,6 +69,7 @@ int main(int argc, char** argv){
     DocRepository* doc_repository_anchor = new DocRepository("documentsInfoAnchor");
     doc_repository->load(input_directory);
     doc_repository_anchor->load(input_directory);
+    doc_repository_anchor->size_ = 945434;
     cout << "Finished loading vocabulary and documentInfo" << endl;
     PageRankModel pgm(index,vocabulary,doc_repository);
     VectorSpaceModel vsm(index,vocabulary,doc_repository);

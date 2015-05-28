@@ -52,10 +52,6 @@ int IndexFile::write(Term oc){
     for (auto it = oc.docs_->begin() ; it!= oc.docs_->end(); it++) {
         fwrite(&(it->doc_id_), sizeof(int), 1, file_);
         fwrite(&(it->frequency_), sizeof(int), 1, file_);
-        for (auto iter = it->positions_->begin(); iter!=it->positions_->end(); iter++) {
-            fwrite(&(*iter), sizeof(int), 1, file_);
-        }
-        delete it->positions_;
     }
     size_++;
     return size_;
@@ -79,13 +75,6 @@ Term IndexFile::read(){
         Doc doc;
         fread((unsigned*) &(doc.doc_id_), sizeof(doc.doc_id_), 1, file_);
         fread((unsigned*) &(doc.frequency_), sizeof(doc.frequency_), 1, file_);
-        doc.positions_ = new vector<unsigned>();
-        int position;
-        for (unsigned i = 0; i < doc.frequency_; i++) {
-            fread((unsigned*) &(position), sizeof(position), 1, file_);
-            doc.positions_->push_back(position);
-            
-        }
     }
     read_++;
     return oc;
@@ -102,12 +91,6 @@ Term IndexFile::read(long seek){
         Doc doc;
         fread((unsigned*) &(doc.doc_id_), sizeof(doc.doc_id_), 1, file_);
         fread((unsigned*) &(doc.frequency_), sizeof(doc.frequency_), 1, file_);
-        doc.positions_ = new vector<unsigned>();
-        int position;
-        for (int i = 0; i < doc.frequency_; i++) {
-            fread((int*) &(position), sizeof(position), 1, file_);
-            doc.positions_->push_back(position);
-        }
         oc.docs_->push_back(doc);
     }
     read_++;

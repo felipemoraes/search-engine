@@ -41,8 +41,8 @@ public:
     bool vocabulary_contains(string term);
     int add_vocabulary(const string& term);
     int add_vocabulary_anchor(const string& term);
-    void process_frequencies(string text, map<string, vector<unsigned> > &positions);
-    void add_buffer(unsigned term_id, unsigned doc_id, vector<unsigned> positions,unsigned field);
+    void process_frequencies(string text, map<string, unsigned > &frequencies);
+    void add_buffer(unsigned term_id, unsigned doc_id, unsigned frequency,unsigned field);
     void flush();
     vector<File* >* exec();
     vector<File* >* get_runs();

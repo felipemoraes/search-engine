@@ -113,7 +113,7 @@ int Graph::get_size(){
     
     
 vector<float>* Graph::pagerank(int iterations){
-    float d = 0.85;
+    float d = 0.7;
     int i = 0;
     vector<float>* opagerank = new vector<float>();
     vector<float>* npagerank = new vector<float>();
@@ -125,21 +125,21 @@ vector<float>* Graph::pagerank(int iterations){
         (*opagerank)[*node] = 1.0;
     }
     
-    while ( i++ < iterations && current_gama > 0.0001) {
+    while ( i++ < iterations && current_gama > 0.00001) {
         current_gama = 0;
-        float dp = 0;
-        for (auto node=no_outlinks_->begin();node!=no_outlinks_->end();++node) {
-            dp +=(*opagerank)[*node];
-        }
         
         for (auto node=nodes_->begin();node!=nodes_->end();++node) {
             
-            (*npagerank)[*node] = d*(dp/size_) + (1-d)/size_;
+            float rank = 0;
             
             for (auto ip : get_inlinks(*node)) {
-                
-                (*npagerank)[*node] += (d * (*opagerank)[ip])/get_outlink_count(ip);
+                rank += (*opagerank)[ip]/get_outlink_count(ip);
             }
+            rank = (1-d) + d*rank;
+            
+            (*npagerank)[*node] = rank;
+            
+            
         }
         for (int i = 0; i < size_ ; ++i) {
             float diff = abs((*npagerank)[i] - (*opagerank)[i]);

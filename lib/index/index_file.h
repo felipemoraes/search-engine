@@ -21,7 +21,6 @@ using namespace std;
 struct Doc {
     unsigned doc_id_;
     unsigned frequency_;
-    vector<unsigned>* positions_;
 };
 
 struct Term {

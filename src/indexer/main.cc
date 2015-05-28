@@ -15,7 +15,7 @@
 using namespace std;
 using namespace RICPNS;
 
-#define MAX_DOCS 999999
+#define MAX_DOCS 10000
 #define RUN_SIZE 5
 
 

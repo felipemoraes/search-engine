@@ -91,7 +91,12 @@ void Page::parse(const std::string& html) {
                         if(it == dom.end()) return;
                         if(!it->isTag()) anchor_text += it->text();
                     }
-                    links_[HTML::convert_link(attrib.second, url_)].push_back(anchor_text);
+                    string normal_url = HTML::convert_link(attrib.second, url_);
+                    if (links_.find(normal_url)==links_.end()) {
+                        links_[HTML::convert_link(attrib.second, url_)] = "";
+                    }
+                    links_[HTML::convert_link(attrib.second, url_)] = " ";
+                    links_[HTML::convert_link(attrib.second, url_)] += anchor_text;
                     text_ += " ";
                     text_ += anchor_text;
                 }

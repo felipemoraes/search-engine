@@ -140,9 +140,6 @@ void Reducer::aggregate(IndexFile &index, Term& aggr, TermOccurrence term, int& 
     Doc doc;
     doc.frequency_ = term.frequency_;
     doc.doc_id_ = term.doc_id_;
-    // get positions of term in document
-    vector<unsigned> positions = term.get_positions();
-    doc.positions_ = new vector<unsigned>(positions);
     // aggregas it in term aggregation
     aggr.docs_->push_back(doc);
     
@@ -190,12 +187,6 @@ void Reducer::reduce(Mapper &mapper){
     unordered_map<unsigned,long>* seeks_anchor = anchor_index->get_seeks();
    
     mapper.dump(seeks_voc,seeks_anchor);
-    for (auto &doc : *aggr_term.docs_) {
-        delete doc.positions_;
-    }
-    for (auto &doc : *aggr_anchor.docs_) {
-        delete doc.positions_;
-    }
     delete aggr_term.docs_;
     delete aggr_anchor.docs_;
     delete index;

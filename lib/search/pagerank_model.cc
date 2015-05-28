@@ -43,7 +43,6 @@ vector<Hit>*  PageRankModel::search(string query){
                 if (doc.doc_id_ != it->doc_id_+ 1) {
                     accumulators->insert(make_pair(it->doc_id_, doc.pagerank_));
                 }
-                delete it->positions_;
             }
             delete term.docs_;
         }
