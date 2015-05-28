@@ -1,7 +1,10 @@
 
 
 #include "../lib/common/graph.h"
+
 #include <gtest/gtest.h>
+
+using namespace htmlcxx;
 
 class GraphTest : public ::testing::Test {
 protected:
@@ -67,4 +70,6 @@ TEST_F(GraphTest, testOutlinksCount){
     for (auto rank: *result) {
         cout << rank << endl;
     }
+
+    
 }

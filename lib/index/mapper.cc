@@ -101,7 +101,7 @@ void Mapper::process_page(Page& p){
             DocumentInfo doc;
             doc.doc_id_ = doc_counter_anchor_;
             doc.url_ = link.first;
-            outlinks_file_ << p.get_url() << " " << link.first << "\n";
+            outlinks_file_ << p.get_url() << "\t" << link.first << "\n";
             (*urls_anchor_)[link.first] = doc_counter_anchor_;
             doc.length_ = 0;
             ++doc_counter_anchor_;
@@ -211,16 +211,20 @@ void Mapper::process_pagerank(int size){
     Graph graph(size);
     outlinks_file_.close();
     outlinks_file_.open(directory_ + "outlinks", std::fstream::in);
+    int count = 0;
     while (!outlinks_file_.eof()) {
-        string in, out;
-        outlinks_file_ >> in >> out;
+        count++;
+        string in, out, line;
+        getline(outlinks_file_, line);
+        stringstream ss(line);
+        ss >> in >> out;
         auto find_in = urls_->find(in);
         auto find_out = urls_->find(out);
         if (find_in != urls_->end() && find_out != urls_->end()) {
             graph.insert(find_in->second, find_out->second);
         }
     }
-    
+    cout << count << endl;
     graph.compute_out_links();
     pagerank_ = graph.pagerank(100);
 

@@ -93,10 +93,10 @@ void Page::parse(const std::string& html) {
                     }
                     string normal_url = HTML::convert_link(attrib.second, url_);
                     if (links_.find(normal_url)==links_.end()) {
-                        links_[HTML::convert_link(attrib.second, url_)] = "";
+                        links_[normal_url] = "";
                     }
-                    links_[HTML::convert_link(attrib.second, url_)] = " ";
-                    links_[HTML::convert_link(attrib.second, url_)] += anchor_text;
+                    links_[normal_url] = " ";
+                    links_[normal_url] += anchor_text;
                     text_ += " ";
                     text_ += anchor_text;
                 }
