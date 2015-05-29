@@ -40,11 +40,10 @@ void Graph::insert(int left, int right){
     if (inlinks_->find(right) == inlinks_->end()) {
         vector<int> tmp;
         tmp.clear();
-        tmp.push_back(left);
         inlinks_->insert(make_pair(right, tmp));
-    } else {
-        (*inlinks_)[right].push_back(left);
     }
+    (*inlinks_)[right].push_back(left);
+    
     if (outlinks_counts_->find(left)==outlinks_counts_->end()) {
         (*outlinks_counts_)[left] = 0;
     }

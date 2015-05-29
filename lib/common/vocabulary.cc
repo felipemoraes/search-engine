@@ -15,8 +15,10 @@ Vocabulary::Vocabulary(string filename){
     string term; unsigned term_id; unsigned frequence; long seek;
     terms = new unordered_map<string, pair<unsigned, unsigned>>();
     seeks = new unordered_map<int, long>();
-    while (!file.eof()) {
-        file >> term >> term_id >> frequence >> seek;
+    string line;
+    while (getline(file,line)) {
+        stringstream ss(line);
+        ss >> term >> term_id >> frequence >> seek;
         terms->insert(make_pair(term, make_pair(term_id, frequence)));
         seeks->insert(make_pair(term_id, seek));
     }

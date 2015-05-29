@@ -69,6 +69,13 @@ void Mapper::process_frequencies(string text, map<string, unsigned > &frequencie
     }
 }
 
+void Mapper::remove_s(string &s){
+    if (s.back() == 's') {
+       // s = s.substr(0, s.size()-1);
+    }
+}
+
+
 void Mapper::process_page(Page& p){
     
     map<string,unsigned> frequencies;
@@ -78,7 +85,9 @@ void Mapper::process_page(Page& p){
     unsigned doc_id = doc_counter_;
     // for each term write it in buffer
     for (auto it = frequencies.begin(); it != frequencies.end(); it++){
-        unsigned term_id = add_vocabulary(it->first);
+        string term = it->first;
+        remove_s(term);
+        unsigned term_id = add_vocabulary(term);
         add_buffer(term_id, doc_id, it->second,0);
         // check if buffer needs to be write
         flush();
@@ -101,18 +110,19 @@ void Mapper::process_page(Page& p){
             DocumentInfo doc;
             doc.doc_id_ = doc_counter_anchor_;
             doc.url_ = link.first;
-            outlinks_file_ << p.get_url() << "\t" << link.first << "\n";
             (*urls_anchor_)[link.first] = doc_counter_anchor_;
             doc.length_ = 0;
             ++doc_counter_anchor_;
             docs_anchor_->insert(doc);
             
-        }
-        
+        } 
         frequencies.clear();
+        outlinks_file_ << p.get_url() << "\t" << link.first << "\n";
         process_frequencies(link.second, frequencies);
         for (auto term : frequencies) {
-            unsigned term_id = add_vocabulary_anchor(term.first);
+            string aux = term.first;
+            remove_s(aux);
+            unsigned term_id = add_vocabulary_anchor(aux);
             add_buffer(term_id, (*urls_anchor_)[link.first], term.second,1);
         }
     }
@@ -219,7 +229,7 @@ void Mapper::process_pagerank(int size){
         auto find_in = urls_->find(in);
         auto find_out = urls_->find(out);
         if (find_in != urls_->end() && find_out != urls_->end()) {
-            graph.insert(find_out->second,find_in->second);
+            graph.insert(find_in->second,find_out->second);
         }
     }
     pagerank_ = graph.pagerank(100);
@@ -232,8 +242,6 @@ void Mapper::remove_doc_anchor(string doc_url){
         urls_anchor_->erase(it);
     }
 }
-
-
 
 int Mapper::add_vocabulary(const string& term){
     auto it = vocabulary_->find(term);

@@ -12,7 +12,7 @@
 
 #include <string>
 #include <fstream>
-#include <map>
+#include <unordered_map>
 #include <vector>
 #include <boost/algorithm/string.hpp>
 #include <htmlcxx/html/Node.h>
@@ -37,7 +37,7 @@ class Page {
     string get_keywords();
     string get_description();
     string get_content_type();
-    map<string, string> get_links();
+    unordered_map<string, string> get_links();
 
   private:
 
@@ -49,7 +49,7 @@ class Page {
     string keywords_;
     string description_;
     string content_type_;
-    map<string, string > links_;
+    unordered_map<string, string > links_;
 	
 };
 
@@ -80,7 +80,7 @@ inline string Page::get_content_type(){
     return content_type_;
 }
 
-inline map<string, string > Page::get_links(){
+inline unordered_map<string, string > Page::get_links(){
     return links_;
 }
 

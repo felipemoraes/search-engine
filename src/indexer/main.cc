@@ -84,6 +84,7 @@ int main(int argc, char** argv) {
     }
     // Execute one last mapper
     runs = mapper.exec();
+    
     Reducer reducer(run_size,runs, index_directory);
     // Merge run files in one
     reducer.merge();
