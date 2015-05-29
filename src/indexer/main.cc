@@ -11,11 +11,12 @@
 #include "../../lib/index/reducer.h"
 #include <sys/time.h>
 #include <sys/resource.h>
+#include "../../lib/common/util.h"
 
 using namespace std;
 using namespace RICPNS;
 
-#define MAX_DOCS 999999
+#define MAX_DOCS 100000
 #define RUN_SIZE 5
 
 
@@ -27,7 +28,6 @@ int main(int argc, char** argv) {
     struct timeval t_end;
     
     gettimeofday(&t_start, NULL);
-    
     // Start parameters arguments
     string input_directory("/Users/felipemoraes/Developer/search-engine/data/irCollection");
     string index_fileName("index.txt");
@@ -36,6 +36,9 @@ int main(int argc, char** argv) {
     int num_docs = MAX_DOCS;
     int doc_counter = 0;
     int run_size = RUN_SIZE;
+    
+    
+    
     
     //Parse comand line arguments
     for(int i=0; i<argc; i++){

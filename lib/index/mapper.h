@@ -29,7 +29,6 @@
 
 using namespace std;
 using namespace boost;
-using namespace std::placeholders;
 
 class Mapper {
 
@@ -53,7 +52,6 @@ public:
     unordered_map<string,unsigned >* get_urls();
     DocRepository* get_docs_anchor();
     void remove_doc_anchor(string doc_url);
-    void remove_s(string &s);
 private:
     
     unsigned run_size_;

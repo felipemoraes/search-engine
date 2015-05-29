@@ -69,10 +69,13 @@ void Mapper::process_frequencies(string text, map<string, unsigned > &frequencie
     }
 }
 
-void Mapper::remove_s(string &s){
-    if (s.back() == 's') {
-       // s = s.substr(0, s.size()-1);
+
+bool is_number(string s){
+    if (s.end() == std::find_if(s.begin(), s.end(),
+                                [](unsigned char c)->bool { return !isdigit(c); })){
+        return true;
     }
+    return false;
 }
 
 
@@ -87,6 +90,10 @@ void Mapper::process_page(Page& p){
     for (auto it = frequencies.begin(); it != frequencies.end(); it++){
         string term = it->first;
         remove_s(term);
+        term.erase(remove(term.begin(), term.end(), '.'), term.end());
+        if (is_digits(term)) {
+            term = "NUMBER";
+        }
         unsigned term_id = add_vocabulary(term);
         add_buffer(term_id, doc_id, it->second,0);
         // check if buffer needs to be write
@@ -121,6 +128,9 @@ void Mapper::process_page(Page& p){
         process_frequencies(link.second, frequencies);
         for (auto term : frequencies) {
             string aux = term.first;
+            if (is_digits(aux)) {
+                aux = "NUMBER";
+            }
             remove_s(aux);
             unsigned term_id = add_vocabulary_anchor(aux);
             add_buffer(term_id, (*urls_anchor_)[link.first], term.second,1);

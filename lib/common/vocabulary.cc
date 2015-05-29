@@ -37,7 +37,7 @@ long Vocabulary::get_seek(int term_id){
     }
 }
 
-int Vocabulary::get_term_id(string term){
+int Vocabulary::get_term_id(const string &term){
     if (terms->find(term)!= terms->end()) {
         return (*terms)[term].first;
     } else {
@@ -45,7 +45,7 @@ int Vocabulary::get_term_id(string term){
     }
 }
 
-int Vocabulary::get_frequence(string term){
+int Vocabulary::get_frequence(const string &term){
     if (terms->find(term)!=terms->end()) {
         return (*terms)[term].second;
     } else {

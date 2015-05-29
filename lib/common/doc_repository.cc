@@ -99,3 +99,8 @@ void DocRepository::remove(unsigned doc_id){
     }
     
 }
+
+unordered_map<unsigned, DocumentInfo>* DocRepository::get_documents(){
+    return documents_;
+}
+

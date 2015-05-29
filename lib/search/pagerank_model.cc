@@ -30,7 +30,10 @@ vector<Hit>*  PageRankModel::search(string query){
        // if (stopwords_.find(*token) != stopwords_.end()) {
        //     continue;
        // }
-        int term_id = vocabulary_->get_term_id(*token);
+        string t = *token;
+        clean_token(t);
+        
+        int term_id = vocabulary_->get_term_id(t);
         long seek = vocabulary_->get_seek(term_id);
         Term term = index_->read(seek);
         

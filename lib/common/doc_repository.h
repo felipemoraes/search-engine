@@ -44,5 +44,6 @@ public:
     void remove(unsigned doc_id);
     void dump(string directory);
     void load(string directory);
+    unordered_map<unsigned, DocumentInfo>* get_documents();
 };
 #endif /* defined(__search_engine__doc_repository__) */

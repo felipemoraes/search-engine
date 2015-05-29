@@ -34,11 +34,14 @@ vector<Hit>* VectorSpaceModel::search(string query){
        // if (stopwords_.find(*token) != stopwords_.end()) {
        //     continue;
        // }
+        string t = *token;
+        clean_token(t);
         
-        int term_id = vocabulary_->get_term_id(*token);
+        int term_id = vocabulary_->get_term_id(t);
+        
         long seek = vocabulary_->get_seek(term_id);
         Term term = index_->read(seek);
-
+        
         
         if (term_id != -1) {
             float term_weight = 1 + log(doc_repository_->size_/(float)term.frequency_);
@@ -58,7 +61,7 @@ vector<Hit>* VectorSpaceModel::search(string query){
                 DocumentInfo doc = doc_repository_->find(it->first);
                 if (doc.doc_id_ != it->first + 1) {
                     if (doc.length_ > 0) {
-                        // it->second /= doc.length_;
+                         it->second /= sqrt(doc.length_);
                     }
                 }
             }

@@ -85,8 +85,37 @@ int main(int argc, char** argv){
     models.push_back(&atm);
     ModelCombiner combiner;
     vector<Hit> * hits;
-
     
+    file.open(folder+query_file);
+  
+    
+    unordered_map<string, unordered_set<string> > relevants;
+    while(getline(file,query)){
+        ifstream fin;
+        fin.open(folder+query);
+        string url;
+        while(getline(fin,url)){
+            relevants[query].insert(url);
+        }
+   
+        fin.close();
+    }
+    file.close();
+    ofstream fout;
+    fout.open(folder+"results.test");
+    int query_id = 0;
+    for (auto query: relevants) {
+        for (auto doc : *(doc_repository->get_documents())) {
+            if (query.second.find(doc.second.url_) != query.second.end()) {
+                fout << query_id << " Q0 " << doc.second.url_ << " 1" << endl;
+            } else {
+                fout << query_id << " Q0 " << doc.second.url_ << " 0" << endl;
+            }
+        }
+        query_id++;
+    }
+    fout.close();
+
     
     for (auto model : models) {
         ofstream ofile;
@@ -106,11 +135,8 @@ int main(int argc, char** argv){
             hits = model->search(query);
             int i = 0;
             for (auto hit : *hits) {
-                ofile << query_id << " Q0 " << hit.doc_.url_ << " " << i << " " << hit.score_ << " " << model->name_<<  endl;
+                ofile << query_id << " Q0 " << hit.doc_.url_<< " " << i << " " << hit.score_ << " " << model->name_<<  endl;
                 i++;
-                if (i > n) {
-                    break;
-                }
             }
             
             query_id++;
@@ -122,24 +148,13 @@ int main(int argc, char** argv){
     ofstream ofile;
     ofile.open(folder + "results.linear");
     file.open(folder+query_file);
-    int query_id = 0;
+    query_id = 0;
     while(getline(file,query)){
-        ifstream ftmp;
-        ftmp.open(folder + query);
-        string line;
-        unsigned n = 0;
-        while(getline(ftmp,line)){
-            n++;
-        }
-        
         hits = combiner.linear_combiner(models, query);
         int i = 0;
         for (auto hit : *hits) {
             ofile << query_id << " Q0 " << hit.doc_.url_ << " " << i << " " << hit.score_ << " " << "Linear Combination"<<  endl;
             i++;
-            if (i > n) {
-                break;
-            }
         }
         delete hits;
         query_id++;

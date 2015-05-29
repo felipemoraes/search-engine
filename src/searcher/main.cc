@@ -98,8 +98,8 @@ int main(int argc, char** argv){
         struct timeval t_start;
         struct timeval t_end;
         gettimeofday(&t_start, NULL);
-        hits = atm.search(query);
-        //hits = combiner.linear_combiner(models, query);
+        //hits = atm.search(query);
+        hits = combiner.linear_combiner(models, query);
         
         gettimeofday(&t_end, NULL);
         execution_time = (t_end.tv_sec-t_start.tv_sec)*1000000;

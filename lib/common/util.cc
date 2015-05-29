@@ -9,6 +9,30 @@
 #include "util.h"
 
 
+void remove_s(string &s){
+    if (s.back() == 's') {
+         s = s.substr(0, s.size()-1);
+    }
+}
+
+bool is_digits(const string &s){
+    
+    if (s.end() == std::find_if(s.begin(), s.end(),
+                                [](unsigned char c)->bool { return !isdigit(c); })){
+        return true;
+    }
+    return false;
+}
+
+
+void clean_token(string &s){
+    remove_s(s);
+    s.erase(remove(s.begin(), s.end(), '.'), s.end());
+    if (is_digits(s)) {
+        s = "NUMBER";
+    }
+}
+
 unordered_set<string> load_stopwords(string stopwords_directory){
     unordered_set<string> stopwords;
     ifstream file;

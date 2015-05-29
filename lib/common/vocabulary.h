@@ -26,9 +26,9 @@ public:
     
     Vocabulary(string filename);
     ~Vocabulary();
-    int get_term_id(string term);
+    int get_term_id(const string &term);
     long get_seek(int term_id);
-    int get_frequence(string term);
+    int get_frequence(const string &term);
 };
 
 
