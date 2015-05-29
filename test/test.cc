@@ -4,8 +4,6 @@
 
 #include <gtest/gtest.h>
 
-using namespace htmlcxx;
-
 class GraphTest : public ::testing::Test {
 protected:
     
@@ -33,7 +31,6 @@ protected:
         graph->insert(5, 0);
         graph->insert(5, 1);
         graph->insert(5, 4);
-        graph->compute_out_links();
     }
   
     virtual void TearDown(){
@@ -44,19 +41,11 @@ protected:
 };
 
 
-TEST_F(GraphTest, testSize){
-    EXPECT_EQ(graph->get_size(), 6);
-}
-
 TEST_F(GraphTest, testInlinks){
     vector<int> inlinks = graph->get_inlinks(1);
     EXPECT_EQ(inlinks.size(), 2);
 }
 
-TEST_F(GraphTest, testNoOutlinks){
-    unordered_set<int>* outlinks = graph->get_no_outlinks();
-    EXPECT_EQ(outlinks->size(), 0);
-}
 
 
 TEST_F(GraphTest, testOutlinksCount){

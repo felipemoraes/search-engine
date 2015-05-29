@@ -21,8 +21,6 @@ class Graph {
 private:
     int size_;
     unordered_map<int, vector<int> >* inlinks_;
-    unordered_set<int>* nodes_;
-    unordered_set<int>* no_outlinks_;
     unordered_map<int, int>* outlinks_counts_;
 public:
     Graph();
@@ -34,8 +32,6 @@ public:
     vector<int> get_inlinks(int p);
     
     void compute_out_links();
-    
-    unordered_set<int>* get_no_outlinks();
 
     int get_outlink_count(int p);
     

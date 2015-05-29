@@ -210,23 +210,19 @@ void Mapper::dump(unordered_map<unsigned,long>* &seeks_voc, unordered_map<unsign
 void Mapper::process_pagerank(int size){
     Graph graph(size);
     outlinks_file_.close();
-    outlinks_file_.open(directory_ + "outlinks", std::fstream::in);
-    int count = 0;
+    outlinks_file_.open(directory_ + "outlinks", fstream::in);
     while (!outlinks_file_.eof()) {
-        count++;
         string in, out, line;
         getline(outlinks_file_, line);
         stringstream ss(line);
-        ss >> in >> out;        auto find_in = urls_->find(in);
+        ss >> in >> out;
+        auto find_in = urls_->find(in);
         auto find_out = urls_->find(out);
         if (find_in != urls_->end() && find_out != urls_->end()) {
-            graph.insert(find_in->second, find_out->second);
+            graph.insert(find_out->second,find_in->second);
         }
     }
-    cout << count << endl;
-    graph.compute_out_links();
     pagerank_ = graph.pagerank(100);
-
 }
 
 void Mapper::remove_doc_anchor(string doc_url){
