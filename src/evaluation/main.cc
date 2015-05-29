@@ -21,6 +21,8 @@
 #include "../../lib/search/ranking_model.h"
 #include "../../lib/search/vector_space_model.h"
 #include "../../lib/search/pagerank_model.h"
+#include "../../lib/search/title_model.h"
+#include "../../lib/search/url_model.h"
 #include "../../lib/common/doc_repository.h"
 #include "../../lib/common/hit.h"
 #include "../../lib/search/model_combiner.h"
@@ -72,7 +74,9 @@ int main(int argc, char** argv){
     cout << "Finished loading vocabulary and documentInfo" << endl;
     PageRankModel pgm(index,vocabulary,doc_repository);
     VectorSpaceModel vsm(index,vocabulary,doc_repository);
-    vsm.weight_ = 30;
+    TitleModel tm(index,vocabulary,doc_repository);
+    URLModel urlm(index,vocabulary,doc_repository);
+    vsm.weight_ = 1;
     VectorSpaceModel atm(anchor_index,vocabulary_anchor,doc_repository_anchor);
     atm.name_ = "atm";
     atm.weight_ = 1;
@@ -83,6 +87,8 @@ int main(int argc, char** argv){
     models.push_back(&pgm);
     models.push_back(&vsm);
     models.push_back(&atm);
+    models.push_back(&tm);
+    models.push_back(&urlm);
     ModelCombiner combiner;
     vector<Hit> * hits;
     
@@ -105,10 +111,11 @@ int main(int argc, char** argv){
     fout.open(folder+"results.test");
     int query_id = 0;
     for (auto query: relevants) {
+        for (auto relevant : query.second) {
+            fout << query_id << " Q0 " << relevant << " 1" << endl;
+        }
         for (auto doc : *(doc_repository->get_documents())) {
-            if (query.second.find(doc.second.url_) != query.second.end()) {
-                fout << query_id << " Q0 " << doc.second.url_ << " 1" << endl;
-            } else {
+            if (query.second.find(doc.second.url_) == query.second.end()) {
                 fout << query_id << " Q0 " << doc.second.url_ << " 0" << endl;
             }
         }
@@ -122,23 +129,15 @@ int main(int argc, char** argv){
         ofile.open(folder + "results." + model->name_);
         file.open(folder+query_file);
         int query_id = 0;
-        while(getline(file,query)){
-            cout << model->name_ << " " << query << endl;
-            ifstream ftmp;
-            ftmp.open(folder + query);
-            string line;
-            unsigned n = 0;
-            while(getline(ftmp,line)){
-                n++;
-            }
-            
-            hits = model->search(query);
+        for (auto query: relevants) {
+            cout << model->name_ << " " << query.first << endl;
+
+            hits = model->search(query.first);
             int i = 0;
             for (auto hit : *hits) {
                 ofile << query_id << " Q0 " << hit.doc_.url_<< " " << i << " " << hit.score_ << " " << model->name_<<  endl;
                 i++;
             }
-            
             query_id++;
             delete hits;
         }
@@ -149,8 +148,8 @@ int main(int argc, char** argv){
     ofile.open(folder + "results.linear");
     file.open(folder+query_file);
     query_id = 0;
-    while(getline(file,query)){
-        hits = combiner.linear_combiner(models, query);
+    for (auto query: relevants) {
+        hits = combiner.linear_combiner(models, query.first);
         int i = 0;
         for (auto hit : *hits) {
             ofile << query_id << " Q0 " << hit.doc_.url_ << " " << i << " " << hit.score_ << " " << "Linear Combination"<<  endl;

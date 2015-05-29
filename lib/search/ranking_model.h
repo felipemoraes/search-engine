@@ -25,6 +25,7 @@ public:
     int weight_;
     string name_;
     virtual vector<Hit>* search(string query) = 0;
+    void normalize(vector<Hit> &hits);
     void set_weight(int weight){
         weight_ = weight;
     }

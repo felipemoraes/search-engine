@@ -15,3 +15,14 @@ RankingModel::RankingModel(IndexFile* index, Vocabulary *vocabulary, DocReposito
     weight_ = 1;
 }
 
+
+void RankingModel::normalize(vector<Hit> &hits){
+    float length = 0;
+    for (auto hit: hits) {
+        length += hit.score_*hit.score_;
+    }
+    length = sqrt(length);
+    for (auto hit: hits) {
+        hit.score_ /= length;
+    }
+}

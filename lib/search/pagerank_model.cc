@@ -55,6 +55,7 @@ vector<Hit>*  PageRankModel::search(string query){
         Hit hit(doc_repository_->find(item.first),item.second);
         hits->push_back(hit);
     }
+    normalize(*hits);
     sort(hits->begin(),hits->end());
     delete accumulators;
     return hits;

@@ -1,27 +1,22 @@
 //
-//  vector_space_model.cc
+//  title_model.cc
 //  search_engine
 //
-//  Created by Felipe Moraes on 5/16/15.
+//  Created by Felipe Moraes on 5/29/15.
 //
 //
 
-#include "vector_space_model.h"
-#include <math.h>
+#include "title_model.h"
 
 
-using namespace boost;
-using namespace std::placeholders;
-
-
-VectorSpaceModel::VectorSpaceModel(IndexFile* index, Vocabulary *vocabulary, DocRepository* doc_repository)  : RankingModel(index,vocabulary,doc_repository) {
-    name_ = "vsm";
+TitleModel::TitleModel(IndexFile* index, Vocabulary *vocabulary, DocRepository* doc_repository)  : RankingModel(index,vocabulary,doc_repository) {
+    name_ = "title";
 }
 
 
 
 
-vector<Hit>* VectorSpaceModel::search(string query){
+vector<Hit>* TitleModel::search(string query){
     
     unordered_map<unsigned,float>* accumulators = new unordered_map<unsigned,float>();
     remove_accents(query);
@@ -31,9 +26,9 @@ vector<Hit>* VectorSpaceModel::search(string query){
     
     for(auto token = tokens.begin(); token!=tokens.end();++token){
         // check if term is not a stopword
-       // if (stopwords_.find(*token) != stopwords_.end()) {
-       //     continue;
-       // }
+        // if (stopwords_.find(*token) != stopwords_.end()) {
+        //     continue;
+        // }
         string t = *token;
         clean_token(t);
         
@@ -44,7 +39,6 @@ vector<Hit>* VectorSpaceModel::search(string query){
         
         
         if (term_id != -1) {
-            float term_weight = 1 + log(doc_repository_->size_/(float)term.frequency_);
             for (auto it = term.docs_->begin(); it != term.docs_->end();++it) {
                 
                 DocumentInfo doc = doc_repository_->find(it->doc_id_);
@@ -54,15 +48,11 @@ vector<Hit>* VectorSpaceModel::search(string query){
                 if (accumulators->find(it->doc_id_) == accumulators->end()) {
                     accumulators->insert(make_pair(it->doc_id_, 0));
                 }
-                (*accumulators)[it->doc_id_] += log(1 + it->frequency_)*term_weight;
-            }
-            
-            for (auto it = accumulators->begin(); it != accumulators->end(); ++it) {
-                DocumentInfo doc = doc_repository_->find(it->first);
-                if (doc.doc_id_ != it->first + 1) {
-                    if (doc.length_ > 0) {
-                         it->second /= sqrt(doc.length_);
-                    }
+                string title = doc.title_;
+                remove_accents(title);
+                transform(title.begin(), title.end(), title.begin(),::tolower);
+                if (title.find(t)) {
+                    (*accumulators)[it->doc_id_] += 1;
                 }
             }
             

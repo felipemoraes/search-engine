@@ -13,6 +13,7 @@ vector<Hit>* ModelCombiner::linear_combiner(vector<RankingModel*> models, string
     vector<Hit>* hits = new vector<Hit>();
     for (auto i = 0; i < models.size(); ++i) {
         vector<Hit>* results = (*models[i]).search(query);
+        
         for (auto hit: *results) {
             auto it = accumulators->find(hit.doc_.doc_id_);
             if (it != accumulators->end()) {
