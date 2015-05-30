@@ -17,10 +17,6 @@
 #include "../common/hit.h"
 
 
-
-using namespace boost;
-using namespace std::placeholders;
-
 #ifndef __search_engine__vector_space_model__
 #define __search_engine__vector_space_model__
 

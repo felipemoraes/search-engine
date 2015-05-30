@@ -8,10 +8,6 @@
 
 #include "pagerank_model.h"
 
-
-using namespace boost;
-using namespace std::placeholders;
-
 PageRankModel::PageRankModel(IndexFile* index, Vocabulary *vocabulary, DocRepository* doc_repository)  : RankingModel(index,vocabulary,doc_repository){
     name_ = "pgm";
 }
@@ -23,7 +19,7 @@ vector<Hit>*  PageRankModel::search(string query){
     unordered_map<unsigned,float>* accumulators = new unordered_map<unsigned,float>();
     remove_accents(query);
     transform(query.begin(), query.end(), query.begin(),::tolower);
-    tokenizer<> tokens(query);
+    boost::tokenizer<> tokens(query);
     // aggregate terms by positions
     for(auto token = tokens.begin(); token!=tokens.end();++token){
         // check if term is not a stopword

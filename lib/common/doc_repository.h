@@ -15,11 +15,8 @@
 #include <sstream>
 #include <fstream>
 #include <vector>
-#include <boost/algorithm/string.hpp>
 
 using namespace std;
-using namespace boost;
-
 
 class DocumentInfo {
 public:

@@ -56,7 +56,7 @@ vector<Hit>* VectorSpaceModel::search(string query){
                 }
                 (*accumulators)[it->doc_id_] += log(1 + it->frequency_)*term_weight;
             }
-            
+            /*
             for (auto it = accumulators->begin(); it != accumulators->end(); ++it) {
                 DocumentInfo doc = doc_repository_->find(it->first);
                 if (doc.doc_id_ != it->first + 1) {
@@ -64,7 +64,7 @@ vector<Hit>* VectorSpaceModel::search(string query){
                          it->second /= sqrt(doc.length_);
                     }
                 }
-            }
+            }*/
             
         }
         delete term.docs_;

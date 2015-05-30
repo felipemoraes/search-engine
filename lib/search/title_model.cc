@@ -21,7 +21,7 @@ vector<Hit>* TitleModel::search(string query){
     unordered_map<unsigned,float>* accumulators = new unordered_map<unsigned,float>();
     remove_accents(query);
     transform(query.begin(), query.end(), query.begin(),::tolower);
-    tokenizer<> tokens(query);
+    boost::tokenizer<> tokens(query);
     // aggregate terms by positions
     
     for(auto token = tokens.begin(); token!=tokens.end();++token){

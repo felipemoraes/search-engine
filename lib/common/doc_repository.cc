@@ -43,24 +43,6 @@ void DocRepository::dump(string directory){
     file_.close();
 }
 
-vector<string> splitString(string input, string delimiter){
-    vector<string> output;
-    char *pch;
-    
-    char *str = strdup(input.c_str());
-    
-    pch = strtok (str, delimiter.c_str());
-    
-    while (pch != NULL){
-        output.push_back(pch);
-        pch = strtok (NULL,  delimiter.c_str());
-    }
-    
-    free(str);
-    return output;
-}
-
-
 void DocRepository::load(string directory){
     file_.open(directory + name_, std::fstream::in);
     string line;
@@ -68,22 +50,10 @@ void DocRepository::load(string directory){
     vector<string> result;
 
     while(getline(file_,line)) {
-        result = splitString(line, "\t");
-        auto it = result.begin();
+        stringstream ss(line);
         DocumentInfo doc;
-        doc.doc_id_ = stoul(*it);
-        ++it;
-        doc.url_ = *it;
-        ++it;
-        doc.length_ = stoul(*it);
-        ++it;
-        doc.pagerank_ = stof(*it);
-        ++it;
-            
-        if (result.size() >= 5) {
-            doc.title_ = *it;
-        }
-            
+        ss >> doc.doc_id_ >> doc.url_ >> doc.length_ >> doc.pagerank_;
+        getline(ss, doc.title_);
         insert(doc);
 
         

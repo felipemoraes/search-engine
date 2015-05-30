@@ -32,7 +32,7 @@ vector<Hit>* URLModel::search(string query){
     unordered_map<unsigned,float>* accumulators = new unordered_map<unsigned,float>();
     remove_accents(query);
     transform(query.begin(), query.end(), query.begin(),::tolower);
-    tokenizer<> tokens(query);
+    boost::tokenizer<> tokens(query);
     // aggregate terms by positions
     
     string term_concate = "";
