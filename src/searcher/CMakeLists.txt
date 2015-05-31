@@ -33,7 +33,7 @@ message("Threads libraries/flag: ${CMAKE_THREAD_LIBS_INIT}")
 include_directories(.)
 
 add_executable(searcher main.cc)
-target_link_libraries(searcher ${Boost_LIBRARIES} gumbo htmlcxx common index search)
+target_link_libraries(searcher ${Boost_LIBRARIES} htmlcxx common index search)
 target_link_libraries(searcher ${OPENSSL_CRYPTO_LIBRARIES})
 target_link_libraries(searcher ${CMAKE_THREAD_LIBS_INIT})
 

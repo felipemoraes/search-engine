@@ -33,6 +33,6 @@ message("Threads libraries/flag: ${CMAKE_THREAD_LIBS_INIT}")
 include_directories(.)
 
 add_executable(evaluation main.cc)
-target_link_libraries(evaluation gumbo htmlcxx common index search)
+target_link_libraries(evaluation htmlcxx common index search)
 
 
