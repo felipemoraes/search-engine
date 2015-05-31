@@ -8,7 +8,6 @@
 
 
 #include "page.h"
-#include "gumbo.h"
 #include <iostream>
 using namespace std;
 using namespace htmlcxx;
