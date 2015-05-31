@@ -8,11 +8,10 @@
 
 #include "util.h"
 
-
 void remove_s(string &s){
-    if (s.back() == 's') {
+   /* if (s.back() == 's') {
          s = s.substr(0, s.size()-1);
-    }
+    }*/
 }
 
 bool is_digits(const string &s){
@@ -27,10 +26,10 @@ bool is_digits(const string &s){
 
 void clean_token(string &s){
     remove_s(s);
-    s.erase(remove(s.begin(), s.end(), '.'), s.end());
+  /*  s.erase(remove(s.begin(), s.end(), '.'), s.end());
     if (is_digits(s)) {
         s = "NUMBER";
-    }
+    }*/
 }
 
 unordered_set<string> load_stopwords(string stopwords_directory){

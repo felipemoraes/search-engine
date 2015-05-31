@@ -26,6 +26,7 @@
 #include "../../lib/common/doc_repository.h"
 #include "../../lib/common/hit.h"
 #include "../../lib/search/model_combiner.h"
+#include "../../lib/common/util.h"
 
 
 
@@ -33,15 +34,41 @@
 using namespace std;
 
 
+void exec(string folder, string filename, vector<RankingModel*> & models, const unordered_map<string, unordered_set<string> > &relevants, string label){
+    ofstream ofile;
+    ofstream time_file;
+    time_file.open(folder+"results.time", std::ofstream::out | std::ofstream::app);
+    ModelCombiner combiner;
+    ofile.open(folder+filename);
+    int query_id = 0;
+    vector<Hit> * hits;
+    Timer timer;
+    for (auto query: relevants) {
+        timer.start();
+       
+        hits = combiner.linear_combiner(models, query.first);
+        time_file << label << "\t" <<  hits->size() << "\t" << timer.end() << "\n";
+        int i = 0;
+        for (auto hit : *hits) {
+            ofile << query_id << " Q0 " << hit.doc_.url_ << " " << i << " " << hit.score_ << " " << label<<  endl;
+            i++;
+        }
+        delete hits;
+        query_id++;
+    }
+    time_file.close();
+}
+
+
 
 int main(int argc, char** argv){
     
     string input_directory("/Users/felipemoraes/Developer/search-engine/data/");
-    
-    string query_file = "consultas-34.txt";
-    int num_answers = 10;
+    //consultas-34.txt
+    //informacionais.txt
+    //transacionais.txt
+    string query_file = "transacionais.txt";
     string folder = "/Users/felipemoraes/Developer/search-engine/data/relevantes-34/";
-    ifstream file;
     //Parse comand line arguments
     for(int i=0; i<argc; i++){
         string param(argv[i]);
@@ -51,10 +78,6 @@ int main(int argc, char** argv){
         }else if(param == "--query_file" || param == "-q"){
             i++;
             query_file = string(argv[i]);
-        }
-        else if(param == "--n_answers" || param == "-n"){
-            i++;
-           num_answers = atoi(argv[i]);
         } else if(param == "--folder" || param == "-f"){
             i++;
             folder = string(argv[i]);
@@ -72,29 +95,23 @@ int main(int argc, char** argv){
     doc_repository->load(input_directory);
     doc_repository_anchor->load(input_directory);
     cout << "Finished loading vocabulary and documentInfo" << endl;
+    
     PageRankModel pgm(index,vocabulary,doc_repository);
     VectorSpaceModel vsm(index,vocabulary,doc_repository);
     TitleModel tm(index,vocabulary,doc_repository);
     URLModel urlm(index,vocabulary,doc_repository);
-    vsm.weight_ = 1;
     VectorSpaceModel atm(anchor_index,vocabulary_anchor,doc_repository_anchor);
     atm.name_ = "atm";
-    atm.weight_ = 1;
+    vsm.weight_ = 1;
+    tm.weight_ = 0.5;
+    pgm.weight_ = 0.5;
+    atm.weight_ = 2;
+    urlm.weight_ = 0.5;
    
    
     string query;
-    vector<RankingModel*> models;
-    models.push_back(&pgm);
-    models.push_back(&vsm);
-    models.push_back(&atm);
-    models.push_back(&tm);
-    models.push_back(&urlm);
-    ModelCombiner combiner;
-    vector<Hit> * hits;
-    
+    ifstream file;
     file.open(folder+query_file);
-  
-    
     unordered_map<string, unordered_set<string> > relevants;
     while(getline(file,query)){
         ifstream fin;
@@ -107,6 +124,7 @@ int main(int argc, char** argv){
         fin.close();
     }
     file.close();
+    
     ofstream fout;
     fout.open(folder+"results.test");
     int query_id = 0;
@@ -122,42 +140,30 @@ int main(int argc, char** argv){
         query_id++;
     }
     fout.close();
-
     
-    for (auto model : models) {
-        ofstream ofile;
-        ofile.open(folder + "results." + model->name_);
-        file.open(folder+query_file);
-        int query_id = 0;
-        for (auto query: relevants) {
-            cout << model->name_ << " " << query.first << endl;
+    vector<RankingModel*> models;
+    models.push_back(&vsm);
+    models.push_back(&tm);
+    models.push_back(&urlm);
+    exec(folder,"results.vsm", models, relevants, "VSM");
+    models.clear();
+    
+    models.push_back(&vsm);
+    models.push_back(&pgm);
+    exec(folder,"results.vsm_pgm", models, relevants, "VSM+PageRank");
+    models.clear();
 
-            hits = model->search(query.first);
-            int i = 0;
-            for (auto hit : *hits) {
-                ofile << query_id << " Q0 " << hit.doc_.url_<< " " << i << " " << hit.score_ << " " << model->name_<<  endl;
-                i++;
-            }
-            query_id++;
-            delete hits;
-        }
-        file.close();
-        
-    }
-    ofstream ofile;
-    ofile.open(folder + "results.linear");
-    file.open(folder+query_file);
-    query_id = 0;
-    for (auto query: relevants) {
-        hits = combiner.linear_combiner(models, query.first);
-        int i = 0;
-        for (auto hit : *hits) {
-            ofile << query_id << " Q0 " << hit.doc_.url_ << " " << i << " " << hit.score_ << " " << "Linear Combination"<<  endl;
-            i++;
-        }
-        delete hits;
-        query_id++;
-    }
+    models.push_back(&vsm);
+    models.push_back(&atm);
+    exec(folder,"results.vsm_atm", models, relevants, "VSM+AnchorText");
+    models.clear();
+    
+    models.push_back(&vsm);
+    models.push_back(&tm);
+    models.push_back(&urlm);
+    models.push_back(&pgm);
+    models.push_back(&atm);
+    exec(folder,"results.linear", models, relevants, "Linear");
     
     delete vocabulary_anchor;
     delete doc_repository_anchor;

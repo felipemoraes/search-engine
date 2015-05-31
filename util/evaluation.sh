@@ -1,7 +1,5 @@
 ./trec_eval/trec_eval ../data/relevantes-34/results.test ../data/relevantes-34/results.vsm > output.vsm
-./trec_eval/trec_eval ../data/relevantes-34/results.test ../data/relevantes-34/results.pgm > output.pgm
-./trec_eval/trec_eval ../data/relevantes-34/results.test ../data/relevantes-34/results.atm > output.atm
-./trec_eval/trec_eval ../data/relevantes-34/results.test ../data/relevantes-34/results.title > output.tm
-./trec_eval/trec_eval ../data/relevantes-34/results.test ../data/relevantes-34/results.url > output.urlm
+./trec_eval/trec_eval ../data/relevantes-34/results.test ../data/relevantes-34/results.vsm_pgm > output.vsm_pgm
+./trec_eval/trec_eval ../data/relevantes-34/results.test ../data/relevantes-34/results.vsm_atm > output.vsm_atm
 ./trec_eval/trec_eval ../data/relevantes-34/results.test ../data/relevantes-34/results.linear > output.linear
-python plot-trec_eval/plot_pr_curve.py -f pr_curve.pdf output.linear output.vsm output.pgm output.atm output.tm output.urlm
+python plot-trec_eval/plot_pr_curve.py -f pr_curve.pdf output.vsm output.vsm_pgm output.vsm_atm output.linear

@@ -71,7 +71,7 @@ int main(int argc, char** argv){
     //WebSocket (WS)-server at port 8080 using 4 threads
     SocketServer<WS> server(8080, 4);
     
-    auto& echo=server.endpoint["^/echo/?$"];
+    auto& echo=server.endpoint["^/search/?$"];
     
     //C++14, lambda parameters declared with auto
     //For C++11 use: (shared_ptr<Server<WS>::Connection> connection, shared_ptr<Server<WS>::Message> message)
