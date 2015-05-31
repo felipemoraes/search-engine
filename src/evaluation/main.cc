@@ -67,7 +67,7 @@ int main(int argc, char** argv){
     //consultas-34.txt
     //informacionais.txt
     //transacionais.txt
-    string query_file = "transacionais.txt";
+    string query_file = "consultas-34.txt";
     string folder = "/Users/felipemoraes/Developer/search-engine/data/relevantes-34/";
     //Parse comand line arguments
     for(int i=0; i<argc; i++){
