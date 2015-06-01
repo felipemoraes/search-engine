@@ -30,7 +30,6 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 
-
 using std::cout;
 using std::vector;
 using std::string;
@@ -38,7 +37,9 @@ using std::stringstream;
 
 using namespace SimpleWeb;
 //Added for the json-example:
+
 using namespace boost::property_tree;
+
 
 int main(int argc, char** argv){
     
@@ -70,7 +71,11 @@ int main(int argc, char** argv){
     atm.name_ = "atm";
     TitleModel tm(index,vocabulary,doc_repository);
     URLModel urlm(index,vocabulary,doc_repository);
-    
+    vsm.weight_ = 3;
+    tm.weight_ = 0;
+    pgm.weight_ = 0.5;
+    atm.weight_ = 5;
+    urlm.weight_ = 0;
     //WebSocket (WS)-server at port 8080 using 4 threads
     SocketServer<WS> server(8080, 4);
     
@@ -86,10 +91,15 @@ int main(int argc, char** argv){
         cout << "Server: Message received: \"" << data_ss.str() << "\" from " << (size_t)connection.get() << endl;
         
         ptree pt;
+        
         read_json(data_ss, pt);
         
-        string query = pt.get<string>("query");
-        string type_search = pt.get<string>("type_search");
+        string query;
+        string type_search;
+
+        
+        query = pt.get<string>("query");
+        type_search = pt.get<string>("type_search");
         
         vector<Hit> * hits = new vector<Hit>();
         if (type_search == "linear") {
@@ -130,16 +140,14 @@ int main(int argc, char** argv){
         pt.clear();
         ptree children;
         
+        
+        
         if (hits->size()) {
             int i = 0;
             for (auto it = hits->begin(); it != hits->end(); ++it) {
                 ptree child;
-                child.put("doc_id", it->doc_.doc_id_);
-                child.put("pagerank", it->doc_.pagerank_);
-                child.put("length", it->doc_.length_);
                 child.put("title", it->doc_.title_);
                 child.put("url", it->doc_.url_);
-                child.put("score", it->score_);
                 children.push_back(make_pair("", child));
                 if (i > 100){
                     break;
@@ -154,13 +162,14 @@ int main(int argc, char** argv){
         //server.send is an asynchronous function
         
         stringstream response_ss;
-        write_json(response_ss, pt, false);
+        write_json(response_ss, pt);
+        server.send(connection, response_ss, [](const boost::system::error_code& ec){
+            if(ec) {
+                cout << "Server: Error sending message. " <<
+                "Error: " << ec << ", error message: " << ec.message() << endl;
+            }
+        });
         
-        for(auto a_connection: server.get_connections()) {
-            
-            //server.send is an asynchronous function
-            server.send(a_connection, response_ss);
-        }
         cout << "Server: Message sent " << endl;
     };
     
