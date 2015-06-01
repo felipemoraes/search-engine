@@ -1,6 +1,6 @@
 
 # Search Engine Project
-This is a completed search engine with indexer and searcher implemented with C++11. 
+This is a completed search engine with indexer and searcher implemented with C++14. 
 These are assignments from Information Retrieval class at Computer Science Department - UFMG.
 
 ---
@@ -8,8 +8,9 @@ These are assignments from Information Retrieval class at Computer Science Depar
 ## Requirements:
 1. C++14 (Clang or GCC).
 2. [Cmake](http://www.cmake.org/)
-3. [Gumbo Parser](https://github.com/google/gumbo-parser)
-4. [Google Test](https://code.google.com/p/googletest/)
+3. [Htmlcxx Parser](htmlcxx.sourceforge.net)
+4. [OpenSSL]
+5. [Boost]
 
 ## Compilation
 
@@ -35,9 +36,9 @@ make
 |–numDocs or -n    | Number of files to be indexed (if not supplied defaults to 999,999,999|
 |* –stopwords ou -s| Directory that is located lists of stopwords.|
 
-* *required!
-
 ## Searcher execution
+
+
 
 ```bash
 ./bin/searcher <execution flags>
@@ -47,10 +48,25 @@ make
 
 | flag           | meaning       |
 | -------------  |:-------------:|
-|–directory or -d| Indicates the directory that is located collection of documents to be indexed|
+|* –directory or -d| Indicates the directory that is located collection of documents that was indexed|
 
-The program reads from stander input. First reads a integer m that represents m queries to be perform. 
-Then read a string "and" or "or" representing logical connector beetween query termies.
-After follows m lines with a integer n representing query length and then n terms.
 
+This start the server for web-search interface deep-Search [deep-Search](https://github.com/felipemoraes/web-search).
+## Evaluation execution
+
+```bash
+./bin/evaluation <execution flags>
+```
+
+#### evaluation flags
+
+| flag           | meaning       |
+| -------------  |:-------------:|
+|* –directory or -d| Indicates the directory that is located collection of documents that was indexed|
+|* –query_file or -q| Text file with queries separated by linebreak|
+|* –folder or -f| Indicates the directory that is located the relevant documents for each query|
+
+The program reads each query and print out results for each model in a trec_eval format.
+
+* *required!
 
